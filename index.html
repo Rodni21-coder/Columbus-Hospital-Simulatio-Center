@@ -29,19 +29,57 @@
         header {
             background-color: var(--primary-color);
             color: white;
-            padding: 2rem;
-            text-align: center;
+            padding: 1rem 2rem; /* Padding vertical y horizontal */
+            display: flex;
+            align-items: center;
+            justify-content: center; /* Centra el contenido */
+            position: relative; /* Para posicionar el logo */
+        }
+
+        .title-container {
+            text-align: center; /* Centra el texto del título */
+        }
+
+        header img {
+            width: 60px; /* Tamaño del logo */
+            height: auto;
+            border-radius: 8px; /* Opcional: bordes redondeados */
+            position: absolute; /* Posiciona el logo a la derecha */
+            right: 2rem; /* Distancia desde el borde derecho */
         }
 
         header h1 {
-            font-size: 2.5rem;
-            margin-bottom: 0.5rem;
+            font-size: 1.8rem; /* Tamaño del título */
+            margin: 0; /* Eliminar márgenes predeterminados */
         }
 
         header p {
-            font-size: 1.2rem;
+            font-size: 1rem; /* Tamaño del texto */
+            margin: 0; /* Eliminar márgenes predeterminados */
         }
 
+        /* Ajustes para pantallas pequeñas */
+        @media (max-width: 768px) {
+            header {
+                flex-direction: column; /* Apilar elementos verticalmente */
+                gap: 10px; /* Espacio entre elementos */
+                padding: 1rem; /* Reducir el padding en móviles */
+            }
+
+            header img {
+                position: static; /* Quitar posición absoluta en móviles */
+                width: 50px; /* Reducir más el tamaño del logo en móviles */
+                margin-top: 10px; /* Espacio entre el título y el logo */
+            }
+
+            header h1 {
+                font-size: 1.5rem; /* Reducir más el tamaño del título en móviles */
+            }
+
+            header p {
+                font-size: 0.9rem; /* Reducir más el tamaño del texto en móviles */
+            }
+        }
         nav {
             background-color: #0d47a1;
             padding: 1rem;
@@ -285,12 +323,17 @@
             height: auto;
             border-radius: 8px;
         }
-    </style>
+</style>
 </head>
 <body>
     <header>
-        <h1>Columbus Hospital Simulation Center</h1>
-        <p>Asistente virtual para simuladores y metodologías de simulación clínica</p>
+        <div>
+            <h1>Columbus Hospital Simulation Center</h1>
+            <p>Asistente virtual para simuladores y metodologías de simulación clínica</p>
+        </div>
+
+        <!-- Logo a la derecha -->
+        <img src="logo.png" alt="Logo">
     </header>
 
     <nav>
