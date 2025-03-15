@@ -589,6 +589,13 @@
             });
             document.querySelector(`[onclick="showSimulator('${simulatorId}')"]`).classList.add('active');
         }
+                    // Reproducir videos automáticamente
+            document.addEventListener('DOMContentLoaded', () => {
+            const videos = document.querySelectorAll('video');
+            videos.forEach(video => {
+                video.play();
+            });
+        });
     </script>
 </body>
 </html>
