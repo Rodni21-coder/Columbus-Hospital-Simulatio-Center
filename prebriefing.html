@@ -1,0 +1,518 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Prebriefing Destrezas y Habilidades Clinicas</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    /* === ESTILOS GENERALES === */
+    :root {
+      --color-primario: #080154;
+      --color-secundario: #3498db;
+      --color-fondo: #f8f9fa;
+      --color-texto: #0c0c0c;
+      --color-blanco: #fff;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background-color: var(--color-fondo);
+      color: var(--color-texto);
+      line-height: 1.6;
+    }
+    header img {
+            width: 70px; /* Tamaño del logo */
+            height: auto;
+            border-radius: 8px; /* Opcional: bordes redondeados */
+            position: absolute; /* Posiciona el logo a la derecha */
+            right: 2rem; /* Distancia desde el borde derecho */
+            top: 2rem; /* Distancia desde el borde superior */
+        }
+
+
+    /* === CABECERA === */
+    header {
+      background-color: var(--color-primario);
+      color: var(--color-blanco);
+      padding: 1.5rem;
+      text-align: center;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    }
+
+    header h1 {
+      font-size: 2rem;
+      text-align: center;
+      margin-top: -30px;
+    }
+
+    /* === CONTENEDOR PRINCIPAL === */
+    .contenedor {
+      display: flex;
+      min-height: calc(100vh - 80px);
+    }
+
+    /* === MENÚ LATERAL === */
+    .menu-lateral {
+      width: 300px;
+      background-color: var(--color-primario);
+      color: var(--color-blanco);
+      transform: translateX(-100%);
+      transition: transform 0.3s ease;
+      position: fixed;
+      height: 100%;
+      z-index: 100;
+      overflow-y: auto;
+    }
+
+    .menu-lateral.activo {
+      transform: translateX(0);
+    }
+
+    .menu-lateral h2 {
+      padding: 1rem;
+      background-color: rgba(0, 0, 0, 0.2);
+      text-align: center;
+    }
+
+    .menu-lateral ul {
+      list-style: none;
+    }
+
+    .menu-lateral li {
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .menu-lateral a {
+      display: block;
+      color: var(--color-blanco);
+      padding: 1rem;
+      text-decoration: none;
+      transition: background 0.3s;
+    }
+
+    .menu-lateral a:hover {
+      background-color: var(--color-secundario);
+    }
+
+    .menu-lateral a i {
+      margin-right: 10px;
+    }
+
+    /* === BOTÓN MENÚ === */
+    .btn-menu {
+      position: fixed;
+      top: 20px;
+      left: 20px;
+      background-color: var(--color-primario);
+      color: var(--color-blanco);
+      border: none;
+      border-radius: 50%;
+      width: 50px;
+      height: 50px;
+      font-size: 1.5rem;
+      cursor: pointer;
+      z-index: 101;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    /* === CONTENIDO PRINCIPAL === */
+    .contenido-principal {
+      flex: 1;
+      padding: 2rem;
+      margin-left: 0;
+      transition: margin-left 0.3s ease;
+    }
+
+    .contenido-principal.desplazado {
+      margin-left: 300px;
+    }
+
+    /* === INTRODUCCIÓN === */
+    .introduccion {
+      background-color: var(--color-blanco);
+      padding: 2rem;
+      border-radius: 8px;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+      margin-bottom: 2rem;
+    }
+
+    .introduccion h2 {
+      color: var(--color-primario);
+      margin-bottom: 1rem;
+    }
+
+    /* === TARJETAS DE SECCIONES === */
+    .secciones {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 1.5rem;
+      margin-top: 2rem;
+    }
+
+    .tarjeta {
+      background-color: var(--color-blanco);
+      border-radius: 8px;
+      overflow: hidden;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+      transition: transform 0.3s;
+    }
+
+    .tarjeta:hover {
+      transform: translateY(-5px);
+    }
+
+    .tarjeta img {
+      width: 100%;
+      height: 200px;
+      object-fit: cover;
+    }
+
+    .tarjeta-contenido {
+      padding: 1.5rem;
+    }
+
+    .tarjeta h3 {
+      color: var(--color-primario);
+      margin-bottom: 0.5rem;
+    }
+
+    /* === SECCIONES DE CONTENIDO === */
+    .seccion-contenido {
+      background-color: var(--color-blanco);
+      padding: 2rem;
+      border-radius: 8px;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+      margin-bottom: 2rem;
+      display: none;
+    }
+
+    .seccion-contenido.activo {
+      display: block;
+      animation: fadeIn 0.5s ease-out;
+    }
+
+    .seccion-contenido h2 {
+      color: var(--color-primario);
+      margin-bottom: 1.5rem;
+      border-bottom: 2px solid var(--color-secundario);
+      padding-bottom: 0.5rem;
+    }
+
+    .video-contenedor {
+      position: relative;
+      padding-bottom: 56.25%; /* 16:9 */
+      height: 0;
+      margin: 2rem 0;
+      overflow: hidden;
+    }
+
+    .video-contenedor iframe {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      border: none;
+      border-radius: 8px;
+    }
+
+    /* === ANIMACIONES === */
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* === RESPONSIVE === */
+    @media (max-width: 768px) {
+      .contenido-principal.desplazado {
+        margin-left: 0;
+      }
+      
+      .menu-lateral {
+        width: 250px;
+      }
+      
+      .secciones {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Cabecera -->
+  <header>
+    <header>
+        <a href="index.html" style="position: absolute; left: 20px; top: 5rem; color: white; text-decoration: none;">
+            <i class="fas fa-arrow-left"></i> Volver
+        </a>
+    </header>
+    <h1>Prebriefing Destrezas y Habilidades Clínicas</h1>
+    <img src="logo.png" alt="Logo">
+  </header>
+
+  <!-- Botón para abrir/cerrar menú -->
+  <button class="btn-menu" id="btnMenu">
+    <i class="fas fa-bars"></i>
+  </button>
+
+  <!-- Menú lateral -->
+  <nav class="menu-lateral" id="menuLateral">
+    <h2><i class="fas fa-book-medical"></i> Secciones</h2>
+    <ul>
+      <li><a href="#" data-seccion="introduccion"><i class="fas fa-home"></i> Inicio</a></li>
+      <li><a href="#" data-seccion="flebotomia"><i class="fas fa-syringe"></i> Flebotomía</a></li>
+      <li><a href="#" data-seccion="sutura"><i class="fas fa-cut"></i> Sutura</a></li>
+      <li><a href="#" data-seccion="venopunciones"><i class="fas fa-tint"></i> Venopunciones</a></li>
+      <li><a href="#" data-seccion="auscultacion"><i class="fas fa-stethoscope"></i> Auscultación</a></li>
+      <li><a href="#" data-seccion="sonda"><i class="fas fa-procedures"></i> Colocación de Sonda</a></li>
+      <li><a href="#" data-seccion="signos"><i class="fas fa-heartbeat"></i> Evaluación de Signos Vitales</a></li>
+      <li><a href="#" data-seccion="pap"><i class="fas fa-female"></i> PAP</a></li>
+    </ul>
+  </nav>
+
+  <!-- Contenido principal -->
+  <main class="contenido-principal" id="contenidoPrincipal">
+    <!-- Sección de introducción -->
+    <section class="introduccion seccion-contenido activo" id="introduccion">
+      <h2>Bienvenido a la Sala de Habilidades y Destrezas Clinicas</h2>
+      <p>Este espacio está diseñado para el aprendizaje y práctica de procedimientos médicos fundamentales. A continuación encontrarás una breve descripción de cada sesión disponible:</p>
+      
+      <div class="secciones">
+        <!-- Tarjeta Flebotomía -->
+        <div class="tarjeta">
+          <img src="FLEBOTOMIA.jpeg" alt="Flebotomía">
+          <div class="tarjeta-contenido">
+            <h3>Flebotomía</h3>
+            <p>Técnica para extracción de sangre venosa con fines diagnósticos o terapéuticos.</p>
+          </div>
+        </div>
+        
+        <!-- Tarjeta Sutura -->
+        <div class="tarjeta">
+          <img src="CHAMI.jpeg" alt="Sutura">
+          <div class="tarjeta-contenido">
+            <h3>Sutura</h3>
+            <p>Técnica para aproximar tejidos mediante hilo quirúrgico para facilitar la cicatrización.</p>
+          </div>
+        </div>
+        
+        <!-- Tarjeta Venopunciones -->
+        <div class="tarjeta">
+          <img src="VENO.jpeg" alt="Venopunciones">
+          <div class="tarjeta-contenido">
+            <h3>Venopunciones</h3>
+            <p>Procedimiento para acceder al sistema venoso periférico para administración de medicamentos.</p>
+          </div>
+        </div>
+        
+        <!-- Tarjeta Auscultación -->
+        <div class="tarjeta">
+          <img src="AUSCULTACION.jpeg" alt="Auscultación">
+          <div class="tarjeta-contenido">
+            <h3>Auscultación</h3>
+            <p>Técnica para escuchar sonidos corporales, principalmente cardíacos y pulmonares.</p>
+          </div>
+        </div>
+        
+        <!-- Tarjeta Sonda -->
+        <div class="tarjeta">
+          <img src="SONDAS.jpeg" alt="Colocación de Sonda">
+          <div class="tarjeta-contenido">
+            <h3>Colocación de Sonda</h3>
+            <p>Procedimiento para inserción de dispositivos tubulares en cavidades corporales.</p>
+          </div>
+        </div>
+        
+        <!-- Tarjeta Signos Vitales -->
+        <div class="tarjeta">
+          <img src="SIGNOS.jpeg" alt="Signos Vitales">
+          <div class="tarjeta-contenido">
+            <h3>Signos Vitales</h3>
+            <p>Evaluación de parámetros fisiológicos básicos que indican el estado del paciente.</p>
+          </div>
+        </div>
+        
+        <!-- Tarjeta PAP -->
+        <div class="tarjeta">
+          <img src="PAP.jpeg" alt="PAP">
+          <div class="tarjeta-contenido">
+            <h3>PAP</h3>
+            <p>Procedimiento para toma de muestra cervicovaginal para detección de anomalías.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Sección Flebotomía -->
+    <section class="seccion-contenido" id="flebotomia">
+      <h2><i class="fas fa-syringe"></i> Flebotomía</h2>
+      <p><strong>Prebriefing:</strong> En esta sesión aprenderás la técnica adecuada para la extracción de muestras sanguíneas.</p>
+      <p><strong>objetivos:</strong> </p>
+      <ul>
+        <li>Identificación correcta del paciente</li>
+        <li>Preparación del material estéril</li>
+        <li>Selección del sitio de punción</li>
+        <li>Técnica de venopunción</li>
+        <li>Manejo post-procedimiento</li>
+      </ul>
+      
+      <div class="video-contenedor">
+        <!-- Reemplaza con tu video real -->
+        <iframe src="https://www.youtube.com/embed/VIDEO_ID_FLEBOTOMIA" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+      </div>
+    </section>
+
+    <!-- Sección Sutura -->
+    <section class="seccion-contenido" id="sutura">
+      <h2><i class="fas fa-cut"></i> Sutura</h2>
+      <p><strong>Prebriefing:</strong> Esta sesión cubre las técnicas básicas de sutura quirúrgica:</p>
+      <ul>
+        <li>Tipos de suturas y materiales</li>
+        <li>Técnicas de sutura básicas (simple, continua, colchonero)</li>
+        <li>Principios de aproximación tisular</li>
+        <li>Nudos quirúrgicos</li>
+        <li>Cuidados post-sutura</li>
+      </ul>
+      
+      <div class="video-contenedor">
+        <iframe src="https://www.youtube.com/embed/VIDEO_ID_SUTURA" frameborder="0" allowfullscreen></iframe>
+      </div>
+    </section>
+
+    <!-- Sección Venopunciones -->
+    <section class="seccion-contenido" id="venopunciones">
+      <h2><i class="fas fa-tint"></i> Venopunciones</h2>
+      <p><strong>Prebriefing:</strong> Técnicas avanzadas de acceso venoso:</p>
+      <ul>
+        <li>Anatomía venosa relevante</li>
+        <li>Selección del catéter adecuado</li>
+        <li>Técnica de Seldinger modificada</li>
+        <li>Prevención de complicaciones</li>
+        <li>Manejo de dispositivos intravenosos</li>
+      </ul>
+      
+      <div class="video-contenedor">
+        <iframe src="https://www.youtube.com/embed/VIDEO_ID_VENOPUNCION" frameborder="0" allowfullscreen></iframe>
+      </div>
+    </section>
+
+    <!-- Sección Auscultación -->
+    <section class="seccion-contenido" id="auscultacion">
+      <h2><i class="fas fa-stethoscope"></i> Auscultación</h2>
+      <p><strong>Prebriefing:</strong> Dominio de la auscultación cardíaca y pulmonar:</p>
+      <ul>
+        <li>Puntos de auscultación cardíaca</li>
+        <li>Sonidos pulmonares normales y patológicos</li>
+        <li>Técnica adecuada de uso del estetoscopio</li>
+        <li>Identificación de soplos cardíacos</li>
+        <li>Documentación de hallazgos</li>
+      </ul>
+      
+      <div class="video-contenedor">
+        <iframe src="https://www.youtube.com/embed/VIDEO_ID_AUSCULTACION" frameborder="0" allowfullscreen></iframe>
+      </div>
+    </section>
+
+    <!-- Sección Colocación de Sonda -->
+    <section class="seccion-contenido" id="sonda">
+      <h2><i class="fas fa-procedures"></i> Colocación de Sonda</h2>
+      <p><strong>Prebriefing:</strong> Técnicas para colocación de sondas:</p>
+      <ul>
+        <li>Indicaciones y contraindicaciones</li>
+        <li>Preparación del paciente</li>
+        <li>Técnica de inserción de sonda vesical</li>
+        <li>Sonda nasogástrica</li>
+        <li>Complicaciones y manejo</li>
+      </ul>
+      
+      <div class="video-contenedor">
+        <iframe src="https://www.youtube.com/embed/VIDEO_ID_SONDA" frameborder="0" allowfullscreen></iframe>
+      </div>
+    </section>
+
+    <!-- Sección Signos Vitales -->
+    <section class="seccion-contenido" id="signos">
+      <h2><i class="fas fa-heartbeat"></i> Evaluación de Signos Vitales</h2>
+      <p><strong>Prebriefing:</strong> Evaluación integral de signos vitales:</p>
+      <ul>
+        <li>Técnica adecuada de toma de presión arterial</li>
+        <li>Frecuencia cardíaca y respiratoria</li>
+        <li>Temperatura corporal</li>
+        <li>Saturación de oxígeno</li>
+        <li>Escalas de dolor</li>
+      </ul>
+      
+      <div class="video-contenedor">
+        <iframe src="https://www.youtube.com/embed/VIDEO_ID_SIGNOS" frameborder="0" allowfullscreen></iframe>
+      </div>
+    </section>
+
+    <!-- Sección PAP -->
+    <section class="seccion-contenido" id="pap">
+      <h2><i class="fas fa-female"></i> PAP</h2>
+      <p><strong>Prebriefing:</strong> Toma de muestra para Papanicolaou:</p>
+      <ul>
+        <li>Preparación del paciente</li>
+        <li>Colocación adecuada del espéculo</li>
+        <li>Técnica de obtención de muestra</li>
+        <li>Preparación de la extensión</li>
+        <li>Consejería post-procedimiento</li>
+      </ul>
+      
+      <div class="video-contenedor">
+        <iframe src="https://www.youtube.com/embed/VIDEO_ID_PAP" frameborder="0" allowfullscreen></iframe>
+      </div>
+    </section>
+  </main>
+
+  <script>
+    // Control del menú lateral
+    const btnMenu = document.getElementById('btnMenu');
+    const menuLateral = document.getElementById('menuLateral');
+    const contenidoPrincipal = document.getElementById('contenidoPrincipal');
+
+    btnMenu.addEventListener('click', () => {
+      menuLateral.classList.toggle('activo');
+      contenidoPrincipal.classList.toggle('desplazado');
+    });
+
+    // Navegación entre secciones
+    const enlacesMenu = document.querySelectorAll('.menu-lateral a');
+    const secciones = document.querySelectorAll('.seccion-contenido');
+
+    enlacesMenu.forEach(enlace => {
+      enlace.addEventListener('click', (e) => {
+        e.preventDefault();
+        const seccionId = enlace.getAttribute('data-seccion');
+        
+        // Ocultar todas las secciones
+        secciones.forEach(seccion => {
+          seccion.classList.remove('activo');
+        });
+        
+        // Mostrar la sección seleccionada
+        document.getElementById(seccionId).classList.add('activo');
+        
+        // Cerrar el menú en móviles
+        if (window.innerWidth <= 768) {
+          menuLateral.classList.remove('activo');
+          contenidoPrincipal.classList.remove('desplazado');
+        }
+      });
+    });
+
+    // Mostrar sección de introducción por defecto
+    document.getElementById('introduccion').classList.add('activo');
+  </script>
+</body>
+</html>
