@@ -4,9 +4,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Columbus Hospital Simulation Center</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         :root {
-            --primary-color: #1a73e8;
+            --primary-color: #0b057a;
             --secondary-color: #f8f9fa;
             --accent-color: #34a853;
             --text-color: #333;
@@ -111,7 +112,41 @@
         nav ul li a:hover {
             background-color: rgba(255, 255, 255, 0.2);
         }
+        .calendar-icon {
+            margin-right: 5px;
+        }
 
+        main {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .section {
+            margin-bottom: 40px;
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            padding: 25px;
+        }
+
+        h2 {
+            font-size: 1.8rem;
+            color: var(--primary-color);
+            margin-bottom: 15px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid var(--light-gray);
+        }
+
+        h3 {
+            font-size: 1.5rem;
+            color: var(--primary-color);
+            margin: 20px 0 10px 0;
+        }
+
+        p {
+            margin-bottom: 15px;
+        }
         main {
             max-width: 1200px;
             margin: 0 auto;
@@ -329,7 +364,7 @@
     <header>
         <div>
             <h1>Columbus Hospital Simulation Center</h1>
-            <p>Asistente virtual para simuladores y metodologías de simulación clínica</p>
+            <p>Asistente Virtual para Simuladores y Metodologías de Simulación Clínica</p>
         </div>
 
         <!-- Logo a la derecha -->
@@ -343,14 +378,16 @@
             <li><a href="#fases">Fases de Simulación</a></li>
             <li><a href="#conceptos">Conceptos Clave</a></li>
             <li><a href="#beneficios">Beneficios</a></li>
+
+            <!-- Tus otros elementos de menú... -->
+            <li><a href="calendario.html"><i class="fas fa-calendar-alt"></i> Calendario</a></li>
         </ul>
     </nav>
-
     <main>
         <!-- Sección de Simuladores -->
         <section id="simuladores" class="section">
             <h2>Simuladores del Columbus Hospital Simulation Center</h2>
-            <p>El Columbus Hospital Simulation Center cuenta con simuladores de alta fidelidad diseñados para replicar escenarios clínicos reales, permitiendo a los estudiantes practicar habilidades médicas en un entorno seguro y controlado.</p>
+            <p>El Columbus Hospital Simulation Center cuenta con simuladores de alta, Mediana , Baja fidelidad diseñados para replicar escenarios clínicos reales, permitiendo a los estudiantes practicar habilidades médicas en un entorno seguro y controlado.</p>
 
             <div class="tab-container">
                 <div class="tab active" onclick="showSimulator('victoria')">Victoria</div>
