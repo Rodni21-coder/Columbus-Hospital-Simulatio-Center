@@ -1,0 +1,498 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Calendario Universitario</title>
+  <!-- Iconos de Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    /* === ESTILOS GENERALES === */
+    body {
+      font-family: 'Ariel', sans-serif;
+      background: #f0f0f0;
+      margin: 0;
+      padding: 0;
+      color: #333;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    header {
+      background: #0b057a;
+      color: white;
+      padding: 1rem;
+      text-align: center;
+    }
+
+    main {
+      flex: 1;
+      padding: 1rem;
+    }
+
+    footer {
+      background: #0b057a;
+      color: rgb(255, 248, 248);
+      text-align: center;
+      padding: 1rem;
+      margin-top: auto;
+    }
+    header img {
+            width: 70px; /* Tamaño del logo */
+            height: auto;
+            border-radius: 8px; /* Opcional: bordes redondeados */
+            position: absolute; /* Posiciona el logo a la derecha */
+            right: 2rem; /* Distancia desde el borde derecho */
+            top: 3rem; /* Distancia desde el borde superior */
+        }
+
+    /* === CONTENEDORES BLANCOS === */
+    .contenedor {
+      background: rgb(255, 255, 255);
+      border-radius: 10px;
+      box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+      padding: 1.5rem;
+      margin: 1rem auto;
+      max-width: 900px;
+    }
+
+    /* === TABLAS === */
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 1rem 0;
+    }
+
+    th, td {
+      padding: 1rem;
+      text-align: left;
+      border-bottom: 1px solid #ddd;
+    }
+
+    th {
+      background: #3498db;
+      color: white;
+    }
+
+    tr:hover {
+      background: #f5f5f5;
+    }
+
+    /* === FORMULARIOS === */
+    input, select, button {
+      padding: 0.6rem;
+      margin: 0.5rem 0;
+      border: 1px solid #ddd;
+      border-radius: 5px;
+      width: 100%;
+    }
+
+    button {
+      background: #0b057a;
+      color: white;
+      border: none;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+
+    button:hover {
+      background: #2980b9;
+    }
+
+    /* === ICONOS DE NAVEGACIÓN === */
+    .nav-iconos {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      display: flex;
+      gap: 10px;
+      z-index: 1000;
+    }
+
+    .nav-iconos .icono {
+      background: #0b057a;
+      color: white;
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+      transition: transform 0.3s;
+    }
+
+    .nav-iconos .icono:hover {
+      transform: scale(1.1);
+    }
+
+    /* === MODAL (EDITAR) === */
+    .modal {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.5);
+      z-index: 1000;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .modal-contenido {
+      background: rgb(255, 255, 255);
+      padding: 2rem;
+      border-radius: 10px;
+      width: 90%;
+      max-width: 500px;
+      box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+    }
+
+    .cerrar {
+      float: right;
+      font-size: 1.5rem;
+      cursor: pointer;
+    }
+
+    /* === BOTONES DE ACCIÓN === */
+    .btn-accion {
+      padding: 0.4rem 0.8rem;
+      margin: 0 0.2rem;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: all 0.3s;
+    }
+
+    .btn-editar {
+      background: #030baa;
+      color: white;
+    }
+
+    .btn-eliminar {
+      background: #ee1e06;
+      color: white;
+    }
+
+    .btn-accion:hover {
+      opacity: 0.9;
+    }
+
+    /* === ANIMACIONES === */
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .contenedor {
+      animation: fadeIn 0.5s ease-out;
+    }
+  </style>
+</head>
+<body>
+    <header>
+        <a href="index.html" style="position: absolute; left: 20px; color: white; text-decoration: none;">
+            <i class="fas fa-arrow-left"></i> Volver
+        </a>
+    </header>
+  <!-- === PÁGINA PÚBLICA === -->
+  <div id="pagina-publica">
+    <header>
+      <h1><i class="fas fa-calendar-alt"></i> Calendario De Simulación</h1>
+      <img src="logo.png" alt="Logo">
+    </header>
+
+    <main>
+      <div class="contenedor">
+        <div class="filtro">
+          <label for="nivel">Filtrar por nivel:</label>
+          <select id="nivel">
+            <option value="all">Todos</option>
+            <option value="I">I</option>
+            <option value="II">II</option>
+            <option value="III">III</option>
+            <option value="IV">IV</option>
+            <option value="V">V</option>
+            <option value="VI">VI</option>
+            <option value="VII">VII</option>
+            <option value="VIII">VIII</option>
+            <option value="IX">IX</option>
+            <option value="X">X</option>
+            <option value="XI">XI</option>
+            <option value="XII">XII</option>
+          </select>
+        </div>
+
+        <table id="tabla-horarios">
+          <thead>
+            <tr>
+              <th>Materia</th>
+              <th>Grupo</th>
+              <th>Día</th>
+              <th>Hora</th>
+            </tr>
+          </thead>
+          <tbody>
+            <!-- Datos cargados con JavaScript -->
+          </tbody>
+        </table>
+      </div>
+    </main>
+
+    <footer>
+      <p>© 2025 Columbus University #LAUDELOSLIDERES</p>
+    </footer>
+  </div>
+
+  <!-- === PÁGINA DE ADMINISTRACIÓN === -->
+  <div id="pagina-admin" style="display: none;">
+    <header>
+      <h1><i class="fas fa-user-shield"></i> Administración</h1>
+    </header>
+
+    <main>
+      <div class="contenedor" id="login-form">
+        <h2><i class="fas fa-lock"></i> Acceso Administrativo</h2>
+        <input type="password" id="password" placeholder="Contraseña">
+        <button onclick="verificarPassword()">Ingresar</button>
+      </div>
+
+      <div class="contenedor" id="registro-form" style="display: none;">
+        <h2><i class="fas fa-plus-circle"></i> Registrar Nuevo Horario</h2>
+        <form id="formulario-registro">
+          <input type="text" id="materia" placeholder="Materia" required>
+          <select id="grupo" required>
+            <option value="">Seleccione el grupo</option>
+            <option value="I">I</option>
+            <option value="II">II</option>
+            <option value="III">III</option>
+            <option value="IV">IV</option>
+            <option value="V">V</option>
+            <option value="VI">VI</option>
+            <option value="VII">VII</option>
+            <option value="VIII">VIII</option>
+            <option value="IX">IX</option>
+            <option value="X">X</option>
+            <option value="XI">XI</option>
+            <option value="XII">XII</option>
+          </select>
+          <input type="text" id="dia" placeholder="Día (Ej:dia/mes)" required>
+          <input type="text" id="hora" placeholder="Hora (Ej: 8:00 AM)" required>
+          <button type="submit"><i class="fas fa-save"></i> Guardar</button>
+        </form>
+
+        <h2 style="margin-top: 2rem;"><i class="fas fa-list"></i> Horarios Registrados</h2>
+        <table id="admin-tabla">
+          <thead>
+            <tr>
+              <th>Materia</th>
+              <th>Grupo</th>
+              <th>Día</th>
+              <th>Hora</th>
+              <th>Acciones</th>
+            </tr>
+          </thead>
+          <tbody id="admin-tbody">
+            <!-- Datos cargados con JavaScript -->
+          </tbody>
+        </table>
+      </div>
+    </main>
+
+    <!-- Modal para Editar -->
+    <div id="modal-editar" class="modal">
+      <div class="modal-contenido">
+        <span class="cerrar">&times;</span>
+        <h3><i class="fas fa-edit"></i> Editar Horario</h3>
+        <form id="form-editar">
+          <input type="hidden" id="edit-id">
+          <input type="text" id="edit-materia" placeholder="Materia" required>
+          <select id="edit-grupo" required>
+            <option value="I">I</option>
+            <option value="II">II</option>
+            <option value="III">III</option>
+            <option value="IV">IV</option>
+            <option value="V">V</option>
+            <option value="VI">VI</option>
+            <option value="VII">VII</option>
+            <option value="VIII">VIII</option>
+            <option value="IX">IX</option>
+            <option value="X">X</option>
+            <option value="XI">XI</option>
+            <option value="XII">XII</option>
+          </select>
+          <input type="text" id="edit-dia" placeholder="Día" required>
+          <input type="text" id="edit-hora" placeholder="Hora" required>
+          <button type="submit"><i class="fas fa-save"></i> Guardar Cambios</button>
+        </form>
+      </div>
+    </div>
+
+    <footer>
+      <p>© 2025 Columbus University #LAUDELOSLIDERES</p>
+    </footer>
+  </div>
+
+  <!-- === ICONOS DE NAVEGACIÓN === -->
+  <div class="nav-iconos">
+    <div class="icono" onclick="cambiarPagina('publica')" title="Calendario">
+      <i class="fas fa-calendar-alt"></i>
+    </div>
+    <div class="icono" onclick="cambiarPagina('admin')" title="Administración">
+      <i class="fas fa-user-tie"></i>
+    </div>
+  </div>
+
+  <script>
+    // === DATOS INICIALES ===
+    let horarios = JSON.parse(localStorage.getItem('horarios')) || [];
+
+    // === PÁGINA PÚBLICA ===
+    if (document.getElementById('tabla-horarios')) {
+      function cargarHorarios(nivel = 'all') {
+        const tbody = document.querySelector('#tabla-horarios tbody');
+        tbody.innerHTML = '';
+        const filtrados = nivel === 'all' 
+          ? horarios 
+          : horarios.filter(h => h.grupo === nivel);
+
+        filtrados.forEach(h => {
+          const tr = document.createElement('tr');
+          tr.innerHTML = `
+            <td>${h.materia}</td>
+            <td>${h.grupo}</td>
+            <td>${h.dia}</td>
+            <td>${h.hora}</td>
+          `;
+          tbody.appendChild(tr);
+        });
+      }
+
+      document.getElementById('nivel').addEventListener('change', (e) => {
+        cargarHorarios(e.target.value);
+      });
+
+      cargarHorarios();
+    }
+
+    // === PÁGINA DE ADMINISTRACIÓN ===
+    if (document.getElementById('admin-tabla')) {
+      const modal = document.getElementById('modal-editar');
+      const formEditar = document.getElementById('form-editar');
+
+      function cargarHorariosAdmin() {
+        const tbody = document.getElementById('admin-tbody');
+        tbody.innerHTML = '';
+        horarios.forEach((horario, index) => {
+          const tr = document.createElement('tr');
+          tr.innerHTML = `
+            <td>${horario.materia}</td>
+            <td>${horario.grupo}</td>
+            <td>${horario.dia}</td>
+            <td>${horario.hora}</td>
+            <td>
+              <button class="btn-accion btn-editar" data-id="${index}">
+                <i class="fas fa-edit"></i> Editar
+              </button>
+              <button class="btn-accion btn-eliminar" data-id="${index}">
+                <i class="fas fa-trash"></i> Eliminar
+              </button>
+            </td>
+          `;
+          tbody.appendChild(tr);
+        });
+
+        document.querySelectorAll('.btn-editar').forEach(btn => {
+          btn.addEventListener('click', abrirModalEditar);
+        });
+        document.querySelectorAll('.btn-eliminar').forEach(btn => {
+          btn.addEventListener('click', eliminarHorario);
+        });
+      }
+
+      function abrirModalEditar(e) {
+        const id = e.target.closest('button').getAttribute('data-id');
+        const horario = horarios[id];
+        document.getElementById('edit-id').value = id;
+        document.getElementById('edit-materia').value = horario.materia;
+        document.getElementById('edit-grupo').value = horario.grupo;
+        document.getElementById('edit-dia').value = horario.dia;
+        document.getElementById('edit-hora').value = horario.hora;
+        modal.style.display = 'flex';
+      }
+
+      document.querySelector('.cerrar').addEventListener('click', () => {
+        modal.style.display = 'none';
+      });
+
+      formEditar.addEventListener('submit', (e) => {
+        e.preventDefault();
+        const id = document.getElementById('edit-id').value;
+        horarios[id] = {
+          materia: document.getElementById('edit-materia').value,
+          grupo: document.getElementById('edit-grupo').value,
+          dia: document.getElementById('edit-dia').value,
+          hora: document.getElementById('edit-hora').value,
+        };
+        localStorage.setItem('horarios', JSON.stringify(horarios));
+        modal.style.display = 'none';
+        cargarHorariosAdmin();
+      });
+
+      function eliminarHorario(e) {
+        if (confirm('¿Eliminar este horario?')) {
+          const id = e.target.closest('button').getAttribute('data-id');
+          horarios.splice(id, 1);
+          localStorage.setItem('horarios', JSON.stringify(horarios));
+          cargarHorariosAdmin();
+        }
+      }
+
+      function verificarPassword() {
+        const password = document.getElementById('password').value;
+        if (password === "admin123") {
+          document.getElementById('login-form').style.display = 'none';
+          document.getElementById('registro-form').style.display = 'block';
+          cargarHorariosAdmin();
+        } else {
+          alert('Contraseña incorrecta');
+        }
+      }
+
+      document.getElementById('formulario-registro').addEventListener('submit', (e) => {
+        e.preventDefault();
+        const materia = document.getElementById('materia').value;
+        const grupo = document.getElementById('grupo').value;
+        const dia = document.getElementById('dia').value;
+        const hora = document.getElementById('hora').value;
+
+        horarios.push({ materia, grupo, dia, hora });
+        localStorage.setItem('horarios', JSON.stringify(horarios));
+
+        const button = e.target.querySelector('button');
+        button.innerHTML = '<i class="fas fa-check"></i> Guardado';
+        setTimeout(() => {
+          button.innerHTML = '<i class="fas fa-save"></i> Guardar';
+        }, 1000);
+
+        e.target.reset();
+        cargarHorariosAdmin();
+      });
+    }
+
+    // === CAMBIAR ENTRE PÁGINAS ===
+    function cambiarPagina(pagina) {
+      if (pagina === 'publica') {
+        document.getElementById('pagina-publica').style.display = 'block';
+        document.getElementById('pagina-admin').style.display = 'none';
+      } else {
+        document.getElementById('pagina-publica').style.display = 'none';
+        document.getElementById('pagina-admin').style.display = 'block';
+      }
+    }
+  </script>
+</body>
+</html>
