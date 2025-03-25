@@ -248,7 +248,7 @@
         }
 
         footer {
-            background-color: #34495e;
+            background-color: #0d47a1;
             color: white;
             text-align: center;
             padding: 20px;
@@ -378,12 +378,27 @@
             <li><a href="#fases">Fases de Simulación</a></li>
             <li><a href="#conceptos">Conceptos Clave</a></li>
             <li><a href="#beneficios">Beneficios</a></li>
-
-            <!-- Tus otros elementos de menú... -->
+            <li>
+                <a href="#" id="prebriefing"><i class="fas fa-chalkboard-teacher"></i> Prebriefing</a>
+                <ul id="prebriefingSubmenu" style="display: none;">
+                    <li><a href="prebriefing.html">Habilidades y Destrezas</a></li>
+                    <li><a href="Prebiefing de rcp.html">Área de RCP</a></li>
+                </ul>
+            </li>
             <li><a href="calendario.html"><i class="fas fa-calendar-alt"></i> Calendario</a></li>
-            <li><a href="prebriefing.html"><i class="fas fa-chalkboard-teacher"></i> Prebriefing</a></li>
         </ul>
     </nav>
+    <script>
+        document.getElementById('prebriefing').addEventListener('click', function(event) {
+            event.preventDefault();
+            var submenu = document.getElementById('prebriefingSubmenu');
+            if (submenu.style.display === 'none') {
+                submenu.style.display = 'block';
+            } else {
+                submenu.style.display = 'none';
+            }
+        });
+    </script>
     <main>
         <!-- Sección de Simuladores -->
         <section id="simuladores" class="section">
@@ -523,21 +538,27 @@
             
             <div class="card-container">
                 <div class="card">
-                    <div class="card-image">Simulación de Alta Fidelidad</div>
+                    <div class="card-image">
+                        <i class="fas fa-procedures fa-3x"></i>
+                    </div>
                     <div class="card-content">
                         <h3>Simulación de Alta Fidelidad</h3>
                         <p>Utilizamos simuladores avanzados que replican escenarios clínicos reales para practicar habilidades médicas en un entorno seguro.</p>
                     </div>
                 </div>
                 <div class="card">
-                    <div class="card-image">Aprendizaje Basado en Problemas</div>
+                    <div class="card-image">
+                        <i class="fas fa-brain fa-3x"></i>
+                    </div>
                     <div class="card-content">
                         <h3>Aprendizaje Basado en Problemas</h3>
                         <p>Los estudiantes resuelven casos clínicos complejos, fomentando el pensamiento crítico y la toma de decisiones.</p>
                     </div>
                 </div>
                 <div class="card">
-                    <div class="card-image">Debriefing</div>
+                    <div class="card-image">
+                        <i class="fas fa-comments fa-3x"></i>
+                    </div>
                     <div class="card-content">
                         <h3>Debriefing</h3>
                         <p>Después de cada simulación, se realiza una sesión de debriefing para reflexionar sobre el desempeño y mejorar las habilidades.</p>
@@ -618,7 +639,7 @@
     </main>
 
     <footer>
-        <p>&copy; 2023 Columbus Hospital Simulation Center. Todos los derechos reservados.</p>
+        <p>&copy; 2025 Columbus Hospital Simulation Center. Todos los derechos reservados. #LAUDELOSLIDERES</p>
     </footer>
 
     <script>
