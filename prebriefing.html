@@ -28,20 +28,19 @@
       line-height: 1.6;
     }
     header img {
-            width: 70px; /* Tamaño del logo */
-            height: auto;
-            border-radius: 8px; /* Opcional: bordes redondeados */
-            position: absolute; /* Posiciona el logo a la derecha */
-            right: 2rem; /* Distancia desde el borde derecho */
-            top: 2rem; /* Distancia desde el borde superior */
-        }
-
+      width: 70px;
+      height: auto;
+      border-radius: 8px;
+      position: absolute;
+      right: 2rem;
+      top: 2rem;
+    }
 
     /* === CABECERA === */
     header {
       background-color: var(--color-primario);
       color: var(--color-blanco);
-      padding: 1.5rem;
+      padding: 2.5rem;
       text-align: center;
       box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
     }
@@ -51,7 +50,14 @@
       text-align: center;
       margin-top: -30px;
     }
-
+    header img {
+  width: 75px; /* Aumenta el tamaño del logo */
+  height: auto;
+  border-radius: 8px;
+  position: absolute;
+  right: 2rem;
+  top: 1rem;
+    }
     /* === CONTENEDOR PRINCIPAL === */
     .contenedor {
       display: flex;
@@ -64,11 +70,16 @@
       background-color: var(--color-primario);
       color: var(--color-blanco);
       transform: translateX(-100%);
-      transition: transform 0.3s ease;
+      will-change: transform;
+      transition: transform 0.15s cubic-bezier(0.4, 0, 0.2, 1);
+      backface-visibility: hidden;
       position: fixed;
-      height: 100%;
+      height: 100vh;
       z-index: 100;
       overflow-y: auto;
+      top: 0;
+      left: 0;
+      padding-top: 80px;
     }
 
     .menu-lateral.activo {
@@ -76,13 +87,18 @@
     }
 
     .menu-lateral h2 {
+      position: sticky;
+      top: 0;
+      background-color: var(--color-primario);
+      z-index: 1;
       padding: 1rem;
-      background-color: rgba(0, 0, 0, 0.2);
       text-align: center;
+      margin: 0;
     }
 
     .menu-lateral ul {
       list-style: none;
+      padding-bottom: 20px;
     }
 
     .menu-lateral li {
@@ -123,6 +139,8 @@
       display: flex;
       align-items: center;
       justify-content: center;
+      transition: all 0.1s ease-out;
+      will-change: transform;
     }
 
     /* === CONTENIDO PRINCIPAL === */
@@ -207,15 +225,20 @@
       border-bottom: 2px solid var(--color-secundario);
       padding-bottom: 0.5rem;
     }
-
-    .video-contenedor {
+    
+    /* Contenedores para contenido embebido */
+    .web-optimizada, .video-contenedor {
       position: relative;
-      padding-bottom: 56.25%; /* 16:9 */
+      padding-bottom: 56.25%; /* Relación 16:9 */
       height: 0;
-      margin: 2rem 0;
+      margin: 1.5rem 0;
+      border-radius: 8px;
       overflow: hidden;
+      box-shadow: 0 2px 15px rgba(0,0,0,0.1);
+      background: #f8f9fa;
     }
-
+    
+    .web-optimizada iframe, 
     .video-contenedor iframe {
       position: absolute;
       top: 0;
@@ -223,7 +246,33 @@
       width: 100%;
       height: 100%;
       border: none;
-      border-radius: 8px;
+    }
+    
+    .botones-recursos {
+      display: flex;
+      gap: 10px;
+      margin-top: 10px;
+    }
+    
+    .btn-recargar, .btn-abrir {
+      padding: 8px 15px;
+      border-radius: 5px;
+      font-size: 14px;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    
+    .btn-recargar {
+      background: var(--color-secundario);
+      color: white;
+      border: none;
+    }
+    
+    .btn-abrir {
+      background: white;
+      color: var(--color-primario);
+      border: 1px solid var(--color-primario);
+      text-decoration: none;
     }
 
     /* === ANIMACIONES === */
@@ -251,11 +300,9 @@
 <body>
   <!-- Cabecera -->
   <header>
-    <header>
-        <a href="index.html" style="position: absolute; left: 20px; top: 5rem; color: white; text-decoration: none;">
-            <i class="fas fa-arrow-left"></i> Volver
-        </a>
-    </header>
+    <a href="index.html" style="position: absolute; left: 20px; top: 4rem; color: white; text-decoration: none;">
+      <i class="fas fa-arrow-left"></i> Volver
+    </a>
     <h1>Prebriefing Destrezas y Habilidades Clínicas</h1>
     <img src="logo.png" alt="Logo">
   </header>
@@ -272,11 +319,14 @@
       <li><a href="#" data-seccion="introduccion"><i class="fas fa-home"></i> Inicio</a></li>
       <li><a href="#" data-seccion="flebotomia"><i class="fas fa-syringe"></i> Flebotomía</a></li>
       <li><a href="#" data-seccion="sutura"><i class="fas fa-cut"></i> Sutura</a></li>
-      <li><a href="#" data-seccion="venopunciones"><i class="fas fa-tint"></i> Venopunciones</a></li>
+      <li><a href="#" data-seccion="canalizacion"><i class="fas fa-tint"></i> Canalización IV</a></li>
       <li><a href="#" data-seccion="auscultacion"><i class="fas fa-stethoscope"></i> Auscultación</a></li>
       <li><a href="#" data-seccion="sonda"><i class="fas fa-procedures"></i> Colocación de Sonda</a></li>
       <li><a href="#" data-seccion="signos"><i class="fas fa-heartbeat"></i> Evaluación de Signos Vitales</a></li>
       <li><a href="#" data-seccion="pap"><i class="fas fa-female"></i> PAP</a></li>
+      <li><a href="#" data-seccion="aplicacion"><i class="fas fa-syringe"></i> Aplicación de Medicamentos Parenterales</a></li>
+      <li><a href="#" data-seccion="manejo"><i class="fas fa-band-aid"></i> Manejo Básico de Heridas</a></li>
+      <li><a href="#" data-seccion="gaso"><i class="fas fa-vial"></i> Gasometría</a></li>
     </ul>
   </nav>
 
@@ -308,9 +358,9 @@
         
         <!-- Tarjeta Venopunciones -->
         <div class="tarjeta">
-          <img src="VENO.jpeg" alt="Venopunciones">
+          <img src="VENO.jpeg" alt="canalizacion">
           <div class="tarjeta-contenido">
-            <h3>Venopunciones</h3>
+            <h3>Canalización IV</h3>
             <p>Procedimiento para acceder al sistema venoso periférico para administración de medicamentos.</p>
           </div>
         </div>
@@ -350,6 +400,33 @@
             <p>Procedimiento para toma de muestra cervicovaginal para detección de anomalías.</p>
           </div>
         </div>
+
+         <!-- Tarjeta Aplicacion -->
+          <div class="tarjeta">
+          <img src="FLEBOTOMIA.jpeg" alt="aplicacion">
+           <div class="tarjeta-contenido">
+             <h3>Aplicación de Medicamentos Parenterales</h3>
+             <p>Administración de fármacos a través de rutas no digestivas para efectos rápidos y precisos.</p>
+            </div>
+        </div>
+
+        <!-- Tarjeta manejo -->
+        <div class="tarjeta">
+          <img src="CHAMI.jpeg" alt="manejo">
+          <div class="tarjeta-contenido">
+            <h3>Manejo Basico de Heridas</h3>
+            <p>Técnicas para limpieza, protección y promoción de la cicatrización de lesiones cutáneas.</p>
+          </div>
+        </div>
+
+        <!-- Tarjeta Gasometria-->
+         <div class="tarjeta">
+         <img src="CHAMI.jpeg" alt="gaso">
+          <div class="tarjeta-contenido">
+             <h3>Gasometría</h3>
+             <p>Análisis del equilibrio ácido-base y oxigenación mediante medición de gases en sangre arterial.</p>
+            </div>
+         </div>
       </div>
     </section>
 
@@ -366,9 +443,21 @@
         <li>Manejo post-procedimiento</li>
       </ul>
       
-      <div class="video-contenedor">
-        <!-- Reemplaza con tu video real -->
-        <iframe src="https://www.youtube.com/embed/VIDEO_ID_FLEBOTOMIA" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+      <div class="web-optimizada">
+        <iframe 
+          src="https://accessmedicina.mhmedical.com/MultimediaPlayer.aspx?MultimediaID=20266907"
+          loading="eager"
+          sandbox="allow-scripts allow-same-origin allow-popups"
+          title="Guía de Flebotomía">
+        </iframe>
+        <div class="botones-recursos">
+          <button class="btn-recargar" onclick="recargarIframe('flebotomia')">
+            <i class="fas fa-sync-alt"></i> Recargar
+          </button>
+          <button class="btn-abrir" onclick="abrirEnNuevaVentana('flebotomia')">
+            <i class="fas fa-external-link-alt"></i> Abrir externo
+          </button>
+        </div>
       </div>
     </section>
 
@@ -384,14 +473,26 @@
         <li>Cuidados post-sutura</li>
       </ul>
       
-      <div class="video-contenedor">
-        <iframe src="https://www.youtube.com/embed/VIDEO_ID_SUTURA" frameborder="0" allowfullscreen></iframe>
+      <div class="web-optimizada">
+        <iframe 
+          src="https://accessmedicina.mhmedical.com/MultimediaPlayer.aspx?MultimediaID=20266917"
+          loading="eager"
+          title="Guía de Sutura">
+        </iframe>
+        <div class="botones-recursos">
+          <button class="btn-recargar" onclick="recargarIframe('sutura')">
+            <i class="fas fa-sync-alt"></i> Recargar
+          </button>
+          <button class="btn-abrir" onclick="abrirEnNuevaVentana('sutura')">
+            <i class="fas fa-external-link-alt"></i> Abrir externo
+          </button>
+        </div>
       </div>
     </section>
 
-    <!-- Sección Venopunciones -->
-    <section class="seccion-contenido" id="venopunciones">
-      <h2><i class="fas fa-tint"></i> Venopunciones</h2>
+    <!-- Sección Canalización IV -->
+    <section class="seccion-contenido" id="canalizacion">
+      <h2><i class="fas fa-tint"></i> Canalización IV</h2>
       <p><strong>Prebriefing:</strong> Técnicas avanzadas de acceso venoso:</p>
       <ul>
         <li>Anatomía venosa relevante</li>
@@ -401,8 +502,20 @@
         <li>Manejo de dispositivos intravenosos</li>
       </ul>
       
-      <div class="video-contenedor">
-        <iframe src="https://www.youtube.com/embed/VIDEO_ID_VENOPUNCION" frameborder="0" allowfullscreen></iframe>
+      <div class="web-optimizada">
+        <iframe 
+          src="https://accessmedicina.mhmedical.com/MultimediaPlayer.aspx?MultimediaID=20266911 "
+          loading="eager"
+          title="Guía de Canalización IV">
+        </iframe>
+        <div class="botones-recursos">
+          <button class="btn-recargar" onclick="recargarIframe('canalizacion')">
+            <i class="fas fa-sync-alt"></i> Recargar
+          </button>
+          <button class="btn-abrir" onclick="abrirEnNuevaVentana('canalizacion')">
+            <i class="fas fa-external-link-alt"></i> Abrir externo
+          </button>
+        </div>
       </div>
     </section>
 
@@ -418,8 +531,20 @@
         <li>Documentación de hallazgos</li>
       </ul>
       
-      <div class="video-contenedor">
-        <iframe src="https://www.youtube.com/embed/VIDEO_ID_AUSCULTACION" frameborder="0" allowfullscreen></iframe>
+      <div class="web-optimizada">
+        <iframe 
+          src="https://www.youtube.com/embed/VIDEO_ID_AUSCULTACION"
+          loading="eager"
+          title="Guía de Auscultación">
+        </iframe>
+        <div class="botones-recursos">
+          <button class="btn-recargar" onclick="recargarIframe('auscultacion')">
+            <i class="fas fa-sync-alt"></i> Recargar
+          </button>
+          <button class="btn-abrir" onclick="abrirEnNuevaVentana('auscultacion')">
+            <i class="fas fa-external-link-alt"></i> Abrir externo
+          </button>
+        </div>
       </div>
     </section>
 
@@ -435,8 +560,20 @@
         <li>Complicaciones y manejo</li>
       </ul>
       
-      <div class="video-contenedor">
-        <iframe src="https://www.youtube.com/embed/VIDEO_ID_SONDA" frameborder="0" allowfullscreen></iframe>
+      <div class="web-optimizada">
+        <iframe 
+          src="https://www.youtube.com/embed/VIDEO_ID_SONDA"
+          loading="eager"
+          title="Guía de Colocación de Sonda">
+        </iframe>
+        <div class="botones-recursos">
+          <button class="btn-recargar" onclick="recargarIframe('sonda')">
+            <i class="fas fa-sync-alt"></i> Recargar
+          </button>
+          <button class="btn-abrir" onclick="abrirEnNuevaVentana('sonda')">
+            <i class="fas fa-external-link-alt"></i> Abrir externo
+          </button>
+        </div>
       </div>
     </section>
 
@@ -452,8 +589,20 @@
         <li>Escalas de dolor</li>
       </ul>
       
-      <div class="video-contenedor">
-        <iframe src="https://www.youtube.com/embed/VIDEO_ID_SIGNOS" frameborder="0" allowfullscreen></iframe>
+      <div class="web-optimizada">
+        <iframe 
+          src="https://www.youtube.com/embed/VIDEO_ID_SIGNOS"
+          loading="eager"
+          title="Guía de Signos Vitales">
+        </iframe>
+        <div class="botones-recursos">
+          <button class="btn-recargar" onclick="recargarIframe('signos')">
+            <i class="fas fa-sync-alt"></i> Recargar
+          </button>
+          <button class="btn-abrir" onclick="abrirEnNuevaVentana('signos')">
+            <i class="fas fa-external-link-alt"></i> Abrir externo
+          </button>
+        </div>
       </div>
     </section>
 
@@ -469,50 +618,175 @@
         <li>Consejería post-procedimiento</li>
       </ul>
       
-      <div class="video-contenedor">
-        <iframe src="https://www.youtube.com/embed/VIDEO_ID_PAP" frameborder="0" allowfullscreen></iframe>
+      <div class="web-optimizada">
+        <iframe 
+          src="https://www.youtube.com/embed/VIDEO_ID_PAP"
+          loading="eager"
+          title="Guía de PAP">
+        </iframe>
+        <div class="botones-recursos">
+          <button class="btn-recargar" onclick="recargarIframe('pap')">
+            <i class="fas fa-sync-alt"></i> Recargar
+          </button>
+          <button class="btn-abrir" onclick="abrirEnNuevaVentana('pap')">
+            <i class="fas fa-external-link-alt"></i> Abrir externo
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- Sección Aplicación de Medicamentos Parenterales -->
+    <section class="seccion-contenido" id="aplicacion">
+      <h2><i class="fas fa-syringe"></i> Aplicación de Medicamentos Parenterales</h2>
+      <p><strong>Significado clave:</strong> Administración de fármacos a través de rutas no digestivas (intramuscular, subcutánea, intravenosa) para lograr efectos sistémicos rápidos y precisos.</p>
+      <p><strong>Prebriefing:</strong> En esta sesión aprenderás la técnica adecuada para la aplicación de medicamentos parenterales.</p>
+      <p><strong>Objetivos:</strong> </p>
+      <ul>
+        <li>Preparación del material</li>
+        <li>Selección del sitio de inyección</li>
+        <li>Técnica de inyección intramuscular</li>
+        <li>Técnica de inyección subcutánea</li>
+        <li>Manejo post-procedimiento</li>
+      </ul>
+      
+      <div class="web-optimizada">
+        <iframe 
+          src="https://www.youtube.com/embed/VIDEO_ID_APLICACION"
+          loading="eager"
+          title="Guía de Aplicación de Medicamentos">
+        </iframe>
+        <div class="botones-recursos">
+          <button class="btn-recargar" onclick="recargarIframe('aplicacion')">
+            <i class="fas fa-sync-alt"></i> Recargar
+          </button>
+          <button class="btn-abrir" onclick="abrirEnNuevaVentana('aplicacion')">
+            <i class="fas fa-external-link-alt"></i> Abrir externo
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- Sección Manejo Básico de Heridas -->
+    <section class="seccion-contenido" id="manejo">
+      <h2><i class="fas fa-band-aid"></i> Manejo Básico de Heridas</h2>
+      <p><strong>Significado clave:</strong> Conjunto de técnicas para limpieza, protección y promoción de la cicatrización de lesiones cutáneas, previniendo infecciones y complicaciones.</p>
+      <p><strong>Prebriefing:</strong> En esta sesión aprenderás la técnica adecuada para el manejo básico de heridas.</p>
+      <p><strong>Objetivos:</strong> </p>
+      <ul>
+        <li>Evaluación de la herida</li>
+        <li>Limpieza y desinfección</li>
+        <li>Aplicación de apósitos</li>
+        <li>Técnicas de vendaje</li>
+        <li>Cuidados post-procedimiento</li>
+      </ul>
+      
+      <div class="web-optimizada">
+        <iframe 
+          src="https://www.youtube.com/embed/VIDEO_ID_MANEJO"
+          loading="eager"
+          title="Guía de Manejo de Heridas">
+        </iframe>
+        <div class="botones-recursos">
+          <button class="btn-recargar" onclick="recargarIframe('manejo')">
+            <i class="fas fa-sync-alt"></i> Recargar
+          </button>
+          <button class="btn-abrir" onclick="abrirEnNuevaVentana('manejo')">
+            <i class="fas fa-external-link-alt"></i> Abrir externo
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- Sección Gasometría -->
+    <section class="seccion-contenido" id="gaso">
+      <h2><i class="fas fa-vial"></i> Gasometría</h2>
+      <p><strong>Significado clave:</strong> Prueba diagnóstica que analiza el equilibrio ácido-base y la oxigenación mediante medición de gases en sangre arterial.</p>
+      <p><strong>Prebriefing:</strong> En esta sesión aprenderás la técnica adecuada para la realización de gasometrías.</p>
+      <p><strong>Objetivos:</strong> </p>
+      <ul>
+        <li>Preparación del material</li>
+        <li>Selección del sitio de punción</li>
+        <li>Técnica de punción arterial</li>
+        <li>Interpretación de resultados</li>
+        <li>Manejo post-procedimiento</li>
+      </ul>
+      
+      <div class="web-optimizada">
+        <iframe 
+          src="https://www.youtube.com/embed/VIDEO_ID_GASO"
+          loading="eager"
+          title="Guía de Gasometría">
+        </iframe>
+        <div class="botones-recursos">
+          <button class="btn-recargar" onclick="recargarIframe('gaso')">
+            <i class="fas fa-sync-alt"></i> Recargar
+          </button>
+          <button class="btn-abrir" onclick="abrirEnNuevaVentana('gaso')">
+            <i class="fas fa-external-link-alt"></i> Abrir externo
+          </button>
+        </div>
       </div>
     </section>
   </main>
 
   <script>
-    // Control del menú lateral
-    const btnMenu = document.getElementById('btnMenu');
-    const menuLateral = document.getElementById('menuLateral');
-    const contenidoPrincipal = document.getElementById('contenidoPrincipal');
+    // ========== FUNCIONALIDAD DEL MENÚ ==========
+    document.addEventListener('DOMContentLoaded', function() {
+      const btnMenu = document.getElementById('btnMenu');
+      const menuLateral = document.getElementById('menuLateral');
+      const contenidoPrincipal = document.getElementById('contenidoPrincipal');
+      
+      // Control del menú
+      btnMenu.addEventListener('click', function(e) {
+        e.stopPropagation();
+        menuLateral.classList.toggle('activo');
+        contenidoPrincipal.classList.toggle('desplazado');
+        document.body.style.overflow = menuLateral.classList.contains('activo') ? 'hidden' : '';
+      });
 
-    btnMenu.addEventListener('click', () => {
-      menuLateral.classList.toggle('activo');
-      contenidoPrincipal.classList.toggle('desplazado');
-    });
-
-    // Navegación entre secciones
-    const enlacesMenu = document.querySelectorAll('.menu-lateral a');
-    const secciones = document.querySelectorAll('.seccion-contenido');
-
-    enlacesMenu.forEach(enlace => {
-      enlace.addEventListener('click', (e) => {
-        e.preventDefault();
-        const seccionId = enlace.getAttribute('data-seccion');
-        
-        // Ocultar todas las secciones
-        secciones.forEach(seccion => {
-          seccion.classList.remove('activo');
-        });
-        
-        // Mostrar la sección seleccionada
-        document.getElementById(seccionId).classList.add('activo');
-        
-        // Cerrar el menú en móviles
-        if (window.innerWidth <= 768) {
+      // Cerrar menú al hacer clic fuera
+      document.addEventListener('click', function(e) {
+        if (!menuLateral.contains(e.target) && e.target !== btnMenu) {
           menuLateral.classList.remove('activo');
           contenidoPrincipal.classList.remove('desplazado');
+          document.body.style.overflow = '';
         }
+      });
+
+      // Navegación entre secciones
+      document.querySelectorAll('.menu-lateral a').forEach(enlace => {
+        enlace.addEventListener('click', function(e) {
+          e.preventDefault();
+          const seccionId = this.getAttribute('data-seccion');
+          
+          document.querySelectorAll('.seccion-contenido').forEach(s => {
+            s.classList.remove('activo');
+          });
+          
+          document.getElementById(seccionId).classList.add('activo');
+          
+          if (window.innerWidth <= 768) {
+            menuLateral.classList.remove('activo');
+            contenidoPrincipal.classList.remove('desplazado');
+            document.body.style.overflow = '';
+          }
+          
+          // Desplazar al inicio de la sección
+          document.getElementById(seccionId).scrollIntoView({ behavior: 'smooth' });
+        });
       });
     });
 
-    // Mostrar sección de introducción por defecto
-    document.getElementById('introduccion').classList.add('activo');
+    // ========== FUNCIONES GLOBALES ==========
+    function recargarIframe(seccionId) {
+      const iframe = document.querySelector(`#${seccionId} iframe`);
+      iframe.src = iframe.src.split('?')[0] + '?t=' + Date.now();
+    }
+
+    function abrirEnNuevaVentana(seccionId) {
+      const iframe = document.querySelector(`#${seccionId} iframe`);
+      window.open(iframe.src.split('?')[0], '_blank');
+    }
   </script>
 </body>
 </html>
