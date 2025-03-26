@@ -909,6 +909,268 @@
                 padding: 10px 20px;
             }
         }
+         /* Estilos para el carrusel */
+         .team-carousel-container {
+        position: relative;
+        margin: 40px 0;
+    }
+    
+    .team-carousel {
+        display: flex;
+        overflow-x: auto;
+        scroll-behavior: smooth;
+        gap: 30px;
+        padding: 20px;
+        scrollbar-width: none; /* Oculta scrollbar en Firefox */
+        -ms-overflow-style: none; /* Oculta scrollbar en IE/Edge */
+    }
+    
+    .team-carousel::-webkit-scrollbar {
+        display: none; /* Oculta scrollbar en Chrome/Safari */
+    }
+    
+    .team-member {
+        flex: 0 0 auto;
+        width: 280px;
+        background: white;
+        border-radius: 12px;
+        overflow: hidden;
+        box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        transition: transform 0.3s;
+    }
+    
+    .carousel-btn {
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+        background: var(--primary-color);
+        color: white;
+        border: none;
+        width: 50px;
+        height: 50px;
+        border-radius: 50%;
+        cursor: pointer;
+        font-size: 1.2rem;
+        z-index: 10;
+        transition: all 0.3s;
+    }
+    
+    .prev-btn {
+        left: -25px;
+    }
+    
+    .next-btn {
+        right: -25px;
+    }
+    
+    .carousel-btn:hover {
+        background: var(--dark-blue);
+        transform: translateY(-50%) scale(1.1);
+    }
+    /* Estilos para móviles (hasta 768px) */
+@media (max-width: 768px) {
+    /* Header ajustado */
+    header {
+        height: 70px;
+        padding: 0.5rem 1rem;
+    }
+    
+    header h1 {
+        font-size: 1.3rem;
+    }
+    
+    header p {
+        font-size: 0.8rem;
+    }
+    
+    header img {
+        width: 40px;
+    }
+    
+    /* Navbar apilado */
+    nav {
+        top: 70px;
+        height: auto;
+        padding: 0.5rem;
+    }
+    
+    nav ul {
+        flex-direction: column;
+        gap: 5px;
+    }
+    
+    nav ul li {
+        width: 100%;
+    }
+    
+    nav ul li a {
+        justify-content: center;
+        padding: 8px;
+    }
+    
+    /* Ajuste del main */
+    main {
+        margin-top: 120px;
+        padding: 10px;
+    }
+    
+    /* Secciones más compactas */
+    .section {
+        padding: 20px 15px;
+        margin-bottom: 30px;
+    }
+    
+    h2 {
+        font-size: 1.5rem;
+    }
+    
+    /* Carrusel de equipo */
+    .team-carousel-container {
+        margin: 20px -15px;
+    }
+    
+    .team-carousel {
+        padding: 10px 15px;
+    }
+    
+    .team-member {
+        width: 85vw;
+    }
+    
+    .carousel-btn {
+        width: 40px;
+        height: 40px;
+        font-size: 1rem;
+    }
+    
+    .prev-btn {
+        left: 5px;
+    }
+    
+    .next-btn {
+        right: 5px;
+    }
+    
+    /* Tarjetas de conceptos */
+    .card-container {
+        grid-template-columns: 1fr;
+    }
+    
+    /* Videos responsivos */
+    .video-container video {
+        max-width: 100%;
+    }
+    
+    /* Hero section más compacta */
+    .hero {
+        height: auto;
+        min-height: 300px;
+        padding: 80px 20px 40px;
+    }
+    
+    .hero h2 {
+        font-size: 1.8rem;
+    }
+    
+    .hero p {
+        font-size: 1rem;
+    }
+}
+
+/* Estilos para tablets (769px a 1024px) */
+@media (min-width: 769px) and (max-width: 1024px) {
+    .card-container {
+        grid-template-columns: repeat(2, 1fr);
+    }
+    
+    .team-member {
+        width: 60vw;
+    }
+}
+/* Estilos del botón hamburguesa */
+.menu-toggle {
+    display: none; /* Oculto en desktop */
+    background: none;
+    border: none;
+    width: 30px;
+    height: 24px;
+    position: relative;
+    cursor: pointer;
+    z-index: 1001;
+    padding: 0;
+}
+
+.menu-toggle .bar {
+    display: block;
+    width: 100%;
+    height: 3px;
+    background: white;
+    position: absolute;
+    left: 0;
+    transition: all 0.3s ease;
+}
+
+.menu-toggle .bar:nth-child(1) { top: 0; }
+.menu-toggle .bar:nth-child(2) { top: 50%; transform: translateY(-50%); }
+.menu-toggle .bar:nth-child(3) { bottom: 0; }
+
+/* Estado abierto del menú */
+.menu-toggle.active .bar:nth-child(1) {
+    top: 50%;
+    transform: translateY(-50%) rotate(45deg);
+}
+
+.menu-toggle.active .bar:nth-child(2) {
+    opacity: 0;
+}
+
+.menu-toggle.active .bar:nth-child(3) {
+    bottom: 50%;
+    transform: translateY(50%) rotate(-45deg);
+}
+
+/* Estilos para móviles */
+@media (max-width: 768px) {
+    .menu-toggle {
+        display: block; /* Mostrar solo en móviles */
+    }
+    
+    #main-nav {
+        position: fixed;
+        top: 70px;
+        left: -100%;
+        width: 80%;
+        height: calc(100vh - 70px);
+        background: var(--gradient-blue);
+        transition: left 0.3s ease;
+        z-index: 1000;
+        overflow-y: auto;
+    }
+    
+    #main-nav.active {
+        left: 0;
+    }
+    
+    nav ul {
+        flex-direction: column;
+        padding: 20px;
+    }
+    
+    nav ul li {
+        margin: 10px 0;
+    }
+    
+    nav ul li a {
+        padding: 12px;
+        border-radius: 5px;
+    }
+    
+    /* Asegurar que el logo no se superponga */
+    header img {
+        position: static;
+        margin-left: auto;
+    }
+}
     </style>
 </head>
 <body>
@@ -918,11 +1180,17 @@
                 <h1>Columbus Hospital Simulation Center</h1>
                 <p>Asistente Virtual para Simuladores y Metodologías de Simulación Clínica</p>
             </div>
+                   <!-- Botón Hamburguesa -->
+        <button class="menu-toggle" aria-label="Menú">
+            <span class="bar"></span>
+            <span class="bar"></span>
+            <span class="bar"></span>
+        </button>
             <img src="logo.png" alt="Logo" class="animate__animated animate__fadeIn">
         </div>
     </header>
 
-    <nav>
+   <nav id="main-nav">
         <ul>
             <li><a href="#inicio"><i class="fas fa-home"></i> Inicio</a></li>
             <li><a href="#simuladores"><i class="fas fa-procedures"></i> Simuladores</a></li>
@@ -1381,7 +1649,7 @@
             <div class="team-grid">
                 <div class="team-member">
                     <div class="member-photo">
-                        <img src="https://images.unsplash.com/photo-1559839734-2b71ea197ec2?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80" alt="Directora">
+                        <img src="Fernando.jpg" alt="Directora">
                     </div>
                     <div class="member-info">
                         <h3>Dr. Fernando García</h3>
@@ -1390,7 +1658,7 @@
                 </div>
                 <div class="team-member">
                     <div class="member-photo">
-                        <img src="https://images.unsplash.com/photo-1594824476967-48c8b964273f?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80" alt="Coordinador">
+                        <img src="Jose Manuel.jpg" alt="Coordinador">
                     </div>
                     <div class="member-info">
                         <h3>Dr. Jose Manuel Rodríguez</h3>
@@ -1399,7 +1667,7 @@
                 </div>
                 <div class="team-member">
                     <div class="member-photo">
-                        <img src="https://images.unsplash.com/photo-1622253692010-333f2da6031d?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80" alt="Instructor">
+                        <img src="Hansell Soto.jpg" alt="Instructor">
                     </div>
                     <div class="member-info">
                         <h3>Tec. Hansell Soto</h3>
@@ -1408,7 +1676,7 @@
                 </div>
                 <div class="team-member">
                     <div class="member-photo">
-                        <img src="https://images.unsplash.com/photo-1573497019940-1c28c88b4f3e?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80" alt="Técnico">
+                        <img src="Rodni .jpg" alt="Técnico">
                     </div>
                     <div class="member-info">
                         <h3>Tec. Rodni Rodríguez</h3>
@@ -1489,6 +1757,47 @@
     </footer>
 
     <script>
+        document.addEventListener('DOMContentLoaded', function() {
+    const menuToggle = document.querySelector('.menu-toggle');
+    const mainNav = document.getElementById('main-nav');
+    
+    // Alternar menú al hacer clic
+    menuToggle.addEventListener('click', function() {
+        this.classList.toggle('active');
+        mainNav.classList.toggle('active');
+        
+        // Bloquear scroll del body cuando el menú está abierto
+        if(mainNav.classList.contains('active')) {
+            document.body.style.overflow = 'hidden';
+        } else {
+            document.body.style.overflow = '';
+        }
+    });
+    
+    // Cerrar menú al hacer clic en un enlace
+    document.querySelectorAll('#main-nav a').forEach(link => {
+        link.addEventListener('click', function() {
+            menuToggle.classList.remove('active');
+            mainNav.classList.remove('active');
+            document.body.style.overflow = '';
+        });
+    });
+});
+         // JavaScript para el carrusell
+    document.addEventListener('DOMContentLoaded', function() {
+        const carousel = document.querySelector('.team-carousel');
+        const prevBtn = document.querySelector('.prev-btn');
+        const nextBtn = document.querySelector('.next-btn');
+        const memberWidth = 280 + 30; // Ancho de miembro + gap
+        
+        nextBtn.addEventListener('click', () => {
+            carousel.scrollBy({ left: memberWidth, behavior: 'smooth' });
+        });
+        
+        prevBtn.addEventListener('click', () => {
+            carousel.scrollBy({ left: -memberWidth, behavior: 'smooth' });
+        });
+    });
         // Mostrar/ocultar submenú
         document.getElementById('prebriefing').addEventListener('click', function(event) {
             event.preventDefault();
