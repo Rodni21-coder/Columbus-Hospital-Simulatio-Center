@@ -738,62 +738,99 @@
 
         /* Footer mejorado */
         footer {
-            background: var(--gradient-blue);
-            color: white;
-            text-align: center;
-            padding: 40px 20px;
-            margin-top: 60px;
-            position: relative;
-        }
+        background: var(--gradient-blue);
+        color: white;
+        padding: 40px 20px 20px;
+        position: relative;
+    }
 
-        footer::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 10px;
-            background: linear-gradient(90deg, var(--primary-color), var(--accent-color));
-        }
+    .footer-container {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-between;
+        max-width: 1200px;
+        margin: 0 auto;
+        gap: 30px;
+    }
 
-        footer p {
-            margin-bottom: 10px;
-        }
+    .footer-left, .footer-center, .footer-right {
+        flex: 1;
+        min-width: 250px;
+    }
 
-        .footer-links {
-            display: flex;
-            justify-content: center;
+    .footer-logo {
+        width: 250px;
+        height: auto;
+        margin-bottom: 15px;
+     /* Convierte el logo a blanco */
+    }
+
+    .footer-email {
+        margin-top: 10px;
+        font-size: 0.9rem;
+    }
+
+    .footer-center p {
+        margin-bottom: 10px;
+        line-height: 1.6;
+    }
+
+    .social-icons {
+        display: flex;
+        gap: 15px;
+        margin-bottom: 20px;
+    }
+
+    .social-icons a {
+        color: white;
+        font-size: 1.5rem;
+        transition: transform 0.3s;
+    }
+
+    .social-icons a:hover {
+        transform: translateY(-5px);
+    }
+
+    .footer-links {
+        margin-top: 20px;
+    }
+
+    .footer-links a {
+        color: white;
+        text-decoration: none;
+        margin: 0 5px;
+    }
+
+    .footer-bottom {
+        text-align: center;
+        margin-top: 40px;
+        padding-top: 20px;
+        border-top: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    /* Responsive para móviles */
+    @media (max-width: 768px) {
+        .footer-container {
+            flex-direction: column;
             gap: 20px;
-            margin: 20px 0;
         }
 
-        .footer-links a {
-            color: white;
-            text-decoration: none;
-            transition: opacity 0.3s;
+        .footer-left {
+            text-align: center;
         }
 
-        .footer-links a:hover {
-            opacity: 0.8;
-            text-decoration: underline;
+        .footer-logo {
+            margin: 0 auto 15px;
         }
 
         .social-icons {
-            display: flex;
             justify-content: center;
-            gap: 15px;
-            margin: 20px 0;
         }
 
-        .social-icons a {
-            color: white;
-            font-size: 1.5rem;
-            transition: transform 0.3s;
+        .footer-links {
+            text-align: center;
         }
-
-        .social-icons a:hover {
-            transform: translateY(-5px);
-        }
+    }
 
         /* Animaciones */
         @keyframes fadeIn {
@@ -1519,7 +1556,7 @@
                 <!-- Tarjeta 7 -->
                 <div class="card">
                     <div class="card-image" style="background: linear-gradient(135deg, #0b057a 0%, #34a853 100%);">
-                        <i class="fas fa-mask"></i>
+                        <i class="fas fa-band-aid"></i>
                     </div>
                     <div class="card-content">
                         <h3>Moulage</h3>
@@ -1739,31 +1776,43 @@
             </div>
         </section>
     </main>
-
     <footer>
-        <div class="footer-links">
-            <a href="#inicio">Inicio</a>
-            <a href="#simuladores">Simuladores</a>
-            <a href="#equipo">Equipo</a>
-            <a href="#mision">Misión/Visión</a>
-            <a href="#juegos">Juegos</a>
-            <a href="calendario.html">Calendario</a>
+        <div class="footer-container">
+            <!-- Columna izquierda con logo y correo -->
+            <div class="footer-left">
+                <img src="COLUMBUS_UNI.png" alt="Logo Columbus Hospital" class="footer-logo">
+                <p class="footer-email">contacto@columbus.edu</p>
+            </div>
+    
+            <!-- Columna central con información -->
+            <div class="footer-center">
+                <p>Columbus Hospital Simulation Center</p>
+                <p>Av. Calle 50 Edificio 54, Ciudad de panamá</p>
+                <p>Teléfono: (123) 456-7890</p>
+                <p>Email: info@columbushospital.edu</p>
+            </div>
+    
+            <!-- Columna derecha con redes sociales -->
+            <div class="footer-right">
+                <div class="social-icons">
+                    <a href="#" aria-label="Facebook"><i class="fab fa-facebook"></i></a>
+                    <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+                    <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                    <a href="#" aria-label="LinkedIn"><i class="fab fa-linkedin"></i></a>
+                    <a href="#" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
+                </div>
+                <div class="footer-links">
+                    <a href="#inicio">Inicio</a> |
+                    <a href="#simuladores">Simuladores</a> |
+                    <a href="#equipo">Equipo</a>
+                </div>
+            </div>
         </div>
-        
-        <div class="social-icons">
-            <a href="#"><i class="fab fa-facebook"></i></a>
-            <a href="#"><i class="fab fa-twitter"></i></a>
-            <a href="#"><i class="fab fa-instagram"></i></a>
-            <a href="#"><i class="fab fa-linkedin"></i></a>
-            <a href="#"><i class="fab fa-youtube"></i></a>
+    
+        <div class="footer-bottom">
+            <p>&copy; 2025 Columbus Hospital Simulation Center. Todos los derechos reservados.</p>
+            <p>Desarrollado por Tec. de Simulación clínica Rodni Rodríguez</p>
         </div>
-        
-        <p>Columbus Hospital Simulation Center</p>
-        <p>Av. Principal 1234, Ciudad</p>
-        <p>Teléfono: (123) 456-7890</p>
-        <p>Email: info@columbushospital.edu</p>
-        <p>&copy; 2025 Columbus Hospital Simulation Center. Todos los derechos reservados.</p>
-        <p>Desarrollado por Tec. de Simulación clínica Rodni Rodríguez</p>
     </footer>
 
     <script>
