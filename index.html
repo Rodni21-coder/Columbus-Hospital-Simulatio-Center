@@ -1,10 +1,11 @@
-<!DOCTYPE html>
+!DOCTYPE html>
 <html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Columbus Hospital Simulation Center</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
     <style>
         :root {
             --primary-color: #0b057a;
@@ -12,6 +13,8 @@
             --accent-color: #34a853;
             --text-color: #333;
             --light-gray: #e8eaed;
+            --dark-blue: #0d47a1;
+            --gradient-blue: linear-gradient(135deg, #0b057a 0%, #0d47a1 100%);
         }
 
         * {
@@ -25,68 +28,71 @@
             color: var(--text-color);
             line-height: 1.6;
             background-color: #f5f7fa;
+            overflow-x: hidden;
         }
 
+        /* Header moderno con efecto de vidrio */
         header {
-            background-color: var(--primary-color);
-            color: white;
-            padding: 1rem 2rem; /* Padding vertical y horizontal */
+            background: rgba(11, 5, 122, 0.9);
+         backdrop-filter: blur(10px);
+          color: white;
+         padding: 1rem 2rem;
+         display: flex;
+         align-items: center;
+         position: fixed;
+         width: 100%;
+         top: 0;
+         z-index: 1000;
+         box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+         border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+         height: 80px;
+        }
+
+        .header-content {
             display: flex;
             align-items: center;
-            justify-content: center; /* Centra el contenido */
-            position: relative; /* Para posicionar el logo */
+            width: 100%;
+            justify-content: space-between;
         }
 
         .title-container {
-            text-align: center; /* Centra el texto del título */
+            text-align: left;
         }
 
         header img {
-            width: 60px; /* Tamaño del logo */
+            width: 60px;
             height: auto;
-            border-radius: 8px; /* Opcional: bordes redondeados */
-            position: absolute; /* Posiciona el logo a la derecha */
-            right: 2rem; /* Distancia desde el borde derecho */
+            border-radius: 8px;
+            transition: transform 0.3s;
+        }
+
+        header img:hover {
+            transform: scale(1.05);
         }
 
         header h1 {
-            font-size: 1.8rem; /* Tamaño del título */
-            margin: 0; /* Eliminar márgenes predeterminados */
+            font-size: 1.8rem;
+            margin: 0;
+            background: linear-gradient(to right, #fff, #ddd);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
         }
 
         header p {
-            font-size: 1rem; /* Tamaño del texto */
-            margin: 0; /* Eliminar márgenes predeterminados */
+            font-size: 1rem;
+            margin: 0;
+            opacity: 0.9;
         }
 
-        /* Ajustes para pantallas pequeñas */
-        @media (max-width: 768px) {
-            header {
-                flex-direction: column; /* Apilar elementos verticalmente */
-                gap: 10px; /* Espacio entre elementos */
-                padding: 1rem; /* Reducir el padding en móviles */
-            }
-
-            header img {
-                position: static; /* Quitar posición absoluta en móviles */
-                width: 50px; /* Reducir más el tamaño del logo en móviles */
-                margin-top: 10px; /* Espacio entre el título y el logo */
-            }
-
-            header h1 {
-                font-size: 1.5rem; /* Reducir más el tamaño del título en móviles */
-            }
-
-            header p {
-                font-size: 0.9rem; /* Reducir más el tamaño del texto en móviles */
-            }
-        }
+        /* Navbar moderno */
         nav {
-            background-color: #0d47a1;
-            padding: 1rem;
+            background: var(--gradient-blue);
+            padding: 0.8rem 1rem;
             position: sticky;
-            top: 0;
-            z-index: 100;
+            top: 80px;
+            z-index: 999;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
         }
 
         nav ul {
@@ -94,352 +100,868 @@
             justify-content: center;
             flex-wrap: wrap;
             list-style: none;
+            gap: 5px;
         }
 
         nav ul li {
-            margin: 0 15px;
+            position: relative;
         }
 
         nav ul li a {
             color: white;
             text-decoration: none;
             font-weight: 500;
-            padding: 5px 10px;
-            border-radius: 5px;
-            transition: background-color 0.3s;
+            padding: 8px 15px;
+            border-radius: 30px;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            font-size: 0.9rem;
         }
 
         nav ul li a:hover {
-            background-color: rgba(255, 255, 255, 0.2);
+            background: rgba(255, 255, 255, 0.2);
+            transform: translateY(-2px);
         }
-        .calendar-icon {
+
+        nav ul li a i {
             margin-right: 5px;
         }
 
-        main {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 20px;
-        }
-
-        .section {
-            margin-bottom: 40px;
-            background-color: white;
+        /* Submenú mejorado */
+        #prebriefingSubmenu {
+            display: none;
+            position: absolute;
+            background: white;
             border-radius: 8px;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-            padding: 25px;
-        }
-
-        h2 {
-            font-size: 1.8rem;
-            color: var(--primary-color);
-            margin-bottom: 15px;
-            padding-bottom: 10px;
-            border-bottom: 2px solid var(--light-gray);
-        }
-
-        h3 {
-            font-size: 1.5rem;
-            color: var(--primary-color);
-            margin: 20px 0 10px 0;
-        }
-
-        p {
-            margin-bottom: 15px;
-        }
-        main {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 20px;
-        }
-
-        .section {
-            margin-bottom: 40px;
-            background-color: white;
-            border-radius: 8px;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-            padding: 25px;
-        }
-
-        h2 {
-            font-size: 1.8rem;
-            color: var(--primary-color);
-            margin-bottom: 15px;
-            padding-bottom: 10px;
-            border-bottom: 2px solid var(--light-gray);
-        }
-
-        h3 {
-            font-size: 1.5rem;
-            color: var(--primary-color);
-            margin: 20px 0 10px 0;
-        }
-
-        p {
-            margin-bottom: 15px;
-        }
-
-        ul, ol {
-            margin-left: 20px;
-            margin-bottom: 15px;
-        }
-
-        li {
-            margin-bottom: 8px;
-        }
-
-        .card-container {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 20px;
-            justify-content: center;
-            margin-top: 25px;
-        }
-
-        .card {
-            background-color: white;
-            border-radius: 8px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+            min-width: 200px;
+            top: 100%;
+            left: 0;
+            z-index: 100;
             overflow: hidden;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-            flex-basis: calc(33.33% - 20px);
-            min-width: 280px;
-            transition: transform 0.3s, box-shadow 0.3s;
+            animation: fadeIn 0.3s ease-out;
         }
 
-        .card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
+        #prebriefingSubmenu li {
+            width: 100%;
+            margin: 0;
         }
 
-        .card-image {
-            height: 180px;
-            background-color: var(--light-gray);
+        #prebriefingSubmenu li a {
+            color: var(--primary-color);
+            border-radius: 0;
+            padding: 10px 15px;
+            justify-content: flex-start;
+        }
+
+        #prebriefingSubmenu li a:hover {
+            background: var(--light-gray);
+            color: var(--dark-blue);
+        }
+
+        /* Main content con padding para el header fijo */
+        main {
+            max-width: 1400px;
+            margin: 120px auto 0;
+            padding: 20px;
+        }
+
+        /* Hero section */
+        .hero {
+            height: 500px;
+            background: var(--gradient-blue);
+            border-radius: 15px;
+            overflow: hidden;
+            position: relative;
+            margin-bottom: 40px;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-weight: bold;
-            font-size: 1.1rem;
-            color: #555;
-        }
-
-        .card-content {
-            padding: 15px;
-        }
-
-        .card h3 {
-            color: var(--primary-color);
-            margin-top: 0;
-        }
-
-        .btn {
-            display: inline-block;
-            padding: 10px 20px;
-            background-color: var(--primary-color);
-            color: white;
-            text-decoration: none;
-            border-radius: 4px;
-            font-weight: 500;
-            transition: background-color 0.3s;
-            cursor: pointer;
-        }
-
-        .btn:hover {
-            background-color: #0d47a1;
-        }
-
-        footer {
-            background-color: #0d47a1;
             color: white;
             text-align: center;
-            padding: 20px;
-            margin-top: 40px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
         }
 
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            padding: 2rem;
+            max-width: 800px;
+        }
+
+        .hero h2 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            color: white;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+            opacity: 0.9;
+        }
+
+        .hero-btn {
+            background: white;
+            color: var(--primary-color);
+            padding: 12px 30px;
+            border-radius: 30px;
+            font-weight: bold;
+            text-decoration: none;
+            transition: all 0.3s;
+            display: inline-block;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .hero-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+        }
+
+        /* Slider de imágenes automático */
+        .image-slider {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 1;
+            opacity: 0.7;
+        }
+
+        .slider-image {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            opacity: 0;
+            transition: opacity 1s ease-in-out;
+        }
+
+        .slider-image.active {
+            opacity: 1;
+        }
+
+        /* Secciones modernas */
+        .section {
+            margin-bottom: 50px;
+            background-color: white;
+            border-radius: 12px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+            padding: 30px;
+            transition: transform 0.3s, box-shadow 0.3s;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .section:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+        }
+
+        .section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 5px;
+            height: 100%;
+            background: var(--gradient-blue);
+        }
+
+        h2 {
+            font-size: 2rem;
+            color: var(--primary-color);
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid var(--light-gray);
+            position: relative;
+        }
+
+        h2::after {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            left: 0;
+            width: 100px;
+            height: 3px;
+            background: var(--accent-color);
+        }
+
+        h3 {
+            font-size: 1.5rem;
+            color: var(--primary-color);
+            margin: 20px 0 15px 0;
+        }
+
+        p {
+            margin-bottom: 15px;
+            line-height: 1.7;
+        }
+
+        /* Tabs modernos */
+        .tab-container {
+            display: flex;
+            border-bottom: 2px solid var(--light-gray);
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+            gap: 5px;
+        }
+
+        .tab {
+            padding: 10px 20px;
+            cursor: pointer;
+            border-radius: 8px 8px 0 0;
+            transition: all 0.3s;
+            font-weight: 500;
+            background: var(--light-gray);
+            color: #555;
+            margin-bottom: -2px;
+        }
+
+        .tab.active {
+            background: var(--primary-color);
+            color: white;
+            box-shadow: 0 4px 8px rgba(11, 5, 122, 0.2);
+        }
+
+        .tab:hover:not(.active) {
+            background: rgba(11, 5, 122, 0.1);
+        }
+
+        /* Simuladores mejorados */
         .simulator-info {
             display: none;
+            animation: fadeIn 0.5s ease-out;
         }
 
         .simulator-info.active {
             display: block;
         }
 
-        .tab-container {
+        .simulator-header {
             display: flex;
-            border-bottom: 2px solid var(--light-gray);
+            align-items: center;
             margin-bottom: 20px;
+            gap: 20px;
             flex-wrap: wrap;
         }
 
-        .tab {
-            padding: 10px 20px;
-            cursor: pointer;
-            border-bottom: 2px solid transparent;
-            margin-bottom: -2px;
-            transition: all 0.3s;
+        .simulator-title {
+            flex: 1;
+            min-width: 300px;
         }
 
-        .tab.active {
-            border-bottom: 2px solid var(--primary-color);
-            color: var(--primary-color);
-            font-weight: bold;
-        }
-
-        .benefit-card {
-            background-color: #e8f5e9;
+        .simulator-features {
+            flex: 1;
+            min-width: 300px;
+            background: #f8f9ff;
+            padding: 20px;
+            border-radius: 10px;
             border-left: 4px solid var(--accent-color);
-            padding: 15px;
+        }
+
+        /* Video container mejorado */
+        .video-container {
+            margin: 25px 0;
+            text-align: center;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+            position: relative;
+        }
+
+        .video-container::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(11, 5, 122, 0.1);
+            z-index: 1;
+            pointer-events: none;
+        }
+
+        .video-container video {
+            width: 100%;
+            max-width: 800px;
+            height: auto;
+            display: block;
+            margin: 0 auto;
+        }
+
+        /* Cards modernas */
+        .card-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 25px;
+            margin-top: 30px;
+        }
+
+        .card {
+            background-color: white;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s;
+            position: relative;
+            border: 1px solid rgba(0, 0, 0, 0.05);
+        }
+
+        .card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
+        }
+
+        .card-image {
+            height: 200px;
+            background: var(--gradient-blue);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 3rem;
+        }
+
+        .card-content {
+            padding: 20px;
+        }
+
+        .card h3 {
+            color: var(--primary-color);
+            margin-top: 0;
             margin-bottom: 15px;
-            border-radius: 4px;
+            font-size: 1.4rem;
+        }
+
+        .card p {
+            color: #555;
+            margin-bottom: 20px;
+        }
+
+        /* Fases de simulación mejoradas */
+        .phase-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin-top: 30px;
         }
 
         .phase-card {
-            background-color: #fff;
-            border: 1px solid var(--light-gray);
-            border-radius: 8px;
-            padding: 15px;
-            margin-bottom: 15px;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+            background-color: white;
+            border-radius: 12px;
+            padding: 25px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            transition: all 0.3s;
+            border-top: 4px solid var(--primary-color);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .phase-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
         }
 
         .phase-card h4 {
             color: var(--primary-color);
-            margin-bottom: 10px;
+            margin-bottom: 15px;
+            font-size: 1.3rem;
+            position: relative;
+            display: inline-block;
         }
 
-        .video-container {
-            margin: 20px 0;
+        .phase-card h4::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 40px;
+            height: 3px;
+            background: var(--accent-color);
+        }
+
+        .phase-card p {
+            color: #555;
+        }
+
+        /* Beneficios mejorados */
+        .benefit-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin-top: 30px;
+        }
+
+        .benefit-card {
+            background-color: white;
+            border-radius: 12px;
+            padding: 25px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            transition: all 0.3s;
+            border-left: 4px solid var(--accent-color);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .benefit-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(52, 168, 83, 0.05) 0%, rgba(11, 5, 122, 0.05) 100%);
+            z-index: 0;
+        }
+
+        .benefit-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+        }
+
+        .benefit-card h4 {
+            color: var(--primary-color);
+            margin-bottom: 15px;
+            font-size: 1.3rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        .benefit-card p {
+            color: #555;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* Juegos mejorados */
+        .game-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 25px;
+            margin-top: 30px;
+        }
+
+        .game-card {
+            background: white;
+            border-radius: 12px;
+            padding: 30px;
+            text-align: center;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .game-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 5px;
+            background: var(--gradient-blue);
+        }
+
+        .game-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
+        }
+
+        .game-icon {
+            font-size: 3.5rem;
+            color: var(--primary-color);
+            margin-bottom: 20px;
+            transition: transform 0.3s;
+        }
+
+        .game-card:hover .game-icon {
+            transform: scale(1.1);
+        }
+
+        .game-card h3 {
+            color: var(--primary-color);
+            margin-bottom: 15px;
+            font-size: 1.4rem;
+        }
+
+        .game-card p {
+            color: #555;
+            margin-bottom: 20px;
+        }
+
+        .game-link {
+            display: inline-block;
+            padding: 10px 25px;
+            background: var(--gradient-blue);
+            color: white;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: bold;
+            transition: all 0.3s;
+            box-shadow: 0 4px 10px rgba(11, 5, 122, 0.2);
+        }
+
+        .game-link:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(11, 5, 122, 0.3);
+        }
+
+        /* Equipo del hospital */
+        .team-section {
+            background: #f8f9ff;
+            padding: 40px;
+            border-radius: 15px;
+            margin: 40px 0;
+        }
+
+        .team-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+            margin-top: 30px;
+        }
+
+        .team-member {
+            background: white;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s;
             text-align: center;
         }
 
-        .video-container iframe {
+        .team-member:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
+        }
+
+        .member-photo {
+            height: 200px;
+            background: var(--light-gray);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .member-photo img {
             width: 100%;
-            max-width: 560px;
-            height: 315px;
-            border: none;
-            border-radius: 8px;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s;
+        }
+
+        .team-member:hover .member-photo img {
+            transform: scale(1.1);
+        }
+
+        .member-info {
+            padding: 20px;
+        }
+
+        .member-info h3 {
+            color: var(--primary-color);
+            margin-bottom: 5px;
+        }
+
+        .member-info p {
+            color: #666;
+            font-style: italic;
+        }
+
+        /* Misión y Visión */
+        .mission-vision {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-top: 40px;
+        }
+
+        .mission-card, .vision-card {
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            position: relative;
+            overflow: hidden;
+            transition: all 0.3s;
+        }
+
+        .mission-card:hover, .vision-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
+        }
+
+        .mission-card::before, .vision-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 5px;
+        }
+
+        .mission-card::before {
+            background: var(--primary-color);
+        }
+
+        .vision-card::before {
+            background: var(--accent-color);
+        }
+
+        .mission-card h3, .vision-card h3 {
+            color: var(--primary-color);
+            margin-bottom: 20px;
+            font-size: 1.6rem;
+            position: relative;
+            padding-bottom: 10px;
+        }
+
+        .mission-card h3::after, .vision-card h3::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 50px;
+            height: 3px;
+        }
+
+        .mission-card h3::after {
+            background: var(--primary-color);
+        }
+
+        .vision-card h3::after {
+            background: var(--accent-color);
+        }
+
+        /* Footer mejorado */
+        footer {
+            background: var(--gradient-blue);
+            color: white;
+            text-align: center;
+            padding: 40px 20px;
+            margin-top: 60px;
+            position: relative;
+        }
+
+        footer::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 10px;
+            background: linear-gradient(90deg, var(--primary-color), var(--accent-color));
+        }
+
+        footer p {
+            margin-bottom: 10px;
+        }
+
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin: 20px 0;
+        }
+
+        .footer-links a {
+            color: white;
+            text-decoration: none;
+            transition: opacity 0.3s;
+        }
+
+        .footer-links a:hover {
+            opacity: 0.8;
+            text-decoration: underline;
+        }
+
+        .social-icons {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin: 20px 0;
+        }
+
+        .social-icons a {
+            color: white;
+            font-size: 1.5rem;
+            transition: transform 0.3s;
+        }
+
+        .social-icons a:hover {
+            transform: translateY(-5px);
+        }
+
+        /* Animaciones */
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @keyframes slideIn {
+            from { transform: translateY(20px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+
+        /* Efectos de aparición */
+        .animate-section {
+            animation: slideIn 0.8s ease-out forwards;
+        }
+
+        /* Responsive design */
+        @media (max-width: 992px) {
+            header {
+                padding: 1rem;
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .header-content {
+                flex-direction: column;
+                gap: 15px;
+            }
+
+            header img {
+                position: static;
+                margin-top: 10px;
+            }
+
+            nav {
+                top: 140px;
+            }
+
+            main {
+                margin-top: 160px;
+            }
+
+            .hero {
+                height: 400px;
+            }
+
+            .hero h2 {
+                font-size: 2rem;
+            }
         }
 
         @media (max-width: 768px) {
-            .card {
-                flex-basis: 100%;
-            }
-
             nav ul {
                 flex-direction: column;
                 align-items: center;
             }
 
             nav ul li {
-                margin: 5px 0;
+                width: 100%;
+                text-align: center;
             }
 
-            .tab-container {
+            #prebriefingSubmenu {
+                position: static;
+                width: 100%;
+                margin-top: 5px;
+            }
+
+            .simulator-header {
                 flex-direction: column;
             }
 
-            .tab {
-                border-bottom: 1px solid var(--light-gray);
-                margin-bottom: 0;
+            .simulator-features {
+                width: 100%;
             }
 
-            .tab.active {
-                border-bottom: 1px solid var(--primary-color);
-                border-left: 4px solid var(--primary-color);
+            .hero {
+                height: 350px;
+            }
+
+            .hero h2 {
+                font-size: 1.8rem;
+            }
+
+            .hero p {
+                font-size: 1rem;
             }
         }
-        .video-container {
-            margin: 20px 0;
-            text-align: center;
-        }
 
-        .video-container video {
-            width: 100%;
-            max-width: 600px; /* Ajusta el ancho máximo del video */
-            height: auto;
-            border-radius: 8px;
-        }
+        @media (max-width: 576px) {
+            .section {
+                padding: 20px;
+            }
 
-        /* Estilos para la nueva sección de juegos */
-        .game-card {
-            background-color: #f0f7ff;
-            border-radius: 10px;
-            padding: 20px;
-            text-align: center;
-            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-            transition: transform 0.3s;
-            margin: 20px 0;
-        }
+            h2 {
+                font-size: 1.6rem;
+            }
 
-        .game-card:hover {
-            transform: translateY(-5px);
-        }
+            h3 {
+                font-size: 1.3rem;
+            }
 
-        .game-icon {
-            font-size: 3rem;
-            color: var(--primary-color);
-            margin-bottom: 15px;
-        }
+            .hero {
+                height: 300px;
+            }
 
-        .game-link {
-            display: inline-block;
-            margin-top: 10px;
-            color: var(--primary-color);
-            font-weight: bold;
-            text-decoration: none;
-            transition: color 0.3s;
-        }
+            .hero h2 {
+                font-size: 1.5rem;
+            }
 
-        .game-link:hover {
-            color: #0d47a1;
-            text-decoration: underline;
+            .hero-btn {
+                padding: 10px 20px;
+            }
         }
-</style>
+    </style>
 </head>
 <body>
     <header>
-        <div>
-            <h1>Columbus Hospital Simulation Center</h1>
-            <p>Asistente Virtual para Simuladores y Metodologías de Simulación Clínica</p>
+        <div class="header-content">
+            <div class="title-container">
+                <h1>Columbus Hospital Simulation Center</h1>
+                <p>Asistente Virtual para Simuladores y Metodologías de Simulación Clínica</p>
+            </div>
+            <img src="logo.png" alt="Logo" class="animate__animated animate__fadeIn">
         </div>
-
-        <!-- Logo a la derecha -->
-        <img src="logo.png" alt="Logo">
     </header>
 
-     <nav>
+    <nav>
         <ul>
-            <li><a href="#simuladores">Simuladores</a></li>
-            <li><a href="#metodos">Métodos de Aprendizaje</a></li>
-            <li><a href="#fases">Fases de Simulación</a></li>
-            <li><a href="#conceptos">Conceptos Clave</a></li>
-            <li><a href="#beneficios">Beneficios</a></li>
-            <li><a href="#juegos">Juegos</a></li>
+            <li><a href="#inicio"><i class="fas fa-home"></i> Inicio</a></li>
+            <li><a href="#simuladores"><i class="fas fa-procedures"></i> Simuladores</a></li>
+            <li><a href="#metodos"><i class="fas fa-brain"></i> Métodos</a></li>
+            <li><a href="#equipo"><i class="fas fa-users"></i> Equipo</a></li>
+            <li><a href="#mision"><i class="fas fa-bullseye"></i> Misión/Visión</a></li>
+            <li><a href="#juegos"><i class="fas fa-gamepad"></i> Juegos</a></li>
             <li>
                 <a href="#" id="prebriefing"><i class="fas fa-chalkboard-teacher"></i> Prebriefing</a>
-                <ul id="prebriefingSubmenu" style="display: none;">
-                    <li><a href="prebriefing.html">Habilidades y Destrezas</a></li>
-                    <li><a href="Prebiefing de rcp.html">Área de RCP</a></li>
+                <ul id="prebriefingSubmenu">
+                    <li><a href="prebriefing.html"><i class="fas fa-hand-holding-medical"></i> Habilidades y Destrezas</a></li>
+                    <li><a href="Prebiefing de rcp.html"><i class="fas fa-heartbeat"></i> Área de RCP</a></li>
                 </ul>
             </li>
             <li><a href="calendario.html"><i class="fas fa-calendar-alt"></i> Calendario</a></li>
         </ul>
     </nav>
-    <script>
-        document.getElementById('prebriefing').addEventListener('click', function(event) {
-            event.preventDefault();
-            var submenu = document.getElementById('prebriefingSubmenu');
-            if (submenu.style.display === 'none') {
-                submenu.style.display = 'block';
-            } else {
-                submenu.style.display = 'none';
-            }
-        });
-    </script>
+
     <main>
+        <!-- Hero Section con slider automático -->
+        <section id="inicio" class="hero animate__animated animate__fadeIn">
+            <div class="hero-content">
+                <h2>Innovación en Simulación Clínica</h2>
+                <p>Formando profesionales de la salud con tecnología de vanguardia y metodologías educativas avanzadas</p>
+                <a href="#simuladores" class="hero-btn">Explorar Simuladores</a>
+            </div>
+            
+            <div class="image-slider">
+                <img src="https://images.unsplash.com/photo-1579684385127-1ef15d508118?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Simulación clínica" class="slider-image active">
+                <img src="https://images.unsplash.com/photo-1581595219315-a187dd40c322?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Entrenamiento médico" class="slider-image">
+                <img src="https://images.unsplash.com/photo-1576091160550-2173dba999ef?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Tecnología médica" class="slider-image">
+                <img src="https://images.unsplash.com/photo-1579165466749-5650df9a601f?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Equipo médico" class="slider-image">
+            </div>
+        </section>
+
         <!-- Sección de Simuladores -->
-        <section id="simuladores" class="section">
+        <section id="simuladores" class="section animate-section">
             <h2>Simuladores del Columbus Hospital Simulation Center</h2>
-            <p>El Columbus Hospital Simulation Center cuenta con simuladores de alta, Mediana , Baja fidelidad e inteligencia artifical; Diseñados para replicar escenarios clínicos reales, permitiendo a los estudiantes practicar habilidades médicas en un entorno seguro y controlado.</p>
+            <p>El Columbus Hospital Simulation Center cuenta con simuladores de alta, mediana y baja fidelidad, diseñados para replicar escenarios clínicos reales, permitiendo a los estudiantes practicar habilidades médicas en un entorno seguro y controlado.</p>
 
             <div class="tab-container">
                 <div class="tab active" onclick="showSimulator('victoria')">Victoria</div>
@@ -452,130 +974,155 @@
             <div id="simulatorContent">
                 <!-- Simulador Victoria -->
                 <div id="victoria" class="simulator-info active">
-                    <h3>Victoria - Simulador de Parto</h3>
-                    <div class="video-container">
-                        <video controls autoplay muted loop>
-                            <source src="saveinsta.cc_720p-gaumard-r-victoria-r-s2200-how-to-video-series.mp4" type="video/mp4">
-                            Tu navegador no soporta el elemento de video.
-                        </video>
+                    <div class="simulator-header">
+                        <div class="simulator-title">
+                            <h3>Victoria - Simulador de Parto</h3>
+                            <div class="video-container">
+                                <video controls autoplay muted loop>
+                                    <source src="saveinsta.cc_720p-gaumard-r-victoria-r-s2200-how-to-video-series.mp4" type="video/mp4">
+                                    Tu navegador no soporta el elemento de video.
+                                </video>
+                            </div>
+                            <p>Victoria es un simulador obstétrico de alta fidelidad diseñado para entrenar a profesionales en el manejo del parto y las emergencias obstétricas.</p>
+                        </div>
+                        <div class="simulator-features">
+                            <h4>Características principales:</h4>
+                            <ul>
+                                <li><strong>Parto automático:</strong> Simula diferentes etapas y complicaciones del trabajo de parto</li>
+                                <li><strong>Signos vitales maternos:</strong> Monitorizables y programables (frecuencia cardíaca, presión arterial, SpO2)</li>
+                                <li><strong>Signos vitales fetales:</strong> Monitorizables y programables</li>
+                                <li><strong>Hemorragia postparto:</strong> Simulación realista con flujo de sangre programable</li>
+                                <li><strong>Convulsiones:</strong> Simulación de preeclampsia/eclampsia</li>
+                                <li><strong>Vías respiratorias intubables:</strong> Permite practicar intubación y ventilación</li>
+                                <li><strong>Bebé con signos vitales:</strong> Incluye un simulador neonatal integrado</li>
+                            </ul>
+                        </div>
                     </div>
-                    <p>Victoria es un simulador obstétrico de alta fidelidad diseñado para entrenar a profesionales en el manejo del parto y las emergencias obstétricas.</p>
-
-                    <h4>Características principales:</h4>
-                    <ul>
-                        <li><strong>Parto automático:</strong> Simula diferentes etapas y complicaciones del trabajo de parto</li>
-                        <li><strong>Signos vitales maternos:</strong> Monitorizables y programables (frecuencia cardíaca, presión arterial, SpO2)</li>
-                        <li><strong>Signos vitales fetales:</strong> Monitorizables y programables</li>
-                        <li><strong>Hemorragia postparto:</strong> Simulación realista con flujo de sangre programable</li>
-                        <li><strong>Convulsiones:</strong> Simulación de preeclampsia/eclampsia</li>
-                        <li><strong>Vías respiratorias intubables:</strong> Permite practicar intubación y ventilación</li>
-                        <li><strong>Bebé con signos vitales:</strong> Incluye un simulador neonatal integrado</li>
-                    </ul>
                 </div>
 
                 <!-- Simulador Trauma HAL -->
                 <div id="trauma" class="simulator-info">
-                    <h3>Trauma HAL</h3>
-                    <div class="video-container">
-                        <video controls autoplay muted loop>
-                            <source src="saveinstacc-720p-mannequin-de-simulation-medicale-trauma-hal-s3040-100-1_urBFZwJ5.mp4" type="video/mp4">
-                            Tu navegador no soporta el elemento de video.
-                        </video>
+                    <div class="simulator-header">
+                        <div class="simulator-title">
+                            <h3>Trauma HAL</h3>
+                            <div class="video-container">
+                                <video controls autoplay muted loop>
+                                    <source src="saveinstacc-720p-mannequin-de-simulation-medicale-trauma-hal-s3040-100-1_urBFZwJ5.mp4" type="video/mp4">
+                                    Tu navegador no soporta el elemento de video.
+                                </video>
+                            </div>
+                            <p>Trauma HAL es un simulador avanzado diseñado específicamente para la formación en trauma y emergencias, permitiendo escenarios de alta fidelidad en múltiples entornos.</p>
+                        </div>
+                        <div class="simulator-features">
+                            <h4>Características principales:</h4>
+                            <ul>
+                                <li><strong>Heridas traumáticas:</strong> Simulación de fracturas, quemaduras, laceraciones y amputaciones</li>
+                                <li><strong>Sangrado activo:</strong> Múltiples puntos de sangrado con control de flujo</li>
+                                <li><strong>Manejo de vía aérea:</strong> Intubación, cricotiroidotomía y otras técnicas avanzadas</li>
+                                <li><strong>Toracocentesis:</strong> Permite la descompresión con aguja del neumotórax a tensión</li>
+                                <li><strong>Respiración:</strong> Movimientos torácicos bilaterales y unilaterales</li>
+                                <li><strong>Respuesta a medicamentos:</strong> Reconoce medicamentos y dosis administradas</li>
+                                <li><strong>ECG real:</strong> Monitorización y desfibrilación con equipos reales</li>
+                            </ul>
+                        </div>
                     </div>
-                    <p>Trauma HAL es un simulador avanzado diseñado específicamente para la formación en trauma y emergencias, permitiendo escenarios de alta fidelidad en múltiples entornos.</p>
-
-                    <h4>Características principales:</h4>
-                    <ul>
-                        <li><strong>Heridas traumáticas:</strong> Simulación de fracturas, quemaduras, laceraciones y amputaciones</li>
-                        <li><strong>Sangrado activo:</strong> Múltiples puntos de sangrado con control de flujo</li>
-                        <li><strong>Manejo de vía aérea:</strong> Intubación, cricotiroidotomía y otras técnicas avanzadas</li>
-                        <li><strong>Toracocentesis:</strong> Permite la descompresión con aguja del neumotórax a tensión</li>
-                        <li><strong>Respiración:</strong> Movimientos torácicos bilaterales y unilaterales</li>
-                        <li><strong>Respuesta a medicamentos:</strong> Reconoce medicamentos y dosis administradas</li>
-                        <li><strong>ECG real:</strong> Monitorización y desfibrilación con equipos reales</li>
-                    </ul>
                 </div>
 
                 <!-- Simulador HAL Multipropósito -->
                 <div id="hal" class="simulator-info">
-                    <h3>HAL Multipropósito</h3>
-                    <div class="video-container">
-                        <video controls autoplay muted loop>
-                            <source src="saveinstacc-720p-gaumard-hal-s5301-the-worlds-most-advance-patient-simulator_dJ3CorZE.mp4" type="video/mp4">
-                            Tu navegador no soporta el elemento de video.
-                        </video>
+                    <div class="simulator-header">
+                        <div class="simulator-title">
+                            <h3>HAL Multipropósito</h3>
+                            <div class="video-container">
+                                <video controls autoplay muted loop>
+                                    <source src="saveinstacc-720p-gaumard-hal-s5301-the-worlds-most-advance-patient-simulator_dJ3CorZE.mp4" type="video/mp4">
+                                    Tu navegador no soporta el elemento de video.
+                                </video>
+                            </div>
+                            <p>HAL es un simulador versátil de paciente adulto que permite entrenar en una amplia variedad de situaciones clínicas, desde atención primaria hasta cuidados intensivos.</p>
+                        </div>
+                        <div class="simulator-features">
+                            <h4>Características principales:</h4>
+                            <ul>
+                                <li><strong>Vía aérea:</strong> Anatomía realista con intubación, ventilación y succión</li>
+                                <li><strong>Función cardíaca:</strong> Compresiones torácicas, desfibrilación y cardioversión</li>
+                                <li><strong>Función pulmonar:</strong> Sonidos respiratorios programables y expansión torácica</li>
+                                <li><strong>Sonidos cardíacos:</strong> Biblioteca de sonidos normales y patológicos</li>
+                                <li><strong>Acceso vascular:</strong> IV, IO y administración de medicamentos</li>
+                                <li><strong>Comunicación:</strong> Respuestas vocales interactivas</li>
+                                <li><strong>Signos neurológicos:</strong> Pupilas reactivas y convulsiones</li>
+                            </ul>
+                        </div>
                     </div>
-                    <p>HAL es un simulador versátil de paciente adulto que permite entrenar en una amplia variedad de situaciones clínicas, desde atención primaria hasta cuidados intensivos.</p>
-
-                    <h4>Características principales:</h4>
-                    <ul>
-                        <li><strong>Vía aérea:</strong> Anatomía realista con intubación, ventilación y succión</li>
-                        <li><strong>Función cardíaca:</strong> Compresiones torácicas, desfibrilación y cardioversión</li>
-                        <li><strong>Función pulmonar:</strong> Sonidos respiratorios programables y expansión torácica</li>
-                        <li><strong>Sonidos cardíacos:</strong> Biblioteca de sonidos normales y patológicos</li>
-                        <li><strong>Acceso vascular:</strong> IV, IO y administración de medicamentos</li>
-                        <li><strong>Comunicación:</strong> Respuestas vocales interactivas</li>
-                        <li><strong>Signos neurológicos:</strong> Pupilas reactivas y convulsiones</li>
-                    </ul>
                 </div>
 
                 <!-- Simulador Pediatric HAL -->
                 <div id="pediatric" class="simulator-info">
-                    <h3>Pediatric HAL</h3>
-                    <div class="video-container">
-                        <video controls autoplay muted loop>
-                            <source src="saveinsta.cc_720p-pediatric-hal-r-the-worlds-most-advanced-pediatric-patient-simulator.mp4" type="video/mp4">
-                            Tu navegador no soporta el elemento de video.
-                        </video>
+                    <div class="simulator-header">
+                        <div class="simulator-title">
+                            <h3>Pediatric HAL</h3>
+                            <div class="video-container">
+                                <video controls autoplay muted loop>
+                                    <source src="saveinsta.cc_720p-pediatric-hal-r-the-worlds-most-advanced-pediatric-patient-simulator.mp4" type="video/mp4">
+                                    Tu navegador no soporta el elemento de video.
+                                </video>
+                            </div>
+                            <p>Pediatric HAL es un simulador avanzado que representa a un niño de 5-7 años, diseñado para el entrenamiento en emergencias pediátricas y cuidados especializados.</p>
+                        </div>
+                        <div class="simulator-features">
+                            <h4>Características principales:</h4>
+                            <ul>
+                                <li><strong>Vía aérea pediátrica:</strong> Anatomía realista con intubación y ventilación</li>
+                                <li><strong>Función respiratoria:</strong> Obstrucción, cianosis y sonidos respiratorios</li>
+                                <li><strong>Signos vitales:</strong> FC, FR, PA y SpO2 monitorizables</li>
+                                <li><strong>Acceso vascular:</strong> IV periférico e intraóseo</li>
+                                <li><strong>Respuesta a medicamentos:</strong> Reconoce y responde a medicamentos administrados</li>
+                                <li><strong>RCP pediátrica:</strong> Medición de calidad de compresiones y ventilaciones</li>
+                                <li><strong>Respuestas vocales:</strong> Biblioteca de sonidos y llantos pediátricos</li>
+                            </ul>
+                        </div>
                     </div>
-                    <p>Pediatric HAL es un simulador avanzado que representa a un niño de 5-7 años, diseñado para el entrenamiento en emergencias pediátricas y cuidados especializados.</p>
-
-                    <h4>Características principales:</h4>
-                    <ul>
-                        <li><strong>Vía aérea pediátrica:</strong> Anatomía realista con intubación y ventilación</li>
-                        <li><strong>Función respiratoria:</strong> Obstrucción, cianosis y sonidos respiratorios</li>
-                        <li><strong>Signos vitales:</strong> FC, FR, PA y SpO2 monitorizables</li>
-                        <li><strong>Acceso vascular:</strong> IV periférico e intraóseo</li>
-                        <li><strong>Respuesta a medicamentos:</strong> Reconoce y responde a medicamentos administrados</li>
-                        <li><strong>RCP pediátrica:</strong> Medición de calidad de compresiones y ventilaciones</li>
-                        <li><strong>Respuestas vocales:</strong> Biblioteca de sonidos y llantos pediátricos</li>
-                    </ul>
                 </div>
 
                 <!-- Simulador Super Tory -->
                 <div id="tory" class="simulator-info">
-                    <h3>Super Tory</h3>
-                    <div class="video-container">
-                        <video controls autoplay muted loop>
-                            <source src="super-tory-the-worlds-most-advanced-newborn-patient-simulator_uRzJqXKa.mp4" type="video/mp4">
-                            Tu navegador no soporta el elemento de video.
-                        </video>
+                    <div class="simulator-header">
+                        <div class="simulator-title">
+                            <h3>Super Tory</h3>
+                            <div class="video-container">
+                                <video controls autoplay muted loop>
+                                    <source src="super-tory-the-worlds-most-advanced-newborn-patient-simulator_uRzJqXKa.mp4" type="video/mp4">
+                                    Tu navegador no soporta el elemento de video.
+                                </video>
+                            </div>
+                            <p>Super Tory es un simulador neonatal inalámbrico de alta fidelidad que replica a un recién nacido a término, diseñado para el entrenamiento en cuidados intensivos neonatales.</p>
+                        </div>
+                        <div class="simulator-features">
+                            <h4>Características principales:</h4>
+                            <ul>
+                                <li><strong>Movimientos realistas:</strong> Respiración, parpadeo y movimientos de extremidades</li>
+                                <li><strong>Vía aérea neonatal:</strong> Intubación, ventilación y succión</li>
+                                <li><strong>Cianosis:</strong> Cambios de coloración en labios y extremidades</li>
+                                <li><strong>Sonidos:</strong> Llanto, tos y otros sonidos neonatales</li>
+                                <li><strong>Fontanelas:</strong> Palpables con posibilidad de abombamiento</li>
+                                <li><strong>Acceso vascular:</strong> Cateterización umbilical y acceso IV</li>
+                                <li><strong>Respuesta a oxigenoterapia:</strong> Mejora de la SpO2 con tratamiento</li>
+                            </ul>
+                        </div>
                     </div>
-                    <p>Super Tory es un simulador neonatal inalámbrico de alta fidelidad que replica a un recién nacido a término, diseñado para el entrenamiento en cuidados intensivos neonatales.</p>
-
-                    <h4>Características principales:</h4>
-                    <ul>
-                        <li><strong>Movimientos realistas:</strong> Respiración, parpadeo y movimientos de extremidades</li>
-                        <li><strong>Vía aérea neonatal:</strong> Intubación, ventilación y succión</li>
-                        <li><strong>Cianosis:</strong> Cambios de coloración en labios y extremidades</li>
-                        <li><strong>Sonidos:</strong> Llanto, tos y otros sonidos neonatales</li>
-                        <li><strong>Fontanelas:</strong> Palpables con posibilidad de abombamiento</li>
-                        <li><strong>Acceso vascular:</strong> Cateterización umbilical y acceso IV</li>
-                        <li><strong>Respuesta a oxigenoterapia:</strong> Mejora de la SpO2 con tratamiento</li>
-                    </ul>
                 </div>
             </div>
         </section>
 
         <!-- Sección de Métodos de Aprendizaje -->
-        <section id="metodos" class="section">
+        <section id="metodos" class="section animate-section">
             <h2>Métodos de Aprendizaje</h2>
             <p>En el Columbus Hospital Simulation Center, utilizamos una variedad de métodos de aprendizaje para garantizar una formación integral y efectiva. Estos métodos incluyen:</p>
             
             <div class="card-container">
                 <div class="card">
                     <div class="card-image">
-                        <i class="fas fa-procedures fa-3x"></i>
+                        <i class="fas fa-procedures"></i>
                     </div>
                     <div class="card-content">
                         <h3>Simulación de Alta Fidelidad</h3>
@@ -584,7 +1131,7 @@
                 </div>
                 <div class="card">
                     <div class="card-image">
-                        <i class="fas fa-brain fa-3x"></i>
+                        <i class="fas fa-brain"></i>
                     </div>
                     <div class="card-content">
                         <h3>Aprendizaje Basado en Problemas</h3>
@@ -593,7 +1140,7 @@
                 </div>
                 <div class="card">
                     <div class="card-image">
-                        <i class="fas fa-comments fa-3x"></i>
+                        <i class="fas fa-comments"></i>
                     </div>
                     <div class="card-content">
                         <h3>Debriefing</h3>
@@ -604,111 +1151,392 @@
         </section>
 
         <!-- Sección de Fases de Simulación -->
-        <section id="fases" class="section">
+        <section id="fases" class="section animate-section">
             <h2>Fases de Simulación</h2>
             <p>El proceso de simulación clínica en nuestro centro se divide en varias fases clave:</p>
             
-            <div class="phase-card">
-                <h4>1. Preparación</h4>
-                <p>Los estudiantes reciben información sobre el escenario y los objetivos de aprendizaje.</p>
-            </div>
-            <div class="phase-card">
-                <h4>2. Simulación</h4>
-                <p>Los estudiantes participan en un escenario clínico simulado utilizando los simuladores de alta fidelidad.</p>
-            </div>
-            <div class="phase-card">
-                <h4>3. Debriefing</h4>
-                <p>Se realiza una revisión estructurada del desempeño, identificando áreas de mejora y reforzando los aciertos.</p>
-            </div>
-            <div class="phase-card">
-                <h4>4. Evaluación</h4>
-                <p>Los estudiantes reciben retroalimentación y se evalúa su progreso en relación con los objetivos de aprendizaje.</p>
+            <div class="phase-container">
+                <div class="phase-card">
+                    <h4>1. Preparación</h4>
+                    <p>Los estudiantes reciben información sobre el escenario y los objetivos de aprendizaje.</p>
+                </div>
+                <div class="phase-card">
+                    <h4>2. Simulación</h4>
+                    <p>Los estudiantes participan en un escenario clínico simulado utilizando los simuladores de alta fidelidad.</p>
+                </div>
+                <div class="phase-card">
+                    <h4>3. Debriefing</h4>
+                    <p>Se realiza una revisión estructurada del desempeño, identificando áreas de mejora y reforzando los aciertos.</p>
+                </div>
+                <div class="phase-card">
+                    <h4>4. Evaluación</h4>
+                    <p>Los estudiantes reciben retroalimentación y se evalúa su progreso en relación con los objetivos de aprendizaje.</p>
+                </div>
             </div>
         </section>
 
         <!-- Sección de Conceptos Clave -->
-        <section id="conceptos" class="section">
+        <section id="conceptos" class="section animate-section">
             <h2>Conceptos Clave</h2>
             <p>En la simulación clínica, es importante comprender los siguientes conceptos clave:</p>
             
-            <ul>
-                <li><strong>Fidelidad:</strong> Grado de realismo del simulador y el escenario.</li>
-                <li><strong>Inmersión:</strong> Capacidad del participante de sentirse parte del escenario.</li>
-                <li><strong>Debriefing:</strong> Proceso de reflexión y aprendizaje después de la simulación.</li>
-                <li><strong>Seguridad psicológica:</strong> Ambiente donde los estudiantes se sienten seguros para cometer errores y aprender.</li>
-                <li><strong>Objetivos de aprendizaje:</strong> Metas específicas que se espera alcanzar con la simulación.</li>
-                <li><strong>Seguridad del paciente:</strong> Prácticas que garantizan la protección del paciente durante la simulación.</li>
-                <li><strong>Moulage:</strong> Uso de maquillaje y efectos especiales para simular heridas y condiciones médicas.</li>
-                <li><strong>Competencia Clínica:</strong> Habilidad demostrada para realizar tareas y procedimientos clínicos.</li>
-                <li><strong>Tasktrainers:</strong> Dispositivos de entrenamiento diseñados para practicar habilidades específicas.</li>
-                <li><strong>Fantoma:</strong> Modelo anatómico utilizado para la enseñanza y práctica de procedimientos médicos.</li>
-                <li><strong>Paciente estandarizado:</strong> Actor entrenado para representar a un paciente en escenarios de simulación.</li>
-                <li><strong>Cámara de Gesell:</strong> Sala con espejo unidireccional utilizada para observar y grabar simulaciones.</li>
-                <li><strong>Aula invertida:</strong> Método de enseñanza donde los estudiantes revisan el contenido antes de la clase y aplican el conocimiento durante la sesión.</li>
-                <li><strong>Contrato de fricción:</strong> Acuerdo entre los participantes para mantener la confidencialidad y el respeto durante la simulación.</li>
-                <li><strong>Confederados:</strong> Personas que participan en la simulación con roles específicos para influir en el desarrollo del escenario.</li>
-            </ul>
+            <div class="card-container">
+                <!-- Tarjeta 1 -->
+                <div class="card">
+                    <div class="card-image" style="background: linear-gradient(135deg, #0b057a 0%, #34a853 100%);">
+                        <i class="fas fa-star"></i>
+                    </div>
+                    <div class="card-content">
+                        <h3>Fidelidad</h3>
+                        <p>Grado de realismo del simulador y el escenario.</p>
+                    </div>
+                </div>
+        
+                <!-- Tarjeta 2 -->
+                <div class="card">
+                    <div class="card-image" style="background: linear-gradient(135deg, #0b057a 0%, #3498db 100%);">
+                        <i class="fas fa-water"></i>
+                    </div>
+                    <div class="card-content">
+                        <h3>Inmersión</h3>
+                        <p>Capacidad del participante de sentirse parte del escenario.</p>
+                    </div>
+                </div>
+        
+                <!-- Tarjeta 3 -->
+                <div class="card">
+                    <div class="card-image" style="background: linear-gradient(135deg, #0b057a 0%, #34a853 100%);">
+                        <i class="fas fa-comments"></i>
+                    </div>
+                    <div class="card-content">
+                        <h3>Debriefing</h3>
+                        <p>Proceso de reflexión y aprendizaje después de la simulación.</p>
+                    </div>
+                </div>
+        
+                <!-- Tarjeta 4 -->
+                <div class="card">
+                    <div class="card-image" style="background: linear-gradient(135deg, #0b057a 0%, #3498db 100%);">
+                        <i class="fas fa-shield-alt"></i>
+                    </div>
+                    <div class="card-content">
+                        <h3>Seguridad Psicológica</h3>
+                        <p>Ambiente seguro para cometer errores y aprender.</p>
+                    </div>
+                </div>
+        
+                <!-- Tarjeta 5 -->
+                <div class="card">
+                    <div class="card-image" style="background: linear-gradient(135deg, #0b057a 0%, #34a853 100%);">
+                        <i class="fas fa-bullseye"></i>
+                    </div>
+                    <div class="card-content">
+                        <h3>Objetivos de Aprendizaje</h3>
+                        <p>Metas específicas a alcanzar con la simulación.</p>
+                    </div>
+                </div>
+        
+                <!-- Tarjeta 6 -->
+                <div class="card">
+                    <div class="card-image" style="background: linear-gradient(135deg, #0b057a 0%, #3498db 100%);">
+                        <i class="fas fa-user-shield"></i>
+                    </div>
+                    <div class="card-content">
+                        <h3>Seguridad del Paciente</h3>
+                        <p>Protección del paciente durante la simulación.</p>
+                    </div>
+                </div>
+        
+                <!-- Tarjeta 7 -->
+                <div class="card">
+                    <div class="card-image" style="background: linear-gradient(135deg, #0b057a 0%, #34a853 100%);">
+                        <i class="fas fa-mask"></i>
+                    </div>
+                    <div class="card-content">
+                        <h3>Moulage</h3>
+                        <p>Uso de maquillaje para simular condiciones médicas.</p>
+                    </div>
+                </div>
+        
+                <!-- Tarjeta 8 -->
+                <div class="card">
+                    <div class="card-image" style="background: linear-gradient(135deg, #0b057a 0%, #3498db 100%);">
+                        <i class="fas fa-clinic-medical"></i>
+                    </div>
+                    <div class="card-content">
+                        <h3>Competencia Clínica</h3>
+                        <p>Habilidad para realizar procedimientos clínicos.</p>
+                    </div>
+                </div>
+        
+                <!-- Tarjeta 9 -->
+                <div class="card">
+                    <div class="card-image" style="background: linear-gradient(135deg, #0b057a 0%, #34a853 100%);">
+                        <i class="fas fa-stethoscope"></i>
+                    </div>
+                    <div class="card-content">
+                        <h3>Tasktrainers</h3>
+                        <p>Dispositivos para practicar habilidades específicas.</p>
+                    </div>
+                </div>
+        
+                <!-- Tarjeta 10 -->
+                <div class="card">
+                    <div class="card-image" style="background: linear-gradient(135deg, #0b057a 0%, #3498db 100%);">
+                        <i class="fas fa-procedures"></i>
+                    </div>
+                    <div class="card-content">
+                        <h3>Fantoma</h3>
+                        <p>Modelo anatómico para práctica de procedimientos.</p>
+                    </div>
+                </div>
+        
+                <!-- Tarjeta 11 -->
+                <div class="card">
+                    <div class="card-image" style="background: linear-gradient(135deg, #0b057a 0%, #34a853 100%);">
+                        <i class="fas fa-user-md"></i>
+                    </div>
+                    <div class="card-content">
+                        <h3>Paciente Estandarizado</h3>
+                        <p>Actor entrenado para representar pacientes.</p>
+                    </div>
+                </div>
+        
+                <!-- Tarjeta 12 -->
+                <div class="card">
+                    <div class="card-image" style="background: linear-gradient(135deg, #0b057a 0%, #3498db 100%);">
+                        <i class="fas fa-video"></i>
+                    </div>
+                    <div class="card-content">
+                        <h3>Cámara de Gesell</h3>
+                        <p>Sala con espejo unidireccional para observación.</p>
+                    </div>
+                </div>
+        
+                <!-- Tarjeta 13 -->
+                <div class="card">
+                    <div class="card-image" style="background: linear-gradient(135deg, #0b057a 0%, #34a853 100%);">
+                        <i class="fas fa-chalkboard-teacher"></i>
+                    </div>
+                    <div class="card-content">
+                        <h3>Aula Invertida</h3>
+                        <p>Estudiantes revisan contenido antes de la clase.</p>
+                    </div>
+                </div>
+        
+                <!-- Tarjeta 14 -->
+                <div class="card">
+                    <div class="card-image" style="background: linear-gradient(135deg, #0b057a 0%, #3498db 100%);">
+                        <i class="fas fa-handshake"></i>
+                    </div>
+                    <div class="card-content">
+                        <h3>Contrato de Fricción</h3>
+                        <p>Acuerdo para confidencialidad y respeto.</p>
+                    </div>
+                </div>
+        
+                <!-- Tarjeta 15 -->
+                <div class="card">
+                    <div class="card-image" style="background: linear-gradient(135deg, #0b057a 0%, #34a853 100%);">
+                        <i class="fas fa-users"></i>
+                    </div>
+                    <div class="card-content">
+                        <h3>Confederados</h3>
+                        <p>Personas con roles específicos en la simulación.</p>
+                    </div>
+                </div>
+            </div>
         </section>
 
         <!-- Sección de Beneficios -->
-        <section id="beneficios" class="section">
+        <section id="beneficios" class="section animate-section">
             <h2>Beneficios de la Simulación Clínica</h2>
             <p>La simulación clínica ofrece múltiples beneficios para la formación de profesionales de la salud:</p>
             
-            <div class="benefit-card">
-                <h4>Práctica Segura</h4>
-                <p>Permite practicar procedimientos y tomar decisiones sin riesgo para los pacientes reales.</p>
-            </div>
-            <div class="benefit-card">
-                <h4>Mejora de Habilidades Técnicas</h4>
-                <p>Refuerza las habilidades prácticas y la confianza en el manejo de situaciones clínicas.</p>
-            </div>
-            <div class="benefit-card">
-                <h4>Trabajo en Equipo</h4>
-                <p>Fomenta la colaboración y la comunicación efectiva entre los miembros del equipo de salud.</p>
-            </div>
-            <div class="benefit-card">
-                <h4>Retroalimentación Inmediata</h4>
-                <p>Proporciona retroalimentación constructiva para mejorar el desempeño.</p>
+            <div class="benefit-container">
+                <div class="benefit-card">
+                    <h4>Práctica Segura</h4>
+                    <p>Permite practicar procedimientos y tomar decisiones sin riesgo para los pacientes reales.</p>
+                </div>
+                <div class="benefit-card">
+                    <h4>Mejora de Habilidades Técnicas</h4>
+                    <p>Refuerza las habilidades prácticas y la confianza en el manejo de situaciones clínicas.</p>
+                </div>
+                <div class="benefit-card">
+                    <h4>Trabajo en Equipo</h4>
+                    <p>Fomenta la colaboración y la comunicación efectiva entre los miembros del equipo de salud.</p>
+                </div>
+                <div class="benefit-card">
+                    <h4>Retroalimentación Inmediata</h4>
+                    <p>Proporciona retroalimentación constructiva para mejorar el desempeño.</p>
+                </div>
             </div>
         </section>
 
-        <!-- Nueva Sección de Juegos Educativos -->
-        <section id="juegos" class="section">
-            <h2>Juegos</h2>
+        <!-- Sección del Equipo -->
+        <section id="equipo" class="section animate-section">
+            <h2>Nuestro Equipo</h2>
+            <p>Conoce al equipo profesional que hace posible el Columbus Hospital Simulation Center:</p>
+            
+            <div class="team-grid">
+                <div class="team-member">
+                    <div class="member-photo">
+                        <img src="https://images.unsplash.com/photo-1559839734-2b71ea197ec2?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80" alt="Directora">
+                    </div>
+                    <div class="member-info">
+                        <h3>Dr. Fernando García</h3>
+                        <p>Preceptor de Simulación Clínica</p>
+                    </div>
+                </div>
+                <div class="team-member">
+                    <div class="member-photo">
+                        <img src="https://images.unsplash.com/photo-1594824476967-48c8b964273f?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80" alt="Coordinador">
+                    </div>
+                    <div class="member-info">
+                        <h3>Dr. Jose Manuel Rodríguez</h3>
+                        <p>Preceptor de Simulación Clínica</p>
+                    </div>
+                </div>
+                <div class="team-member">
+                    <div class="member-photo">
+                        <img src="https://images.unsplash.com/photo-1622253692010-333f2da6031d?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80" alt="Instructor">
+                    </div>
+                    <div class="member-info">
+                        <h3>Tec. Hansell Soto</h3>
+                        <p>Técnico en Simulación Clínica</p>
+                    </div>
+                </div>
+                <div class="team-member">
+                    <div class="member-photo">
+                        <img src="https://images.unsplash.com/photo-1573497019940-1c28c88b4f3e?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80" alt="Técnico">
+                    </div>
+                    <div class="member-info">
+                        <h3>Tec. Rodni Rodríguez</h3>
+                        <p>Técnico en Simulación Clínica</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Sección de Misión y Visión -->
+        <section id="mision" class="section animate-section">
+            <h2>Misión y Visión</h2>
+            <p>Los principios fundamentales que guían nuestro trabajo en el Columbus Hospital Simulation Center:</p>
+            
+            <div class="mission-vision">
+                <div class="mission-card">
+                    <h3>Misión</h3>
+                    <p>Formar médicos y profesionales de la salud altamente capacitados y comprometidos con la necesidad de la sanidad de la sociedad, a través de una oferta innovadora y de vanguardia.</p>
+                </div>
+                <div class="vision-card">
+                    <h3>Visión</h3>
+                    <p>Líder en la formación médica y de los profesionales de la salud al promover una cultura científica, tecnología y humanística que permita cumplir con los altos estándares de acreditacion a nivel nacional e internacional.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Sección de Juegos Educativos -->
+        <section id="juegos" class="section animate-section">
+            <h2>Juegos Educativos</h2>
             <p>Explora nuestros juegos interactivos diseñados para reforzar el aprendizaje de manera divertida y efectiva:</p>
             
-            <div class="game-card">
-                <div class="game-icon">
-                    <i class="fas fa-gamepad"></i>
+            <div class="game-container">
+                <div class="game-card">
+                    <div class="game-icon">
+                        <i class="fas fa-gamepad"></i>
+                    </div>
+                    <h3>Juegos de Aprendizaje #1</h3>
+                    <p>Practica conceptos de Simulación Clínica de manera interactiva y divertida.</p>
+                    <a href="https://es.educaplay.com/juego/23069053-juego_de.html" class="game-link">Jugar Ahora</a>
                 </div>
-                <h3>Juegos de Aprendizaje</h3>
-                <p>Practica conceptos de Simulación Clínica.</p>
-                <a href="https://es.educaplay.com/recursos-educativos/23069053-juego_de.html" class="game-link">Ir a los Juegos →</a>
+
+                <div class="game-card">
+                    <div class="game-icon">
+                        <i class="fas fa-puzzle-piece"></i>
+                    </div>
+                    <h3>Juegos de Aprendizaje #2</h3>
+                    <p>Practica conceptos de Habilidades y Destrezas médicas fundamentales.</p>
+                    <a href="https://es.educaplay.com/recursos-educativos/23082227-crucigrama_de_habilidades_y_destrezas.html" class="game-link">Jugar Ahora</a>
+                </div>
             </div>
         </section>
     </main>
 
     <footer>
-        <p>&copy; 2025 Columbus Hospital Simulation Center. Todos los derechos reservados. #LAUDELOSLIDERES</p>
+        <div class="footer-links">
+            <a href="#inicio">Inicio</a>
+            <a href="#simuladores">Simuladores</a>
+            <a href="#equipo">Equipo</a>
+            <a href="#mision">Misión/Visión</a>
+            <a href="#juegos">Juegos</a>
+            <a href="calendario.html">Calendario</a>
+        </div>
+        
+        <div class="social-icons">
+            <a href="#"><i class="fab fa-facebook"></i></a>
+            <a href="#"><i class="fab fa-twitter"></i></a>
+            <a href="#"><i class="fab fa-instagram"></i></a>
+            <a href="#"><i class="fab fa-linkedin"></i></a>
+            <a href="#"><i class="fab fa-youtube"></i></a>
+        </div>
+        
+        <p>Columbus Hospital Simulation Center</p>
+        <p>Av. Principal 1234, Ciudad</p>
+        <p>Teléfono: (123) 456-7890</p>
+        <p>Email: info@columbushospital.edu</p>
+        <p>&copy; 2025 Columbus Hospital Simulation Center. Todos los derechos reservados.</p>
+        <p>Desarrollado por Tec. de Simulación clínica Rodni Rodríguez</p>
     </footer>
 
     <script>
+        // Mostrar/ocultar submenú
+        document.getElementById('prebriefing').addEventListener('click', function(event) {
+            event.preventDefault();
+            var submenu = document.getElementById('prebriefingSubmenu');
+            submenu.style.display = submenu.style.display === 'none' ? 'block' : 'none';
+        });
+
+        // Cambiar entre simuladores
         function showSimulator(simulatorId) {
-            // Oculta todos los simuladores
             document.querySelectorAll('.simulator-info').forEach(info => {
                 info.classList.remove('active');
             });
-
-            // Muestra el simulador seleccionado
             document.getElementById(simulatorId).classList.add('active');
 
-            // Actualiza las pestañas activas
             document.querySelectorAll('.tab').forEach(tab => {
                 tab.classList.remove('active');
             });
             document.querySelector(`[onclick="showSimulator('${simulatorId}')"]`).classList.add('active');
         }
+
+        // Slider automático de imágenes
+        let currentSlide = 0;
+        const slides = document.querySelectorAll('.slider-image');
+        
+        function changeSlide() {
+            slides[currentSlide].classList.remove('active');
+            currentSlide = (currentSlide + 1) % slides.length;
+            slides[currentSlide].classList.add('active');
+        }
+        
+        setInterval(changeSlide, 5000);
+
+        // Animación al hacer scroll
+        const animateOnScroll = () => {
+            const sections = document.querySelectorAll('.animate-section');
+            
+            sections.forEach(section => {
+                const sectionTop = section.getBoundingClientRect().top;
+                const windowHeight = window.innerHeight;
+                
+                if (sectionTop < windowHeight - 100) {
+                    section.style.animation = 'slideIn 0.8s ease-out forwards';
+                }
+            });
+        };
+        
+        window.addEventListener('scroll', animateOnScroll);
+        window.addEventListener('load', animateOnScroll);
     </script>
 </body>
 </html>
