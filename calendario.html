@@ -80,24 +80,36 @@
     }
 
     /* === FORMULARIOS === */
-    input, select, button {
+    input, select, textarea, button {
       padding: 0.6rem;
       margin: 0.5rem 0;
       border: 1px solid #ddd;
       border-radius: 5px;
       width: 100%;
+      font-family: inherit;
     }
 
-    button {
+    textarea {
+      min-height: 100px;
+      resize: vertical;
+    }
+
+    button, .btn {
       background: #0b057a;
       color: white;
       border: none;
       cursor: pointer;
-      transition: background 0.3s;
+      transition: all 0.3s;
+      text-align: center;
+      display: inline-block;
+      padding: 0.8rem 1.5rem;
+      font-size: 1rem;
     }
 
-    button:hover {
+    button:hover, .btn:hover {
       background: #2980b9;
+      transform: translateY(-2px);
+      box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
     }
 
     /* === ICONOS DE NAVEGACIÓN === */
@@ -181,6 +193,47 @@
       opacity: 0.9;
     }
 
+    /* === FORMULARIO DE SOLICITUD === */
+    .form-solicitud {
+      max-width: 700px;
+      margin: 2rem auto;
+    }
+
+    .form-solicitud h2 {
+      color: #0b057a;
+      text-align: center;
+      margin-bottom: 1.5rem;
+      border-bottom: 2px solid #0b057a;
+      padding-bottom: 0.5rem;
+    }
+
+    .form-group {
+      margin-bottom: 1.5rem;
+    }
+
+    .form-group label {
+      display: block;
+      margin-bottom: 0.5rem;
+      font-weight: bold;
+      color: #0b057a;
+    }
+
+    .form-header {
+      text-align: center;
+      margin-bottom: 2rem;
+    }
+
+    .form-header i {
+      font-size: 3rem;
+      color: #0b057a;
+      margin-bottom: 1rem;
+    }
+
+    .form-footer {
+      text-align: center;
+      margin-top: 2rem;
+    }
+
     /* === ANIMACIONES === */
     @keyframes fadeIn {
       from { opacity: 0; transform: translateY(10px); }
@@ -189,6 +242,35 @@
 
     .contenedor {
       animation: fadeIn 0.5s ease-out;
+    }
+
+    /* === PESTAÑAS === */
+    .tabs {
+      display: flex;
+      margin-bottom: 1rem;
+      border-bottom: 1px solid #ddd;
+    }
+
+    .tab {
+      padding: 0.8rem 1.5rem;
+      cursor: pointer;
+      background: #f5f5f5;
+      margin-right: 0.5rem;
+      border-radius: 5px 5px 0 0;
+      transition: all 0.3s;
+    }
+
+    .tab.active {
+      background: #0b057a;
+      color: white;
+    }
+
+    .tab-content {
+      display: none;
+    }
+
+    .tab-content.active {
+      display: block;
     }
   </style>
 </head>
@@ -206,34 +288,109 @@
     </header>
 
     <main>
-      <div class="contenedor">
-        <div class="filtro">
-          <label for="nivel">Filtrar por nivel:</label>
-          <select id="nivel">
-            <option value="all">Todos</option>
-            <option value="V">V</option>
-            <option value="VI">VI</option>
-            <option value="VII">VII</option>
-            <option value="VIII">VIII</option>
-            <option value="IX">IX</option>
-            <option value="X">X</option>
-            <option value="XI">XI</option>
-          </select>
-        </div>
+      <div class="tabs">
+        <div class="tab active" onclick="cambiarTab('calendario')">Calendario</div>
+        <div class="tab" onclick="cambiarTab('solicitud')">Solicitar Simulación</div>
+      </div>
 
-        <table id="tabla-horarios">
-          <thead>
-            <tr>
-              <th>Materia</th>
-              <th>Grupo</th>
-              <th>Día</th>
-              <th>Hora</th>
-            </tr>
-          </thead>
-          <tbody>
-            <!-- Datos cargados con JavaScript -->
-          </tbody>
-        </table>
+      <div id="tab-calendario" class="tab-content active">
+        <div class="contenedor">
+          <div class="filtro">
+            <label for="nivel">Filtrar por nivel:</label>
+            <select id="nivel">
+              <option value="all">Todos</option>
+              <option value="V">V</option>
+              <option value="VI">VI</option>
+              <option value="VII">VII</option>
+              <option value="VIII">VIII</option>
+              <option value="IX">IX</option>
+              <option value="X">X</option>
+              <option value="XI">XI</option>
+            </select>
+          </div>
+
+          <table id="tabla-horarios">
+            <thead>
+              <tr>
+                <th>Materia</th>
+                <th>Grupo</th>
+                <th>Día</th>
+                <th>Hora</th>
+              </tr>
+            </thead>
+            <tbody>
+              <!-- Datos cargados con JavaScript -->
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <div id="tab-solicitud" class="tab-content">
+        <div class="contenedor form-solicitud">
+          <div class="form-header">
+            <i class="fas fa-file-alt"></i>
+            <h2>Solicitud de Sesión de Simulación</h2>
+            <p>Complete este formulario para solicitar una sesión de simulación para sus estudiantes</p>
+          </div>
+
+           <form action="https://formsubmit.co/your@email.com" method="POST" />
+            <input type="hidden" name="_subject" value="Nueva solicitud de simulación">
+            <input type="hidden" name="_template" value="table">
+        
+            <div class="form-group">
+              <label for="nombre"><i class="fas fa-user"></i> Nombre del Profesor</label>
+              <input type="text" id="nombre" name="nombre" required placeholder="Ingrese su nombre completo">
+            </div>
+
+            <div class="form-group">
+              <label for="email"><i class="fas fa-envelope"></i> Correo Electrónico</label>
+              <input type="email" id="email" name="email" required placeholder="Ingrese su correo institucional">
+            </div>
+
+            <div class="form-group">
+              <label for="materia"><i class="fas fa-book"></i> Materia</label>
+              <input type="text" id="materia" name="materia" required placeholder="Nombre de la materia">
+            </div>
+
+            <div class="form-group">
+              <label for="tema"><i class="fas fa-lightbulb"></i> Tema Principal</label>
+              <input type="text" id="tema" name="tema" required placeholder="Tema que desea simular">
+            </div>
+
+            <div class="form-group">
+              <label for="nivel"><i class="fas fa-users"></i> Nivel/Grupo</label>
+              <select id="nivel-solicitud" name="nivel" required>
+                <option value="">Seleccione el nivel</option>
+                <option value="V">V</option>
+                <option value="VI">VI</option>
+                <option value="VII">VII</option>
+                <option value="VIII">VIII</option>
+                <option value="IX">IX</option>
+                <option value="X">X</option>
+                <option value="XI">XI</option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label for="objetivo"><i class="fas fa-bullseye"></i> Objetivo de la Simulación</label>
+              <textarea id="objetivo" name="objetivo" required placeholder="Describa los objetivos de aprendizaje que espera alcanzar con esta simulación"></textarea>
+            </div>
+
+            <div class="form-group">
+              <label for="contacto"><i class="fas fa-phone"></i> Teléfono de Contacto</label>
+              <input type="tel" id="contacto" name="contacto" required placeholder="Número donde podemos contactarle">
+            </div>
+
+            <div class="form-group">
+              <label for="fecha-preferencia"><i class="fas fa-calendar-day"></i> Fechas Preferidas</label>
+              <input type="text" id="fecha-preferencia" name="fecha-preferencia" placeholder="Indique fechas preferidas para la simulación">
+            </div>
+
+            <div class="form-footer">
+              <button type="submit"><i class="fas fa-paper-plane"></i> Enviar Solicitud</button>
+            </div>
+          </form>
+        </div>
       </div>
     </main>
 
@@ -359,6 +516,24 @@
       document.getElementById('nivel').addEventListener('change', (e) => {
         cargarHorarios(e.target.value);
       });
+
+      function cambiarTab(tabId) {
+        // Ocultar todos los contenidos de pestaña
+        document.querySelectorAll('.tab-content').forEach(content => {
+          content.classList.remove('active');
+        });
+        
+        // Mostrar el contenido de la pestaña seleccionada
+        document.getElementById(`tab-${tabId}`).classList.add('active');
+        
+        // Actualizar el estado activo de las pestañas
+        document.querySelectorAll('.tab').forEach(tab => {
+          tab.classList.remove('active');
+        });
+        
+        // Activar la pestaña clickeada
+        event.currentTarget.classList.add('active');
+      }
 
       cargarHorarios();
     }
