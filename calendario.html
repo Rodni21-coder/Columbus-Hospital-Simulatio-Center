@@ -4,139 +4,239 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Calendario Universitario</title>
+  <link rel="Website icon" type="png"
+  href="logo.png">
   <!-- Iconos de Font Awesome -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <!-- Fuente de Google -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
   <style>
     /* === ESTILOS GENERALES === */
-    body {
-      font-family: 'Ariel', sans-serif;
-      background: #f0f0f0;
+    :root {
+      --primary-color: #0b057a;
+      --secondary-color: #0d0548;
+      --accent-color: #012fea;
+      --dark-color: #2d3436;
+      --light-color: #f5f6fa;
+      --success-color: #00b894;
+      --danger-color: #d63031;
+      --warning-color: #fdcb6e;
+    }
+    
+    * {
+      box-sizing: border-box;
       margin: 0;
       padding: 0;
-      color: #333;
+    }
+    
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+      color: var(--dark-color);
       min-height: 100vh;
       display: flex;
       flex-direction: column;
+      line-height: 1.6;
     }
 
     header {
-      background: #0b057a;
+      background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
       color: white;
-      padding: 1rem;
+      padding: 1.5rem;
       text-align: center;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+      position: relative;
+      z-index: 10;
     }
 
     main {
       flex: 1;
-      padding: 1rem;
+      padding: 2rem 1rem;
     }
 
     footer {
-      background: #0b057a;
-      color: rgb(255, 248, 248);
+      background: var(--dark-color);
+      color: var(--light-color);
       text-align: center;
-      padding: 1rem;
-      margin-top: auto;
-    }
-    header img {
-            width: 70px; /* Tamaño del logo */
-            height: auto;
-            border-radius: 8px; /* Opcional: bordes redondeados */
-            position: absolute; /* Posiciona el logo a la derecha */
-            right: 2rem; /* Distancia desde el borde derecho */
-            top: 3rem; /* Distancia desde el borde superior */
-        }
-
-    /* === CONTENEDORES BLANCOS === */
-    .contenedor {
-      background: rgb(255, 255, 255);
-      border-radius: 10px;
-      box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
       padding: 1.5rem;
+      margin-top: auto;
+      font-size: 0.9rem;
+    }
+    
+    header img {
+      width: 70px;
+      height: auto;
+      border-radius: 8px;
+      position: absolute;
+      right: 2rem;
+      top: 1.5rem;
+      filter: drop-shadow(0 2px 4px rgba(0,0,0,0.2));
+      transition: transform 0.3s ease;
+    }
+    
+    header img:hover {
+      transform: scale(1.05);
+    }
+
+    /* === CONTENEDORES === */
+    .contenedor {
+      background: rgba(255, 255, 255, 0.95);
+      border-radius: 12px;
+      box-shadow: 0 8px 30px rgba(0, 0, 0, 0.1);
+      padding: 2rem;
       margin: 1rem auto;
       max-width: 900px;
+      transition: all 0.3s ease;
+      backdrop-filter: blur(5px);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+    }
+    
+    .contenedor:hover {
+      box-shadow: 0 12px 40px rgba(0, 0, 0, 0.15);
+      transform: translateY(-3px);
     }
 
     /* === TABLAS === */
     table {
       width: 100%;
-      border-collapse: collapse;
-      margin: 1rem 0;
+      border-collapse: separate;
+      border-spacing: 0;
+      margin: 1.5rem 0;
+      overflow: hidden;
+      border-radius: 10px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
     }
 
     th, td {
-      padding: 1rem;
+      padding: 1.2rem;
       text-align: left;
-      border-bottom: 1px solid #ddd;
+      border-bottom: 1px solid rgba(0, 0, 0, 0.05);
     }
 
     th {
-      background: #3498db;
+      background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
       color: white;
+      font-weight: 500;
+      text-transform: uppercase;
+      font-size: 0.85rem;
+      letter-spacing: 0.5px;
+    }
+    
+    th:first-child {
+      border-top-left-radius: 10px;
+    }
+    
+    th:last-child {
+      border-top-right-radius: 10px;
+    }
+
+    tr:nth-child(even) {
+      background-color: rgba(74, 107, 255, 0.03);
+    }
+    
+    tr:last-child td {
+      border-bottom: none;
+    }
+    
+    tr:last-child td:first-child {
+      border-bottom-left-radius: 10px;
+    }
+    
+    tr:last-child td:last-child {
+      border-bottom-right-radius: 10px;
     }
 
     tr:hover {
-      background: #f5f5f5;
+      background-color: rgba(74, 107, 255, 0.1);
+      transform: scale(1.005);
     }
 
     /* === FORMULARIOS === */
     input, select, textarea, button {
-      padding: 0.6rem;
+      padding: 0.8rem 1rem;
       margin: 0.5rem 0;
-      border: 1px solid #ddd;
-      border-radius: 5px;
+      border: 1px solid rgba(0, 0, 0, 0.1);
+      border-radius: 8px;
       width: 100%;
       font-family: inherit;
+      font-size: 1rem;
+      transition: all 0.3s ease;
+    }
+    
+    input:focus, select:focus, textarea:focus {
+      outline: none;
+      border-color: var(--primary-color);
+      box-shadow: 0 0 0 3px rgba(74, 107, 255, 0.2);
     }
 
     textarea {
-      min-height: 100px;
+      min-height: 120px;
       resize: vertical;
     }
 
     button, .btn {
-      background: #0b057a;
+      background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
       color: white;
       border: none;
       cursor: pointer;
-      transition: all 0.3s;
+      transition: all 0.3s ease;
       text-align: center;
       display: inline-block;
-      padding: 0.8rem 1.5rem;
+      padding: 0.9rem 1.8rem;
       font-size: 1rem;
+      font-weight: 500;
+      border-radius: 8px;
+      box-shadow: 0 4px 12px rgba(74, 107, 255, 0.3);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+    
+    button i, .btn i {
+      margin-right: 8px;
     }
 
     button:hover, .btn:hover {
-      background: #2980b9;
       transform: translateY(-2px);
-      box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+      box-shadow: 0 8px 20px rgba(74, 107, 255, 0.4);
+    }
+    
+    button:active, .btn:active {
+      transform: translateY(0);
     }
 
     /* === ICONOS DE NAVEGACIÓN === */
     .nav-iconos {
       position: fixed;
-      bottom: 20px;
-      right: 20px;
+      bottom: 30px;
+      right: 30px;
       display: flex;
-      gap: 10px;
+      flex-direction: column;
+      gap: 15px;
       z-index: 1000;
     }
 
     .nav-iconos .icono {
-      background: #0b057a;
+      background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
       color: white;
-      width: 50px;
-      height: 50px;
+      width: 60px;
+      height: 60px;
       border-radius: 50%;
       display: flex;
       align-items: center;
       justify-content: center;
       cursor: pointer;
-      box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
-      transition: transform 0.3s;
+      box-shadow: 0 8px 20px rgba(74, 107, 255, 0.4);
+      transition: all 0.3s ease;
+      font-size: 1.2rem;
     }
-
+    
     .nav-iconos .icono:hover {
+      transform: scale(1.1) translateY(-5px);
+      box-shadow: 0 12px 25px rgba(74, 107, 255, 0.5);
+    }
+    
+    .nav-iconos .icono.active {
+      background: var(--accent-color);
       transform: scale(1.1);
     }
 
@@ -149,48 +249,83 @@
       width: 100%;
       height: 100%;
       background: rgba(0, 0, 0, 0.5);
-      z-index: 1000;
+      z-index: 2000;
       justify-content: center;
       align-items: center;
+      backdrop-filter: blur(5px);
+      animation: fadeIn 0.3s ease-out;
     }
 
     .modal-contenido {
-      background: rgb(255, 255, 255);
-      padding: 2rem;
-      border-radius: 10px;
+      background: white;
+      padding: 2.5rem;
+      border-radius: 15px;
       width: 90%;
       max-width: 500px;
-      box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+      box-shadow: 0 15px 40px rgba(0, 0, 0, 0.2);
+      position: relative;
+      transform: translateY(0);
+      transition: all 0.3s ease;
+    }
+    
+    .modal-contenido:hover {
+      transform: translateY(-5px);
     }
 
     .cerrar {
-      float: right;
-      font-size: 1.5rem;
+      position: absolute;
+      top: 15px;
+      right: 20px;
+      font-size: 1.8rem;
       cursor: pointer;
+      color: var(--dark-color);
+      transition: all 0.3s ease;
+    }
+    
+    .cerrar:hover {
+      color: var(--danger-color);
+      transform: rotate(90deg);
     }
 
     /* === BOTONES DE ACCIÓN === */
     .btn-accion {
-      padding: 0.4rem 0.8rem;
-      margin: 0 0.2rem;
+      padding: 0.5rem 1rem;
+      margin: 0 0.3rem;
       border: none;
-      border-radius: 5px;
+      border-radius: 6px;
       cursor: pointer;
-      transition: all 0.3s;
+      transition: all 0.3s ease;
+      font-size: 0.85rem;
+      font-weight: 500;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+    }
+    
+    .btn-accion i {
+      margin-right: 5px;
     }
 
     .btn-editar {
-      background: #030baa;
+      background: var(--accent-color);
       color: white;
+    }
+    
+    .btn-editar:hover {
+      background: #00a8a5;
+      transform: translateY(-2px);
+      box-shadow: 0 4px 10px rgba(0, 206, 201, 0.3);
     }
 
     .btn-eliminar {
-      background: #ee1e06;
+      background: var(--danger-color);
       color: white;
     }
-
-    .btn-accion:hover {
-      opacity: 0.9;
+    
+    .btn-eliminar:hover {
+      background: #b52b2b;
+      transform: translateY(-2px);
+      box-shadow: 0 4px 10px rgba(214, 48, 49, 0.3);
     }
 
     /* === FORMULARIO DE SOLICITUD === */
@@ -200,86 +335,319 @@
     }
 
     .form-solicitud h2 {
-      color: #0b057a;
+      color: var(--primary-color);
       text-align: center;
       margin-bottom: 1.5rem;
-      border-bottom: 2px solid #0b057a;
-      padding-bottom: 0.5rem;
+      padding-bottom: 0.8rem;
+      position: relative;
+      font-weight: 600;
+    }
+    
+    .form-solicitud h2::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 80px;
+      height: 3px;
+      background: linear-gradient(90deg, var(--primary-color) 0%, var(--accent-color) 100%);
+      border-radius: 3px;
     }
 
     .form-group {
-      margin-bottom: 1.5rem;
+      margin-bottom: 1.8rem;
+      position: relative;
     }
-
+    
     .form-group label {
       display: block;
-      margin-bottom: 0.5rem;
-      font-weight: bold;
-      color: #0b057a;
+      margin-bottom: 0.8rem;
+      font-weight: 500;
+      color: var(--dark-color);
+      font-size: 0.95rem;
+    }
+    
+    .form-group label i {
+      color: var(--primary-color);
+      margin-right: 8px;
+      width: 20px;
+      text-align: center;
     }
 
     .form-header {
       text-align: center;
-      margin-bottom: 2rem;
+      margin-bottom: 2.5rem;
+    }
+    
+    .form-header i {
+      font-size: 3.5rem;
+      color: var(--primary-color);
+      margin-bottom: 1.5rem;
+      background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      display: inline-block;
     }
 
-    .form-header i {
-      font-size: 3rem;
-      color: #0b057a;
-      margin-bottom: 1rem;
+    .form-header h2 {
+      font-size: 1.8rem;
+      margin-bottom: 0.5rem;
+      color: var(--dark-color);
+    }
+    
+    .form-header p {
+      color: #666;
+      font-size: 0.95rem;
     }
 
     .form-footer {
       text-align: center;
-      margin-top: 2rem;
+      margin-top: 3rem;
     }
 
     /* === ANIMACIONES === */
     @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(10px); }
+      from { opacity: 0; transform: translateY(20px); }
       to { opacity: 1; transform: translateY(0); }
+    }
+    
+    @keyframes pulse {
+      0% { transform: scale(1); }
+      50% { transform: scale(1.05); }
+      100% { transform: scale(1); }
     }
 
     .contenedor {
       animation: fadeIn 0.5s ease-out;
     }
+    
+    .pulse {
+      animation: pulse 2s infinite;
+    }
 
     /* === PESTAÑAS === */
     .tabs {
       display: flex;
-      margin-bottom: 1rem;
-      border-bottom: 1px solid #ddd;
+      margin-bottom: 1.5rem;
+      border-bottom: none;
+      background: white;
+      border-radius: 10px;
+      padding: 0.5rem;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+      max-width: 900px;
+      margin: 0 auto 2rem;
     }
-
+    
     .tab {
-      padding: 0.8rem 1.5rem;
+      padding: 1rem 2rem;
       cursor: pointer;
-      background: #f5f5f5;
+      background: transparent;
       margin-right: 0.5rem;
-      border-radius: 5px 5px 0 0;
-      transition: all 0.3s;
+      border-radius: 8px;
+      transition: all 0.3s ease;
+      font-weight: 500;
+      color: #666;
+      position: relative;
+      overflow: hidden;
+      flex: 1;
+      text-align: center;
     }
-
+    
+    .tab:last-child {
+      margin-right: 0;
+    }
+    
+    .tab::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 0;
+      height: 3px;
+      background: linear-gradient(90deg, var(--primary-color) 0%, var(--accent-color) 100%);
+      transition: all 0.3s ease;
+      border-radius: 3px;
+    }
+    
+    .tab:hover {
+      color: var(--primary-color);
+      background: rgba(74, 107, 255, 0.05);
+    }
+    
     .tab.active {
-      background: #0b057a;
-      color: white;
+      color: var(--primary-color);
+      font-weight: 600;
+    }
+    
+    .tab.active::after {
+      width: 80%;
     }
 
     .tab-content {
       display: none;
+      animation: fadeIn 0.5s ease-out;
     }
-
+    
     .tab-content.active {
       display: block;
+    }
+
+    /* === FILTRO === */
+    .filtro {
+      margin-bottom: 1.5rem;
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+    
+    .filtro label {
+      font-weight: 500;
+      color: var(--dark-color);
+      white-space: nowrap;
+    }
+    
+    .filtro select {
+      flex: 1;
+      max-width: 200px;
+      background: white url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='%234a6bff' viewBox='0 0 16 16'%3E%3Cpath d='M7.247 11.14 2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z'/%3E%3C/svg%3E") no-repeat;
+      background-position: right 0.75rem center;
+      background-size: 16px 12px;
+      appearance: none;
+      padding-right: 2rem;
+    }
+
+    /* === RESPONSIVE === */
+    @media (max-width: 768px) {
+      header {
+        padding: 1rem;
+      }
+      
+      header img {
+        width: 50px;
+        right: 1rem;
+        top: 1rem;
+      }
+      
+      .contenedor {
+        padding: 1.5rem;
+      }
+      
+      .tabs {
+        flex-direction: column;
+        padding: 0;
+      }
+      
+      .tab {
+        margin-right: 0;
+        margin-bottom: 0.5rem;
+        padding: 0.8rem;
+      }
+      
+      .tab::after {
+        display: none;
+      }
+      
+      .tab.active {
+        background: rgba(74, 107, 255, 0.1);
+      }
+      
+      .nav-iconos {
+        bottom: 20px;
+        right: 20px;
+      }
+      
+      .nav-iconos .icono {
+        width: 50px;
+        height: 50px;
+        font-size: 1rem;
+      }
+      
+      th, td {
+        padding: 0.8rem;
+        font-size: 0.9rem;
+      }
+    }
+    
+    /* === EFECTO GLASSMORPHISM === */
+    .glass {
+      background: rgba(255, 255, 255, 0.8);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+    }
+    
+    /* === TOOLTIPS === */
+    [data-tooltip] {
+      position: relative;
+    }
+    
+    [data-tooltip]::after {
+      content: attr(data-tooltip);
+      position: absolute;
+      bottom: 100%;
+      left: 50%;
+      transform: translateX(-50%);
+      background: var(--dark-color);
+      color: white;
+      padding: 0.5rem 1rem;
+      border-radius: 6px;
+      font-size: 0.8rem;
+      white-space: nowrap;
+      opacity: 0;
+      visibility: hidden;
+      transition: all 0.3s ease;
+      pointer-events: none;
+      z-index: 100;
+    }
+    
+    [data-tooltip]:hover::after {
+      opacity: 1;
+      visibility: visible;
+      transform: translateX(-50%) translateY(-5px);
+    }
+    
+    /* === NOTIFICACIONES === */
+    .notification {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      padding: 1rem 1.5rem;
+      border-radius: 8px;
+      color: white;
+      font-weight: 500;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+      z-index: 3000;
+      transform: translateX(200%);
+      transition: transform 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+    }
+    
+    .notification.show {
+      transform: translateX(0);
+    }
+    
+    .notification.success {
+      background: var(--success-color);
+    }
+    
+    .notification.error {
+      background: var(--danger-color);
+    }
+    
+    .notification.warning {
+      background: var(--warning-color);
+      color: var(--dark-color);
     }
   </style>
 </head>
 <body>
     <header>
-        <a href="index.html" style="position: absolute; left: 20px; color: white; text-decoration: none;">
-            <i class="fas fa-arrow-left"></i> Volver
+        <a href="index.html" style="position: absolute; left: 20px; color: white; text-decoration: none; display: flex; align-items: center;">
+            <i class="fas fa-arrow-left" style="margin-right: 8px;"></i> Volver
         </a>
     </header>
+  
   <!-- === PÁGINA PÚBLICA === -->
   <div id="pagina-publica">
     <header>
@@ -288,17 +656,21 @@
     </header>
 
     <main>
-      <div class="tabs">
-        <div class="tab active" onclick="cambiarTab('calendario')">Calendario</div>
-        <div class="tab" onclick="cambiarTab('solicitud')">Solicitar Simulación</div>
+      <div class="tabs glass">
+        <div class="tab active" onclick="cambiarTab('calendario')">
+          <i class="fas fa-calendar-day"></i> Calendario
+        </div>
+        <div class="tab" onclick="cambiarTab('solicitud')">
+          <i class="fas fa-file-signature"></i> Solicitar Simulación
+        </div>
       </div>
 
       <div id="tab-calendario" class="tab-content active">
-        <div class="contenedor">
+        <div class="contenedor glass">
           <div class="filtro">
-            <label for="nivel">Filtrar por nivel:</label>
+            <label for="nivel"><i class="fas fa-filter"></i> Filtrar por nivel:</label>
             <select id="nivel">
-              <option value="all">Todos</option>
+              <option value="all">Todos los niveles</option>
               <option value="V">V</option>
               <option value="VI">VI</option>
               <option value="VII">VII</option>
@@ -309,13 +681,13 @@
             </select>
           </div>
 
-          <table id="tabla-horarios">
+          <table id="tabla-horarios" class="glass">
             <thead>
               <tr>
-                <th>Materia</th>
-                <th>Grupo</th>
-                <th>Día</th>
-                <th>Hora</th>
+                <th><i class="fas fa-book"></i> Materia</th>
+                <th><i class="fas fa-users"></i> Grupo</th>
+                <th><i class="fas fa-calendar-day"></i> Día</th>
+                <th><i class="fas fa-clock"></i> Hora</th>
               </tr>
             </thead>
             <tbody>
@@ -326,14 +698,14 @@
       </div>
 
       <div id="tab-solicitud" class="tab-content">
-        <div class="contenedor form-solicitud">
+        <div class="contenedor glass form-solicitud">
           <div class="form-header">
             <i class="fas fa-file-alt"></i>
             <h2>Solicitud de Sesión de Simulación</h2>
             <p>Complete este formulario para solicitar una sesión de simulación para sus estudiantes</p>
           </div>
 
-           <form action="https://formsubmit.co/rodnidaniel21@gmail.com" method="POST" />
+          <form action="https://formsubmit.co/rodnidaniel21@gmail.com" method="POST" />
             <input type="hidden" name="_subject" value="Nueva solicitud de simulación">
             <input type="hidden" name="_template" value="table">
             <input type="hidden" name="_next" value="https://rodni21-coder.github.io/Introduccion/calendario.html">
@@ -389,7 +761,7 @@
             </div>
 
             <div class="form-footer">
-              <button type="submit"><i class="fas fa-paper-plane"></i> Enviar Solicitud</button>
+              <button type="submit" class="pulse"><i class="fas fa-paper-plane"></i> Enviar Solicitud</button>
             </div>
           </form>
         </div>
@@ -397,7 +769,7 @@
     </main>
 
     <footer>
-      <p>© 2025 Columbus University #LAUDELOSLIDERES</p>
+      <p>© 2025 Columbus University <span style="color: var(--accent-color);">#LAUDELOSLIDERES</span></p>
     </footer>
   </div>
 
@@ -408,40 +780,58 @@
     </header>
 
     <main>
-      <div class="contenedor" id="login-form">
+      <div class="contenedor glass" id="login-form">
         <h2><i class="fas fa-lock"></i> Acceso Administrativo</h2>
-        <input type="password" id="password" placeholder="Contraseña">
-        <button onclick="verificarPassword()">Ingresar</button>
+        <input type="password" id="password" placeholder="Ingrese la contraseña">
+        <button onclick="verificarPassword()"><i class="fas fa-sign-in-alt"></i> Ingresar</button>
       </div>
 
-      <div class="contenedor" id="registro-form" style="display: none;">
+      <div class="contenedor glass" id="registro-form" style="display: none;">
         <h2><i class="fas fa-plus-circle"></i> Registrar Nuevo Horario</h2>
         <form id="formulario-registro">
-          <input type="text" id="materia" placeholder="Materia" required>
-          <select id="grupo" required>
-            <option value="">Seleccione el grupo</option>
-            <option value="V">V</option>
-            <option value="VI">VI</option>
-            <option value="VII">VII</option>
-            <option value="VIII">VIII</option>
-            <option value="IX">IX</option>
-            <option value="X">X</option>
-            <option value="XI">XI</option>
-          </select>
-          <input type="text" id="dia" placeholder="Día (Ej:dia/mes)" required>
-          <input type="text" id="hora" placeholder="Hora (Ej: 8:00 AM)" required>
+          <div class="form-group">
+            <label for="materia"><i class="fas fa-book"></i> Materia</label>
+            <input type="text" id="materia" placeholder="Nombre de la materia" required>
+          </div>
+          
+          <div class="form-group">
+            <label for="grupo"><i class="fas fa-users"></i> Grupo</label>
+            <select id="grupo" required>
+              <option value="">Seleccione el grupo</option>
+              <option value="V">V</option>
+              <option value="VI">VI</option>
+              <option value="VII">VII</option>
+              <option value="VIII">VIII</option>
+              <option value="IX">IX</option>
+              <option value="X">X</option>
+              <option value="XI">XI</option>
+            </select>
+          </div>
+          
+          <div class="form-group">
+            <label for="dia"><i class="fas fa-calendar-day"></i> Día</label>
+            <input type="text" id="dia" placeholder="Ej: Lunes 15/05" required>
+          </div>
+          
+          <div class="form-group">
+            <label for="hora"><i class="fas fa-clock"></i> Hora</label>
+            <input type="text" id="hora" placeholder="Ej: 8:00 AM - 10:00 AM" required>
+          </div>
+
           <button type="submit"><i class="fas fa-save"></i> Guardar</button>
         </form>
 
-        <h2 style="margin-top: 2rem;"><i class="fas fa-list"></i> Horarios Registrados</h2>
-        <table id="admin-tabla">
+        <h2 style="margin-top: 2.5rem; padding-top: 1.5rem; border-top: 1px solid rgba(0,0,0,0.1);">
+          <i class="fas fa-list"></i> Horarios Registrados
+        </h2>
+        <table id="admin-tabla" class="glass">
           <thead>
             <tr>
-              <th>Materia</th>
-              <th>Grupo</th>
-              <th>Día</th>
-              <th>Hora</th>
-              <th>Acciones</th>
+              <th><i class="fas fa-book"></i> Materia</th>
+              <th><i class="fas fa-users"></i> Grupo</th>
+              <th><i class="fas fa-calendar-day"></i> Día</th>
+              <th><i class="fas fa-clock"></i> Hora</th>
+              <th><i class="fas fa-cog"></i> Acciones</th>
             </tr>
           </thead>
           <tbody id="admin-tbody">
@@ -453,43 +843,62 @@
 
     <!-- Modal para Editar -->
     <div id="modal-editar" class="modal">
-      <div class="modal-contenido">
+      <div class="modal-contenido glass">
         <span class="cerrar">&times;</span>
         <h3><i class="fas fa-edit"></i> Editar Horario</h3>
         <form id="form-editar">
           <input type="hidden" id="edit-id">
-          <input type="text" id="edit-materia" placeholder="Materia" required>
-          <select id="edit-grupo" required>
-            <option value="V">V</option>
-            <option value="VI">VI</option>
-            <option value="VII">VII</option>
-            <option value="VIII">VIII</option>
-            <option value="IX">IX</option>
-            <option value="X">X</option>
-            <option value="XI">XI</option>
-          </select>
-          <input type="text" id="edit-dia" placeholder="Día" required>
-          <input type="text" id="edit-hora" placeholder="Hora" required>
+          
+          <div class="form-group">
+            <label for="edit-materia"><i class="fas fa-book"></i> Materia</label>
+            <input type="text" id="edit-materia" placeholder="Nombre de la materia" required>
+          </div>
+          
+          <div class="form-group">
+            <label for="edit-grupo"><i class="fas fa-users"></i> Grupo</label>
+            <select id="edit-grupo" required>
+              <option value="V">V</option>
+              <option value="VI">VI</option>
+              <option value="VII">VII</option>
+              <option value="VIII">VIII</option>
+              <option value="IX">IX</option>
+              <option value="X">X</option>
+              <option value="XI">XI</option>
+            </select>
+          </div>
+          
+          <div class="form-group">
+            <label for="edit-dia"><i class="fas fa-calendar-day"></i> Día</label>
+            <input type="text" id="edit-dia" placeholder="Ej: Lunes 15/05" required>
+          </div>
+          
+          <div class="form-group">
+            <label for="edit-hora"><i class="fas fa-clock"></i> Hora</label>
+            <input type="text" id="edit-hora" placeholder="Ej: 8:00 AM - 10:00 AM" required>
+          </div>
+
           <button type="submit"><i class="fas fa-save"></i> Guardar Cambios</button>
         </form>
       </div>
     </div>
 
     <footer>
-      <p>© 2025 Columbus University #LAUDELOSLIDERES</p>
+      <p>© 2025 Columbus University <span style="color: var(--accent-color);">#LAUDELOSLIDERES</span></p>
     </footer>
   </div>
 
   <!-- === ICONOS DE NAVEGACIÓN === -->
   <div class="nav-iconos">
-    <div class="icono" onclick="cambiarPagina('publica')" title="Calendario">
+    <div class="icono active" onclick="cambiarPagina('publica')" data-tooltip="Calendario">
       <i class="fas fa-calendar-alt"></i>
     </div>
-    <div class="icono" onclick="cambiarPagina('admin')" title="Administración">
+    <div class="icono" onclick="cambiarPagina('admin')" data-tooltip="Administración">
       <i class="fas fa-user-tie"></i>
     </div>
   </div>
-
+  
+  <!-- === NOTIFICACIONES === -->
+  <div id="notification" class="notification"></div>
   <script>
     // === DATOS INICIALES ===
     let horarios = JSON.parse(localStorage.getItem('horarios')) || [];
