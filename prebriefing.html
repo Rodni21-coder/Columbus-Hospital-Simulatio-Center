@@ -6,13 +6,23 @@
   <title>Prebriefing Destrezas y Habilidades Clinicas</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <style>
-    /* === ESTILOS GENERALES === */
+    /* === VARIABLES Y ESTILOS GENERALES === */
     :root {
       --color-primario: #080154;
-      --color-secundario: #3498db;
-      --color-fondo: #f8f9fa;
-      --color-texto: #0c0c0c;
+      --color-secundario: #0311d6;
+      --color-terciario: #ffffff;
+      --color-accent: #1400ee;
+      --color-accent-dark: #03ab11;
+      --color-fondo: #eff2f3;
+      --color-texto: #333;
       --color-blanco: #fff;
+      --color-gris-claro: #e9ecef;
+      --color-gris-medio: #ced4da;
+      --color-sombra: rgba(0, 0, 0, 0.1);
+      --border-radius: 12px;
+      --transition: all 0.3s ease;
+      --box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      --box-shadow-hover: 0 8px 15px rgba(0, 0, 0, 0.15);
     }
 
     * {
@@ -25,61 +35,119 @@
       font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
       background-color: var(--color-fondo);
       color: var(--color-texto);
-      line-height: 1.6;
+      line-height: 1.7;
     }
-    header img {
-      width: 70px;
-      height: auto;
-      border-radius: 8px;
-      position: absolute;
-      right: 2rem;
-      top: 2rem;
+
+    h1, h2, h3, h4 {
+      color: white;
+      font-weight: 700;
+      margin-bottom: 1rem;
+    }
+
+    p {
+      margin-bottom: 1rem;
+    }
+
+    ul, ol {
+      margin-bottom: 1.5rem;
+      padding-left: 1.5rem;
+    }
+
+    li {
+      margin-bottom: 0.5rem;
     }
 
     /* === CABECERA === */
     header {
-      background-color: var(--color-primario);
+      background: linear-gradient(135deg, var(--color-primario), var(--color-secundario));
       color: var(--color-blanco);
-      padding: 2.5rem;
+      padding: 2rem 1.5rem;
       text-align: center;
-      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+      box-shadow: var(--box-shadow);
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-height: 180px;
     }
 
     header h1 {
-      font-size: 2rem;
+      font-size: 2.2rem;
       text-align: center;
-      margin-top: -30px;
+      margin: 0 auto;
+      max-width: 80%;
+      line-height: 1.3;
+      text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.2);
     }
+
     header img {
-  width: 75px; /* Aumenta el tamaño del logo */
-  height: auto;
-  border-radius: 8px;
-  position: absolute;
-  right: 2rem;
-  top: 1rem;
+      width: 80px;
+      height: auto;
+      border-radius: 50%;
+      position: absolute;
+      right: 2rem;
+      top: 1.5rem;
+      border: 3px solid var(--color-blanco);
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
     }
+
+    .volver-btn {
+      position: absolute;
+      left: 20px;
+      top: 6rem;
+      color: var(--color-blanco);
+      text-decoration: none;
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 12px;
+      border-radius: 30px;
+      background-color: rgba(255, 255, 255, 0.2);
+      transition: var(--transition);
+    }
+
+    .volver-btn:hover {
+      background-color: rgba(255, 255, 255, 0.3);
+      transform: translateX(-3px);
+    }
+
     /* === CONTENEDOR PRINCIPAL === */
     .contenedor {
       display: flex;
-      min-height: calc(100vh - 80px);
+      min-height: calc(100vh - 180px);
     }
 
     /* === MENÚ LATERAL === */
     .menu-lateral {
-      width: 300px;
-      background-color: var(--color-primario);
+      width: 320px;
+      background: linear-gradient(180deg, #080154, #0101cd);
       color: var(--color-blanco);
       transform: translateX(-100%);
-      will-change: transform;
-      transition: transform 0.15s cubic-bezier(0.4, 0, 0.2, 1);
-      backface-visibility: hidden;
+      transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
       position: fixed;
       height: 100vh;
       z-index: 100;
       overflow-y: auto;
       top: 0;
       left: 0;
-      padding-top: 80px;
+      padding-top: 180px;
+      scrollbar-width: thin;
+      scrollbar-color: var(--color-terciario) var(--color-primario);
+    }
+
+    .menu-lateral::-webkit-scrollbar {
+      width: 8px;
+    }
+
+    .menu-lateral::-webkit-scrollbar-track {
+      background: var(--color-primario);
+    }
+
+    .menu-lateral::-webkit-scrollbar-thumb {
+      background-color: var(--color-terciario);
+      border-radius: 20px;
     }
 
     .menu-lateral.activo {
@@ -89,11 +157,17 @@
     .menu-lateral h2 {
       position: sticky;
       top: 0;
-      background-color: var(--color-primario);
+      background: linear-gradient(180deg, #0311d6, #000e5a);
       z-index: 1;
-      padding: 1rem;
+      padding: 1.2rem;
       text-align: center;
       margin: 0;
+      font-size: 1.4rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      border-bottom: 2px solid rgba(255, 255, 255, 0.1);
     }
 
     .menu-lateral ul {
@@ -103,22 +177,34 @@
 
     .menu-lateral li {
       border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+      transition: var(--transition);
+    }
+
+    .menu-lateral li:hover {
+      background-color: rgba(255, 255, 255, 0.05);
     }
 
     .menu-lateral a {
-      display: block;
+      display: flex;
+      align-items: center;
       color: var(--color-blanco);
-      padding: 1rem;
+      padding: 1rem 1.5rem;
       text-decoration: none;
-      transition: background 0.3s;
+      transition: var(--transition);
+      font-weight: 500;
     }
 
     .menu-lateral a:hover {
-      background-color: var(--color-secundario);
+      background-color: rgba(255, 255, 255, 0.1);
+      padding-left: 1.8rem;
     }
 
     .menu-lateral a i {
-      margin-right: 10px;
+      margin-right: 12px;
+      font-size: 1.1rem;
+      width: 24px;
+      text-align: center;
+      color: var(--color-terciario);
     }
 
     /* === BOTÓN MENÚ === */
@@ -126,92 +212,146 @@
       position: fixed;
       top: 20px;
       left: 20px;
-      background-color: var(--color-primario);
+      background: linear-gradient(135deg, var(--color-accent), var(--color-accent-dark));
       color: var(--color-blanco);
       border: none;
       border-radius: 50%;
-      width: 50px;
-      height: 50px;
+      width: 56px;
+      height: 56px;
       font-size: 1.5rem;
       cursor: pointer;
       z-index: 101;
-      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
       display: flex;
       align-items: center;
       justify-content: center;
-      transition: all 0.1s ease-out;
-      will-change: transform;
+      transition: var(--transition);
+    }
+
+    .btn-menu:hover {
+      transform: scale(1.05);
+      box-shadow: 0 6px 12px rgba(0, 0, 0, 0.25);
     }
 
     /* === CONTENIDO PRINCIPAL === */
     .contenido-principal {
       flex: 1;
-      padding: 2rem;
+      padding: 2.5rem;
       margin-left: 0;
       transition: margin-left 0.3s ease;
+      max-width: 1200px;
+      margin: 0 auto;
     }
 
     .contenido-principal.desplazado {
-      margin-left: 300px;
+      margin-left: 320px;
     }
 
     /* === INTRODUCCIÓN === */
     .introduccion {
       background-color: var(--color-blanco);
-      padding: 2rem;
-      border-radius: 8px;
-      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-      margin-bottom: 2rem;
+      padding: 2.5rem;
+      border-radius: var(--border-radius);
+      box-shadow: var(--box-shadow);
+      margin-bottom: 2.5rem;
+      border-top: 5px solid var(--color-accent);
     }
 
     .introduccion h2 {
       color: var(--color-primario);
-      margin-bottom: 1rem;
+      margin-bottom: 1.5rem;
+      font-size: 1.8rem;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .introduccion h2 i {
+      color: var(--color-accent);
     }
 
     /* === TARJETAS DE SECCIONES === */
     .secciones {
       display: grid;
       grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-      gap: 1.5rem;
+      gap: 2rem;
       margin-top: 2rem;
     }
 
     .tarjeta {
       background-color: var(--color-blanco);
-      border-radius: 8px;
+      border-radius: var(--border-radius);
       overflow: hidden;
-      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-      transition: transform 0.3s;
+      box-shadow: var(--box-shadow);
+      transition: var(--transition);
+      display: flex;
+      flex-direction: column;
+      height: 100%;
+      border-top: 4px solid var(--color-secundario);
     }
 
     .tarjeta:hover {
-      transform: translateY(-5px);
+      transform: translateY(-8px);
+      box-shadow: var(--box-shadow-hover);
     }
 
     .tarjeta img {
       width: 100%;
       height: 200px;
       object-fit: cover;
+      border-bottom: 1px solid var(--color-gris-medio);
     }
 
     .tarjeta-contenido {
-      padding: 1.5rem;
+      padding: 1.8rem;
+      flex-grow: 1;
+      display: flex;
+      flex-direction: column;
     }
 
     .tarjeta h3 {
-      color: var(--color-primario);
-      margin-bottom: 0.5rem;
+      color:   #080154;
+      margin-bottom: 1rem;
+      font-size: 1.3rem;
+      min-height: 60px;
+      display: flex;
+      align-items: center;
+    }
+
+    .tarjeta p {
+      color:  #333 ;
+      margin-bottom: 1.5rem;
+      flex-grow: 1;
+    }
+
+    .tarjeta-btn {
+      display: inline-block;
+      background-color: #0311d6;
+      color: white;
+      padding: 0.6rem 1.2rem;
+      border-radius: 30px;
+      text-decoration: none;
+      font-weight: 600;
+      text-align: center;
+      transition: var(--transition);
+      margin-top: auto;
+      align-self: flex-start;
+    }
+
+    .tarjeta-btn:hover {
+      background-color:  #080154;
+      transform: translateY(-2px);
     }
 
     /* === SECCIONES DE CONTENIDO === */
     .seccion-contenido {
       background-color: var(--color-blanco);
-      padding: 2rem;
-      border-radius: 8px;
-      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-      margin-bottom: 2rem;
+      padding: 2.5rem;
+      border-radius: var(--border-radius);
+      box-shadow: var(--box-shadow);
+      margin-bottom: 2.5rem;
       display: none;
+      border-top: 5px solid var(--color-secundario);
     }
 
     .seccion-contenido.activo {
@@ -222,8 +362,21 @@
     .seccion-contenido h2 {
       color: var(--color-primario);
       margin-bottom: 1.5rem;
-      border-bottom: 2px solid var(--color-secundario);
-      padding-bottom: 0.5rem;
+      padding-bottom: 0.8rem;
+      border-bottom: 2px solid var(--color-terciario);
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-size: 1.8rem;
+    }
+
+    .seccion-contenido h2 i {
+      color: var(--color-accent);
+    }
+
+    .seccion-contenido strong {
+      color: var(--color-primario);
+      font-weight: 600;
     }
     
     /* Contenedores para contenido embebido */
@@ -231,11 +384,12 @@
       position: relative;
       padding-bottom: 56.25%; /* Relación 16:9 */
       height: 0;
-      margin: 1.5rem 0;
-      border-radius: 8px;
+      margin: 2rem 0;
+      border-radius: var(--border-radius);
       overflow: hidden;
-      box-shadow: 0 2px 15px rgba(0,0,0,0.1);
-      background: #f8f9fa;
+      box-shadow: var(--box-shadow);
+      background: var(--color-gris-claro);
+      border: 1px solid var(--color-gris-medio);
     }
     
     .web-optimizada iframe, 
@@ -247,52 +401,164 @@
       height: 100%;
       border: none;
     }
+
+    .subtitulo-seccion {
+      font-size: 1.3rem;
+      color: var(--color-secundario);
+      margin: 1.5rem 0 1rem;
+      padding-bottom: 0.5rem;
+      border-bottom: 1px dashed var(--color-terciario);
+    }
     
     .botones-recursos {
       display: flex;
-      gap: 10px;
-      margin-top: 10px;
+      gap: 12px;
+      margin-top: 15px;
+      flex-wrap: wrap;
     }
     
     .btn-recargar, .btn-abrir {
-      padding: 8px 15px;
-      border-radius: 5px;
-      font-size: 14px;
+      padding: 10px 18px;
+      border-radius: 30px;
+      font-size: 15px;
       cursor: pointer;
-      transition: all 0.2s;
+      transition: var(--transition);
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-weight: 600;
     }
     
     .btn-recargar {
-      background: var(--color-secundario);
+      background: linear-gradient(135deg, var(--color-accent), var(--color-accent-dark));
       color: white;
       border: none;
+    }
+    
+    .btn-recargar:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 8px rgba(234, 149, 1, 0.3);
     }
     
     .btn-abrir {
       background: white;
       color: var(--color-primario);
-      border: 1px solid var(--color-primario);
+      border: 2px solid var(--color-primario);
       text-decoration: none;
+    }
+    
+    .btn-abrir:hover {
+      background-color: var(--color-primario);
+      color: white;
+      transform: translateY(-2px);
     }
 
     /* === ANIMACIONES === */
     @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(10px); }
+      from { opacity: 0; transform: translateY(15px); }
       to { opacity: 1; transform: translateY(0); }
     }
 
+    /* === ACCESIBILIDAD === */
+    a:focus, button:focus {
+      outline: 3px solid var(--color-accent);
+      outline-offset: 3px;
+    }
+
+    .sr-only {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      padding: 0;
+      margin: -1px;
+      overflow: hidden;
+      clip: rect(0, 0, 0, 0);
+      white-space: nowrap;
+      border-width: 0;
+    }
+
     /* === RESPONSIVE === */
+    @media (max-width: 1024px) {
+      .contenido-principal {
+        padding: 2rem;
+      }
+      
+      .introduccion, .seccion-contenido {
+        padding: 2rem;
+      }
+    }
+
     @media (max-width: 768px) {
+      header h1 {
+        font-size: 1.8rem;
+        max-width: 90%;
+      }
+      
+      header img {
+        width: 70px;
+        right: 1rem;
+        top: 4rem;
+      }
+      
+      .volver-btn {
+        left: 1rem;
+        top: 1.5rem;
+      }
+      
       .contenido-principal.desplazado {
         margin-left: 0;
       }
       
       .menu-lateral {
-        width: 250px;
+        width: 280px;
+        padding-top: 160px;
       }
       
       .secciones {
         grid-template-columns: 1fr;
+      }
+      
+      .contenido-principal {
+        padding: 1.5rem;
+      }
+      
+      .introduccion, .seccion-contenido {
+        padding: 1.5rem;
+      }
+    }
+
+    @media (max-width: 480px) {
+      header {
+        padding: 1.5rem 1rem;
+        min-height: 160px;
+      }
+      
+      header h1 {
+        font-size: 1.5rem;
+        max-width: 100%;
+        padding-top: 10px;
+      }
+      
+      header img {
+        width: 60px;
+        position: static;
+        margin-top: 10px;
+      }
+      
+      .volver-btn {
+        position: static;
+        align-self: flex-start;
+        margin-bottom: 10px;
+      }
+      
+      .btn-menu {
+        width: 50px;
+        height: 50px;
+        font-size: 1.3rem;
+      }
+      
+      .seccion-contenido h2 {
+        font-size: 1.5rem;
       }
     }
   </style>
@@ -300,20 +566,20 @@
 <body>
   <!-- Cabecera -->
   <header>
-    <a href="index.html" style="position: absolute; left: 20px; top: 4rem; color: white; text-decoration: none;">
+    <a href="index.html" class="volver-btn">
       <i class="fas fa-arrow-left"></i> Volver
     </a>
     <h1>Prebriefing Destrezas y Habilidades Clínicas</h1>
-    <img src="logo.png" alt="Logo">
+    <img src="logo.png" alt="Logo de la institución">
   </header>
 
   <!-- Botón para abrir/cerrar menú -->
-  <button class="btn-menu" id="btnMenu">
+  <button class="btn-menu" id="btnMenu" aria-label="Abrir menú de navegación">
     <i class="fas fa-bars"></i>
   </button>
 
   <!-- Menú lateral -->
-  <nav class="menu-lateral" id="menuLateral">
+  <nav class="menu-lateral" id="menuLateral" aria-label="Menú de navegación principal">
     <h2><i class="fas fa-book-medical"></i> Secciones</h2>
     <ul>
       <li><a href="#" data-seccion="introduccion"><i class="fas fa-home"></i> Inicio</a></li>
@@ -325,6 +591,7 @@
       <li><a href="#" data-seccion="signos"><i class="fas fa-heartbeat"></i> Evaluación de Signos Vitales</a></li>
       <li><a href="#" data-seccion="pap"><i class="fas fa-female"></i> PAP</a></li>
       <li><a href="#" data-seccion="aplicacion"><i class="fas fa-syringe"></i> Aplicación de Medicamentos Parenterales</a></li>
+      <li><a href="#" data-seccion="manejo"><i class="fas fa-band-aid"></i> Manejo Básico de Heridas</a></li>
       <li><a href="#" data-seccion="gaso"><i class="fas fa-vial"></i> Gasometría</a></li>
       <li><a href="#" data-seccion="sonda-nasogastrica"><i class="fas fa-procedures"></i> Sonda Nasogástrica</a></li>
       <li><a href="#" data-seccion="entrevista"><i class="fas fa-user-md"></i> Entrevista e Historia Clínica</a></li>
@@ -340,160 +607,190 @@
   <main class="contenido-principal" id="contenidoPrincipal">
     <!-- Sección de introducción -->
     <section class="introduccion seccion-contenido activo" id="introduccion">
-      <h2>Bienvenido a la Sala de Habilidades y Destrezas Clinicas</h2>
-      <p>Este espacio está diseñado para el aprendizaje y práctica de procedimientos médicos fundamentales. A continuación encontrarás una breve descripción de cada sesión disponible:</p>
+      <h2><i class="fas fa-graduation-cap"></i> Bienvenido a la Sala de Habilidades y Destrezas Clínicas</h2>
+      <p>Este espacio está diseñado para el aprendizaje y práctica de procedimientos médicos fundamentales. Aquí encontrarás recursos educativos, guías paso a paso y materiales multimedia para perfeccionar tus habilidades clínicas.</p>
+      <p>Selecciona cualquier tema del menú lateral para comenzar tu aprendizaje.</p>
+      
+      <h3 class="subtitulo-seccion"><i class="fas fa-book-open"></i> Sesiones disponibles</h3>
       
       <div class="secciones">
         <!-- Tarjeta Flebotomía -->
         <div class="tarjeta">
-          <img src="FLEBOTOMIA.jpeg" alt="Flebotomía">
+          <img src="FLEBOTOMIA.jpeg" alt="Técnica de flebotomía">
           <div class="tarjeta-contenido">
             <h3>Flebotomía</h3>
             <p>Técnica para extracción de sangre venosa con fines diagnósticos o terapéuticos.</p>
+            <a href="#" data-seccion="flebotomia" class="tarjeta-btn">Aprender</a>
           </div>
         </div>
         
         <!-- Tarjeta Sutura -->
         <div class="tarjeta">
-          <img src="SUTURA.png" alt="Sutura">
+          <img src="SUTURA.png" alt="Técnica de sutura">
           <div class="tarjeta-contenido">
             <h3>Sutura</h3>
             <p>Técnica para aproximar tejidos mediante hilo quirúrgico para facilitar la cicatrización.</p>
+            <a href="#" data-seccion="sutura" class="tarjeta-btn">Aprender</a>
           </div>
         </div>
         
         <!-- Tarjeta Venopunciones -->
         <div class="tarjeta">
-          <img src="VENO.jpeg" alt="canalizacion">
+          <img src="VENO.jpeg" alt="Canalización intravenosa">
           <div class="tarjeta-contenido">
             <h3>Canalización IV</h3>
             <p>Procedimiento para acceder al sistema venoso periférico para administración de medicamentos.</p>
+            <a href="#" data-seccion="canalizacion" class="tarjeta-btn">Aprender</a>
           </div>
         </div>
         
         <!-- Tarjeta Auscultación -->
         <div class="tarjeta">
-          <img src="AUSCULTACION.jpeg" alt="Auscultación">
+          <img src="AUSCULTACION.jpeg" alt="Auscultación con estetoscopio">
           <div class="tarjeta-contenido">
             <h3>Auscultación</h3>
             <p>Técnica para escuchar sonidos corporales, principalmente cardíacos y pulmonares.</p>
+            <a href="#" data-seccion="auscultacion" class="tarjeta-btn">Aprender</a>
           </div>
         </div>
         
         <!-- Tarjeta Sonda -->
         <div class="tarjeta">
-          <img src="SONDAS.jpeg" alt="Colocación de Sonda">
+          <img src="SONDAS.jpeg" alt="Colocación de sonda">
           <div class="tarjeta-contenido">
             <h3>Colocación de Sonda</h3>
             <p>Procedimiento para inserción de dispositivos tubulares en cavidades corporales.</p>
+            <a href="#" data-seccion="sonda" class="tarjeta-btn">Aprender</a>
           </div>
         </div>
         
         <!-- Tarjeta Signos Vitales -->
         <div class="tarjeta">
-          <img src="SIGNOS.jpeg" alt="Signos Vitales">
+          <img src="SIGNOS.jpeg" alt="Toma de signos vitales">
           <div class="tarjeta-contenido">
             <h3>Signos Vitales</h3>
             <p>Evaluación de parámetros fisiológicos básicos que indican el estado del paciente.</p>
+            <a href="#" data-seccion="signos" class="tarjeta-btn">Aprender</a>
           </div>
         </div>
         
         <!-- Tarjeta PAP -->
         <div class="tarjeta">
-          <img src="PAP.jpeg" alt="PAP">
+          <img src="PAP.jpeg" alt="Prueba de Papanicolaou">
           <div class="tarjeta-contenido">
             <h3>PAP</h3>
             <p>Procedimiento para toma de muestra cervicovaginal para detección de anomalías.</p>
+            <a href="#" data-seccion="pap" class="tarjeta-btn">Aprender</a>
           </div>
         </div>
 
-         <!-- Tarjeta Aplicacion -->
-          <div class="tarjeta">
-          <img src="APLICACION.jpeg" alt="aplicacion">
-           <div class="tarjeta-contenido">
-             <h3>Aplicación de Medicamentos Parenterales</h3>
-             <p>Administración de fármacos a través de rutas no digestivas para efectos rápidos y precisos.</p>
-            </div>
+        <!-- Tarjeta Aplicacion -->
+        <div class="tarjeta">
+          <img src="APLICACION.jpeg" alt="Aplicación de medicamentos">
+          <div class="tarjeta-contenido">
+            <h3>Aplicación de Medicamentos Parenterales</h3>
+            <p>Administración de fármacos a través de rutas no digestivas para efectos rápidos y precisos.</p>
+            <a href="#" data-seccion="aplicacion" class="tarjeta-btn">Aprender</a>
+          </div>
+        </div>
+
+        <!-- Tarjeta manejo -->
+        <div class="tarjeta">
+          <img src="MANEJO.jpg" alt="Manejo de heridas">
+          <div class="tarjeta-contenido">
+            <h3>Manejo Básico de Heridas</h3>
+            <p>Técnicas para limpieza, protección y promoción de la cicatrización de lesiones cutáneas.</p>
+            <a href="#" data-seccion="manejo" class="tarjeta-btn">Aprender</a>
+          </div>
         </div>
 
         <!-- Tarjeta Gasometria-->
-         <div class="tarjeta">
-         <img src="GASO.png" alt="gaso">
-          <div class="tarjeta-contenido">
-             <h3>Gasometría</h3>
-             <p>Análisis del equilibrio ácido-base y oxigenación mediante medición de gases en sangre arterial.</p>
-            </div>
-         </div>
-      <!-- Tarjeta Sonda Nasogástrica -->
         <div class="tarjeta">
-        <img src="SONDA NASTO.png" alt="Sonda Nasogástrica">
-         <div class="tarjeta-contenido">
-             <h3>Sonda Nasogástrica</h3>
+          <img src="GASO.png" alt="Gasometría arterial">
+          <div class="tarjeta-contenido">
+            <h3>Gasometría</h3>
+            <p>Análisis del equilibrio ácido-base y oxigenación mediante medición de gases en sangre arterial.</p>
+            <a href="#" data-seccion="gaso" class="tarjeta-btn">Aprender</a>
+          </div>
+        </div>
+        
+        <!-- Tarjeta Sonda Nasogástrica -->
+        <div class="tarjeta">
+          <img src="SONDA NASTO.png" alt="Sonda nasogástrica">
+          <div class="tarjeta-contenido">
+            <h3>Sonda Nasogástrica</h3>
             <p>Procedimiento para insertar una sonda a través de la nariz hasta el estómago para alimentación o drenaje.</p>
-         </div>
+            <a href="#" data-seccion="sonda-nasogastrica" class="tarjeta-btn">Aprender</a>
+          </div>
+        </div>
+  
+        <!-- Tarjeta Entrevista e Historia Clínica -->
+        <div class="tarjeta">
+          <img src="ENTREVISTA.jpeg" alt="Entrevista clínica">
+          <div class="tarjeta-contenido">
+            <h3>Entrevista e Historia Clínica</h3>
+            <p>Proceso de recopilación de información médica y antecedentes del paciente para diagnóstico y tratamiento.</p>
+            <a href="#" data-seccion="entrevista" class="tarjeta-btn">Aprender</a>
+          </div>
+        </div>
+  
+        <!-- Tarjeta Malas Noticias -->
+        <div class="tarjeta">
+          <img src="MALAS.png" alt="Comunicación de malas noticias">
+          <div class="tarjeta-contenido">
+            <h3>Malas Noticias</h3>
+            <p>Comunicación efectiva y empática de información difícil o desfavorable al paciente o familiares.</p>
+            <a href="#" data-seccion="malas-noticias" class="tarjeta-btn">Aprender</a>
+          </div>
+        </div>
+  
+        <!-- Tarjeta Hemocultivo -->
+        <div class="tarjeta">
+          <img src="HEMOC.jpg" alt="Toma de hemocultivo">
+          <div class="tarjeta-contenido">
+            <h3>Hemocultivo</h3>
+            <p>Prueba diagnóstica para detectar infecciones en la sangre mediante cultivo microbiológico.</p>
+            <a href="#" data-seccion="hemocultivo" class="tarjeta-btn">Aprender</a>
+          </div>
+        </div>
+  
+        <!-- Tarjeta Colocación de EKG -->
+        <div class="tarjeta">
+          <img src="EKG.png" alt="Electrocardiograma">
+          <div class="tarjeta-contenido">
+            <h3>Colocación de EKG</h3>
+            <p>Procedimiento para registrar la actividad eléctrica del corazón mediante electrodos en el cuerpo.</p>
+            <a href="#" data-seccion="ekg" class="tarjeta-btn">Aprender</a>
+          </div>
+        </div>
+  
+        <!-- Tarjeta Historia Clínica Dirigida -->
+        <div class="tarjeta">
+          <img src="HCLINICA.jpg" alt="Historia clínica">
+          <div class="tarjeta-contenido">
+            <h3>Historia Clínica Dirigida</h3>
+            <p>Recopilación específica de datos clínicos relevantes para un diagnóstico preciso.</p>
+            <a href="#" data-seccion="historia-dirigida" class="tarjeta-btn">Aprender</a>
+          </div>
+        </div>
+  
+        <!-- Tarjeta Interpretación de Estudios Paraclínicos -->
+        <div class="tarjeta">
+          <img src="INTERPRETACION.jpg" alt="Interpretación de estudios">
+          <div class="tarjeta-contenido">
+            <h3>Interpretación de Estudios Paraclínicos</h3>
+            <p>Análisis de resultados de pruebas diagnósticas para apoyar el diagnóstico y tratamiento.</p>
+            <a href="#" data-seccion="interpretacion" class="tarjeta-btn">Aprender</a>
+          </div>
+        </div>
       </div>
-  
-  <!-- Tarjeta Entrevista e Historia Clínica -->
-  <div class="tarjeta">
-    <img src="ENTREVISTA.jpeg" alt="Entrevista e Historia Clínica">
-    <div class="tarjeta-contenido">
-      <h3>Entrevista e Historia Clínica</h3>
-      <p>Proceso de recopilación de información médica y antecedentes del paciente para diagnóstico y tratamiento.</p>
-    </div>
-  </div>
-  
-  <!-- Tarjeta Malas Noticias -->
-  <div class="tarjeta">
-    <img src="MALAS.png" alt="Malas Noticias">
-    <div class="tarjeta-contenido">
-      <h3>Malas Noticias</h3>
-      <p>Comunicación efectiva y empática de información difícil o desfavorable al paciente o familiares.</p>
-    </div>
-  </div>
-  
-  <!-- Tarjeta Hemocultivo -->
-  <div class="tarjeta">
-    <img src="HEMOC.jpg" alt="Hemocultivo">
-    <div class="tarjeta-contenido">
-      <h3>Hemocultivo</h3>
-      <p>Prueba diagnóstica para detectar infecciones en la sangre mediante cultivo microbiológico.</p>
-    </div>
-  </div>
-  
-  <!-- Tarjeta Colocación de EKG -->
-  <div class="tarjeta">
-    <img src="EKG.png" alt="Colocación de EKG">
-    <div class="tarjeta-contenido">
-      <h3>Colocación de EKG</h3>
-      <p>Procedimiento para registrar la actividad eléctrica del corazón mediante electrodos en el cuerpo.</p>
-    </div>
-  </div>
-  
-  <!-- Tarjeta Historia Clínica Dirigida -->
-  <div class="tarjeta">
-    <img src="HCLINICA.jpg" alt="Historia Clínica Dirigida">
-    <div class="tarjeta-contenido">
-      <h3>Historia Clínica Dirigida</h3>
-      <p>Recopilación específica de datos clínicos relevantes para un diagnóstico preciso.</p>
-    </div>
-  </div>
-  
-  <!-- Tarjeta Interpretación de Estudios Paraclínicos -->
-  <div class="tarjeta">
-    <img src="INTERPRETACION.jpg" alt="Interpretación de Estudios Paraclínicos">
-    <div class="tarjeta-contenido">
-      <h3>Interpretación de Estudios Paraclínicos</h3>
-      <p>Análisis de resultados de pruebas diagnósticas para apoyar el diagnóstico y tratamiento.</p>
-    </div>
-  </div>
-</div>
     </section>
 
     <!-- Sección Flebotomía -->
     <section class="seccion-contenido" id="flebotomia">
       <h2><i class="fas fa-syringe"></i> Flebotomía</h2>
       <p><strong>Prebriefing:</strong> En esta sesión aprenderás la técnica adecuada para la extracción de muestras sanguíneas.</p>
-      <p><strong>objetivos:</strong> </p>
+      <p><strong>Objetivos:</strong> </p>
       <ul>
         <li>Identificación correcta del paciente</li>
         <li>Preparación del material estéril</li>
@@ -619,12 +916,12 @@
         <li>Complicaciones y manejo</li>
       </ul>
       
-      <p><strong> Colocación de Sonda Femenino</strong></p>
+      <h3 class="subtitulo-seccion">Colocación de Sonda Femenino</h3>
       <div class="web-optimizada">
         <iframe 
           src="https://accessmedicina.mhmedical.com/content.aspx?bookid=3118&sectionid=267808228"
           loading="eager"
-          title="Guía de Colocación de Sonda">
+          title="Guía de Colocación de Sonda Femenina">
         </iframe>
         <div class="botones-recursos">
           <button class="btn-recargar" onclick="recargarIframe('sonda')">
@@ -635,12 +932,13 @@
           </button>
         </div>
       </div>
-      <p><strong> Colocación de Sonda Masculino</strong></p>
+      
+      <h3 class="subtitulo-seccion">Colocación de Sonda Masculino</h3>
       <div class="web-optimizada">
         <iframe 
           src="https://accessmedicina.mhmedical.com/content.aspx?bookid=3118&sectionid=267808229"
           loading="eager"
-          title="Guía de Colocación de Sonda">
+          title="Guía de Colocación de Sonda Masculina">
         </iframe>
         <div class="botones-recursos">
           <button class="btn-recargar" onclick="recargarIframe('sonda')">
@@ -741,7 +1039,38 @@
         </div>
       </div>
     </section>
-    
+
+    <!-- Sección Manejo Básico de Heridas -->
+    <section class="seccion-contenido" id="manejo">
+      <h2><i class="fas fa-band-aid"></i> Manejo Básico de Heridas</h2>
+      <p><strong>Significado clave:</strong> Conjunto de técnicas para limpieza, protección y promoción de la cicatrización de lesiones cutáneas, previniendo infecciones y complicaciones.</p>
+      <p><strong>Prebriefing:</strong> En esta sesión aprenderás la técnica adecuada para el manejo básico de heridas.</p>
+      <p><strong>Objetivos:</strong> </p>
+      <ul>
+        <li>Evaluación de la herida</li>
+        <li>Limpieza y desinfección</li>
+        <li>Aplicación de apósitos</li>
+        <li>Técnicas de vendaje</li>
+        <li>Cuidados post-procedimiento</li>
+      </ul>
+      
+      <div class="web-optimizada">
+        <iframe 
+          src="https://www.youtube.com/embed/VIDEO_ID_MANEJO"
+          loading="eager"
+          title="Guía de Manejo de Heridas">
+        </iframe>
+        <div class="botones-recursos">
+          <button class="btn-recargar" onclick="recargarIframe('manejo')">
+            <i class="fas fa-sync-alt"></i> Recargar
+          </button>
+          <button class="btn-abrir" onclick="abrirEnNuevaVentana('manejo')">
+            <i class="fas fa-external-link-alt"></i> Abrir externo
+          </button>
+        </div>
+      </div>
+    </section>
+
     <!-- Sección Gasometría -->
     <section class="seccion-contenido" id="gaso">
       <h2><i class="fas fa-vial"></i> Gasometría</h2>
@@ -758,7 +1087,7 @@
       
       <div class="web-optimizada">
         <iframe 
-          src="https://accessmedicina.mhmedical.com/MultimediaPlayer.aspx?MultimediaID=20266905"
+          src="https://www.youtube.com/embed/VIDEO_ID_GASO"
           loading="eager"
           title="Guía de Gasometría">
         </iframe>
@@ -774,294 +1103,284 @@
     </section>
 
     <!-- Sección Sonda Nasogástrica -->
-<section class="seccion-contenido" id="sonda-nasogastrica">
-    <h2><i class="fas fa-procedures"></i> Sonda Nasogástrica</h2>
-    <p><strong>Prebriefing:</strong> En esta sesión aprenderás la técnica adecuada para la colocación de una sonda nasogástrica.</p>
-    <p><strong>objetivos:</strong> </p>
-    <ul>
+    <section class="seccion-contenido" id="sonda-nasogastrica">
+      <h2><i class="fas fa-procedures"></i> Sonda Nasogástrica</h2>
+      <p><strong>Prebriefing:</strong> En esta sesión aprenderás la técnica adecuada para la colocación de una sonda nasogástrica.</p>
+      <p><strong>Objetivos:</strong> </p>
+      <ul>
         <li>Identificar las indicaciones y contraindicaciones del procedimiento.</li>
         <li>Preparar adecuadamente el material necesario.</li>
         <li>Realizar la técnica de inserción de la sonda de forma segura.</li>
         <li>Reconocer posibles complicaciones y su manejo.</li>
         <li>Garantizar el confort y seguridad del paciente durante el procedimiento.</li>
       </ul>
-    <div class="web-optimizada">
+      
+      <div class="web-optimizada">
         <iframe 
           src="https://www.youtube.com/embed/VIDEO_ID_GASO"
           loading="eager"
-          title="Guía de Gasometría">
+          title="Guía de Sonda Nasogástrica">
         </iframe>
         <div class="botones-recursos">
-          <button class="btn-recargar" onclick="recargarIframe('gaso')">
+          <button class="btn-recargar" onclick="recargarIframe('sonda-nasogastrica')">
             <i class="fas fa-sync-alt"></i> Recargar
           </button>
-          <button class="btn-abrir" onclick="abrirEnNuevaVentana('gaso')">
+          <button class="btn-abrir" onclick="abrirEnNuevaVentana('sonda-nasogastrica')">
             <i class="fas fa-external-link-alt"></i> Abrir externo
           </button>
         </div>
       </div>
-  </section>
+    </section>
   
-  <!-- Sección Entrevista e Historia Clínica -->
-  <section class="seccion-contenido" id="entrevista">
-    <h2><i class="fas fa-user-md"></i> Entrevista e Historia Clínica</h2>
-    <p><strong>Prebriefing:</strong> En esta sesión aprenderás a realizar una entrevista clínica efectiva.</p>
-    <p><strong>Objetivos:</strong></p>
-    <ul>
-      <li>Desarrollar habilidades de comunicación efectiva con el paciente.</li>
-      <li>Recopilar información médica relevante y antecedentes personales.</li>
-      <li>Identificar signos y síntomas clave para el diagnóstico.</li>
-      <li>Documentar correctamente la información obtenida.</li>
-      <li>Establecer una relación médico-paciente basada en la confianza.</li>
-    </ul>
-    <p><strong>Atención de un paciente con conducta inadecuada:</strong></p>
-    <div class="web-optimizada">
+    <!-- Sección Entrevista e Historia Clínica -->
+    <section class="seccion-contenido" id="entrevista">
+      <h2><i class="fas fa-user-md"></i> Entrevista e Historia Clínica</h2>
+      <p><strong>Prebriefing:</strong> En esta sesión aprenderás a realizar una entrevista clínica efectiva.</p>
+      <p><strong>Objetivos:</strong></p>
+      <ul>
+        <li>Desarrollar habilidades de comunicación efectiva con el paciente.</li>
+        <li>Recopilar información médica relevante y antecedentes personales.</li>
+        <li>Identificar signos y síntomas clave para el diagnóstico.</li>
+        <li>Documentar correctamente la información obtenida.</li>
+        <li>Establecer una relación médico-paciente basada en la confianza.</li>
+      </ul>
+      
+      <h3 class="subtitulo-seccion">Atención de un paciente con conducta inadecuada</h3>
+      <div class="web-optimizada">
         <iframe 
           src="https://accessmedicina.mhmedical.com/MultimediaPlayer.aspx?MultimediaID=20505386"
           loading="eager"
-          title="Guía de entrevista">
+          title="Guía de entrevista con paciente con conducta inadecuada">
         </iframe>
         <div class="botones-recursos">
-          <button class="btn-recargar" onclick="recargarIframe('gaso')">
+          <button class="btn-recargar" onclick="recargarIframe('entrevista')">
             <i class="fas fa-sync-alt"></i> Recargar
           </button>
-          <button class="btn-abrir" onclick="abrirEnNuevaVentana('gaso')">
+          <button class="btn-abrir" onclick="abrirEnNuevaVentana('entrevista')">
             <i class="fas fa-external-link-alt"></i> Abrir externo
           </button>
         </div>
       </div>
 
-      <p><strong>Atención del paciente exigente:</strong></p>
+      <h3 class="subtitulo-seccion">Atención del paciente exigente</h3>
       <div class="web-optimizada">
-          <iframe 
-            src="https://accessmedicina.mhmedical.com/MultimediaPlayer.aspx?MultimediaID=20505388"
-            loading="eager"
-            title="Guía de entrevista">
-          </iframe>
-          <div class="botones-recursos">
-            <button class="btn-recargar" onclick="recargarIframe('gaso')">
-              <i class="fas fa-sync-alt"></i> Recargar
-            </button>
-            <button class="btn-abrir" onclick="abrirEnNuevaVentana('gaso')">
-              <i class="fas fa-external-link-alt"></i> Abrir externo
-            </button>
-          </div>
+        <iframe 
+          src="https://accessmedicina.mhmedical.com/MultimediaPlayer.aspx?MultimediaID=20505388"
+          loading="eager"
+          title="Guía de entrevista con paciente exigente">
+        </iframe>
+        <div class="botones-recursos">
+          <button class="btn-recargar" onclick="recargarIframe('entrevista')">
+            <i class="fas fa-sync-alt"></i> Recargar
+          </button>
+          <button class="btn-abrir" onclick="abrirEnNuevaVentana('entrevista')">
+            <i class="fas fa-external-link-alt"></i> Abrir externo
+          </button>
         </div>
+      </div>
 
-        <p><strong>Atención de un paciente molesto:</strong></p>
-        <div class="web-optimizada">
-            <iframe 
-              src="https://www.google.com/url?q=https://accessmedicina.mhmedical.com/MultimediaPlayer.aspx?MultimediaID%3D20505384&sa=D&source=editors&ust=1743006582927322&usg=AOvVaw2I5F_0mVOLu4hPd85OYOkG"
-              loading="eager"
-              title="Guía de entrevista">
-            </iframe>
-            <div class="botones-recursos">
-              <button class="btn-recargar" onclick="recargarIframe('gaso')">
-                <i class="fas fa-sync-alt"></i> Recargar
-              </button>
-              <button class="btn-abrir" onclick="abrirEnNuevaVentana('gaso')">
-                <i class="fas fa-external-link-alt"></i> Abrir externo
-              </button>
-            </div>
-          </div>
-
-          <p><strong>Habilidad de Empatía:</strong></p>
-          <div class="web-optimizada">
-          <iframe 
-            src="https://accessmedicina.mhmedical.com/MultimediaPlayer.aspx?MultimediaID=20505380"
-            loading="eager"
-            title="Guía de entrevista">
-          </iframe>
-          <div class="botones-recursos">
-            <button class="btn-recargar" onclick="recargarIframe('gaso')">
-              <i class="fas fa-sync-alt"></i> Recargar
-            </button>
-            <button class="btn-abrir" onclick="abrirEnNuevaVentana('gaso')">
-              <i class="fas fa-external-link-alt"></i> Abrir externo
-            </button>
-          </div>
+      <h3 class="subtitulo-seccion">Atención de un paciente molesto</h3>
+      <div class="web-optimizada">
+        <iframe 
+          src="https://www.google.com/url?q=https://accessmedicina.mhmedical.com/MultimediaPlayer.aspx?MultimediaID%3D20505384&sa=D&source=editors&ust=1743006582927322&usg=AOvVaw2I5F_0mVOLu4hPd85OYOkG"
+          loading="eager"
+          title="Guía de entrevista con paciente molesto">
+        </iframe>
+        <div class="botones-recursos">
+          <button class="btn-recargar" onclick="recargarIframe('entrevista')">
+            <i class="fas fa-sync-alt"></i> Recargar
+          </button>
+          <button class="btn-abrir" onclick="abrirEnNuevaVentana('entrevista')">
+            <i class="fas fa-external-link-alt"></i> Abrir externo
+          </button>
         </div>
-  </section>
+      </div>
+    </section>
   
-  <!-- Sección Malas Noticias -->
-  <section class="seccion-contenido" id="malas-noticias">
-    <h2><i class="fas fa-comment-slash"></i> Malas Noticias</h2>
-    <p><strong>Prebriefing:</strong> En esta sesión aprenderás a comunicar malas noticias de manera efectiva.</p>
-    <p><strong>Objetivos:</strong></p>
-    <ul>
-      <li>Aprender técnicas de comunicación empática y efectiva.</li>
-      <li>Reconocer las necesidades emocionales del paciente y sus familiares.</li>
-      <li>Manejar situaciones difíciles con sensibilidad y profesionalismo.</li>
-      <li>Aplicar el protocolo SPIKES para la comunicación de malas noticias.</li>
-      <li>Reducir el impacto emocional negativo en el paciente y su entorno.</li>
-    </ul>
-    <p><strong>Método para dar malas noticias a un paciente:</strong></p>
-    <div class="web-optimizada">
+    <!-- Sección Malas Noticias -->
+    <section class="seccion-contenido" id="malas-noticias">
+      <h2><i class="fas fa-comment-slash"></i> Malas Noticias</h2>
+      <p><strong>Prebriefing:</strong> En esta sesión aprenderás a comunicar malas noticias de manera efectiva.</p>
+      <p><strong>Objetivos:</strong></p>
+      <ul>
+        <li>Aprender técnicas de comunicación empática y efectiva.</li>
+        <li>Reconocer las necesidades emocionales del paciente y sus familiares.</li>
+        <li>Manejar situaciones difíciles con sensibilidad y profesionalismo.</li>
+        <li>Aplicar el protocolo SPIKES para la comunicación de malas noticias.</li>
+        <li>Reducir el impacto emocional negativo en el paciente y su entorno.</li>
+      </ul>
+      
+      <h3 class="subtitulo-seccion">Método para dar malas noticias a un paciente</h3>
+      <div class="web-optimizada">
         <iframe 
           src="https://accessmedicina.mhmedical.com/MultimediaPlayer.aspx?MultimediaID=20505382"
           loading="eager"
-          title="Guía de Gasometría">
+          title="Guía para dar malas noticias">
         </iframe>
         <div class="botones-recursos">
-          <button class="btn-recargar" onclick="recargarIframe('gaso')">
+          <button class="btn-recargar" onclick="recargarIframe('malas-noticias')">
             <i class="fas fa-sync-alt"></i> Recargar
           </button>
-          <button class="btn-abrir" onclick="abrirEnNuevaVentana('gaso')">
+          <button class="btn-abrir" onclick="abrirEnNuevaVentana('malas-noticias')">
             <i class="fas fa-external-link-alt"></i> Abrir externo
           </button>
         </div>
       </div>
 
-      <p><strong>Duelo: anuncio de una muerte en el departamento de urgencias:</strong></p>
+      <h3 class="subtitulo-seccion">Duelo: anuncio de una muerte en el departamento de urgencias</h3>
       <div class="web-optimizada">
-          <iframe 
-            src="https://accessmedicina.mhmedical.com/MultimediaPlayer.aspx?MultimediaID=17548742"
-            loading="eager"
-            title="Guía de entrevista">
-          </iframe>
-          <div class="botones-recursos">
-            <button class="btn-recargar" onclick="recargarIframe('gaso')">
-              <i class="fas fa-sync-alt"></i> Recargar
-            </button>
-            <button class="btn-abrir" onclick="abrirEnNuevaVentana('gaso')">
-              <i class="fas fa-external-link-alt"></i> Abrir externo
-            </button>
-          </div>
+        <iframe 
+          src="https://accessmedicina.mhmedical.com/MultimediaPlayer.aspx?MultimediaID=17548742"
+          loading="eager"
+          title="Guía para anunciar una muerte en urgencias">
+        </iframe>
+        <div class="botones-recursos">
+          <button class="btn-recargar" onclick="recargarIframe('malas-noticias')">
+            <i class="fas fa-sync-alt"></i> Recargar
+          </button>
+          <button class="btn-abrir" onclick="abrirEnNuevaVentana('malas-noticias')">
+            <i class="fas fa-external-link-alt"></i> Abrir externo
+          </button>
         </div>
+      </div>
 
-        <p><strong>Método para informar al paciente malas noticias:</strong></p>
-        <div class="web-optimizada">
-            <iframe 
-              src="https://accessmedicina.mhmedical.com/MultimediaPlayer.aspx?MultimediaID=20505376"
-              loading="eager"
-              title="Guía de entrevista">
-            </iframe>
-            <div class="botones-recursos">
-              <button class="btn-recargar" onclick="recargarIframe('gaso')">
-                <i class="fas fa-sync-alt"></i> Recargar
-              </button>
-              <button class="btn-abrir" onclick="abrirEnNuevaVentana('gaso')">
-                <i class="fas fa-external-link-alt"></i> Abrir externo
-              </button>
-            </div>
-          </div>
-  </section>
-  
-  <!-- Sección Hemocultivo -->
-  <section class="seccion-contenido" id="hemocultivo">
-    <h2><i class="fas fa-vial"></i> Hemocultivo</h2>
-    <p><strong>Prebriefing:</strong> En esta sesión aprenderás la técnica adecuada para la realización de hemocultivos.</p>
-    <p><strong>Objetivos:</strong></p>
-    <ul>
-      <li>Identificar las indicaciones para la realización de un hemocultivo.</li>
-      <li>Preparar el material y el sitio de punción de forma estéril.</li>
-      <li>Realizar la técnica de extracción de sangre para cultivo microbiológico.</li>
-      <li>Evitar la contaminación de la muestra.</li>
-      <li>Interpretar los resultados del hemocultivo para el diagnóstico de infecciones.</li>
-    </ul>
-    <div class="web-optimizada">
+      <h3 class="subtitulo-seccion">Método para informar al paciente malas noticias</h3>
+      <div class="web-optimizada">
         <iframe 
-          src="https://www.youtube.com/embed/VIDEO_ID_GASO"
+          src="https://accessmedicina.mhmedical.com/MultimediaPlayer.aspx?MultimediaID=20505376"
           loading="eager"
-          title="Guía de Gasometría">
+          title="Método para informar malas noticias">
         </iframe>
         <div class="botones-recursos">
-          <button class="btn-recargar" onclick="recargarIframe('gaso')">
+          <button class="btn-recargar" onclick="recargarIframe('malas-noticias')">
             <i class="fas fa-sync-alt"></i> Recargar
           </button>
-          <button class="btn-abrir" onclick="abrirEnNuevaVentana('gaso')">
+          <button class="btn-abrir" onclick="abrirEnNuevaVentana('malas-noticias')">
             <i class="fas fa-external-link-alt"></i> Abrir externo
           </button>
         </div>
       </div>
-  </section>
+    </section>
   
-  <!-- Sección Colocación de EKG -->
-  <section class="seccion-contenido" id="ekg">
-    <h2><i class="fas fa-heart"></i> Colocación de EKG</h2>
-    <p><strong>Prebriefing:</strong> En esta sesión aprenderás la técnica adecuada para la colocación de un electrocardiograma.</p>
-    <p><strong>Objetivos:</strong></p>
-    <ul>
-      <li>Identificar las indicaciones para la colocación de un electrocardiograma.</li>
-      <li>Preparar adecuadamente al paciente y el equipo.</li>
-      <li>Colocar los electrodos en las posiciones correctas.</li>
-      <li>Registrar la actividad eléctrica del corazón de manera precisa.</li>
-      <li>Reconocer patrones básicos en el trazado del EKG.</li>
-    </ul>
-    <div class="web-optimizada">
+    <!-- Sección Hemocultivo -->
+    <section class="seccion-contenido" id="hemocultivo">
+      <h2><i class="fas fa-vial"></i> Hemocultivo</h2>
+      <p><strong>Prebriefing:</strong> En esta sesión aprenderás la técnica adecuada para la realización de hemocultivos.</p>
+      <p><strong>Objetivos:</strong></p>
+      <ul>
+        <li>Identificar las indicaciones para la realización de un hemocultivo.</li>
+        <li>Preparar el material y el sitio de punción de forma estéril.</li>
+        <li>Realizar la técnica de extracción de sangre para cultivo microbiológico.</li>
+        <li>Evitar la contaminación de la muestra.</li>
+        <li>Interpretar los resultados del hemocultivo para el diagnóstico de infecciones.</li>
+      </ul>
+      
+      <div class="web-optimizada">
         <iframe 
           src="https://www.youtube.com/embed/VIDEO_ID_GASO"
           loading="eager"
-          title="Guía de Gasometría">
+          title="Guía de Hemocultivo">
         </iframe>
         <div class="botones-recursos">
-          <button class="btn-recargar" onclick="recargarIframe('gaso')">
+          <button class="btn-recargar" onclick="recargarIframe('hemocultivo')">
             <i class="fas fa-sync-alt"></i> Recargar
           </button>
-          <button class="btn-abrir" onclick="abrirEnNuevaVentana('gaso')">
+          <button class="btn-abrir" onclick="abrirEnNuevaVentana('hemocultivo')">
             <i class="fas fa-external-link-alt"></i> Abrir externo
           </button>
         </div>
       </div>
-  </section>
+    </section>
   
-  <!-- Sección Historia Clínica Dirigida -->
-  <section class="seccion-contenido" id="historia-dirigida">
-    <h2><i class="fas fa-file-medical"></i> Historia Clínica Dirigida</h2>
-    <p><strong>Prebriefing:</strong> En esta sesión aprenderás a realizar una historia clínica dirigida.</p>
-  <p><strong>Objetivos:</strong></p>
-  <ul>
-    <li>Recopilar información específica para un diagnóstico preciso.</li>
-    <li>Identificar los antecedentes relevantes según el motivo de consulta.</li>
-    <li>Realizar preguntas dirigidas para explorar síntomas clave.</li>
-    <li>Documentar los hallazgos de manera estructurada.</li>
-    <li>Relacionar la información obtenida con posibles diagnósticos diferenciales.</li>
-  </ul>
-    <div class="web-optimizada">
+    <!-- Sección Colocación de EKG -->
+    <section class="seccion-contenido" id="ekg">
+      <h2><i class="fas fa-heart"></i> Colocación de EKG</h2>
+      <p><strong>Prebriefing:</strong> En esta sesión aprenderás la técnica adecuada para la colocación de un electrocardiograma.</p>
+      <p><strong>Objetivos:</strong></p>
+      <ul>
+        <li>Identificar las indicaciones para la colocación de un electrocardiograma.</li>
+        <li>Preparar adecuadamente al paciente y el equipo.</li>
+        <li>Colocar los electrodos en las posiciones correctas.</li>
+        <li>Registrar la actividad eléctrica del corazón de manera precisa.</li>
+        <li>Reconocer patrones básicos en el trazado del EKG.</li>
+      </ul>
+      
+      <div class="web-optimizada">
         <iframe 
           src="https://www.youtube.com/embed/VIDEO_ID_GASO"
           loading="eager"
-          title="Guía de Gasometría">
+          title="Guía de Colocación de EKG">
         </iframe>
         <div class="botones-recursos">
-          <button class="btn-recargar" onclick="recargarIframe('gaso')">
+          <button class="btn-recargar" onclick="recargarIframe('ekg')">
             <i class="fas fa-sync-alt"></i> Recargar
           </button>
-          <button class="btn-abrir" onclick="abrirEnNuevaVentana('gaso')">
+          <button class="btn-abrir" onclick="abrirEnNuevaVentana('ekg')">
             <i class="fas fa-external-link-alt"></i> Abrir externo
           </button>
         </div>
       </div>
-  </section>
+    </section>
   
-  <!-- Sección Interpretación de Estudios Paraclínicos -->
-  <section class="seccion-contenido" id="interpretacion">
-    <h2><i class="fas fa-file-alt"></i> Interpretación de Estudios Paraclínicos</h2>
-    <p><strong>Prebriefing:</strong> En esta sesión aprenderás a interpretar estudios paraclínicos.</p>
-  <p><strong>Objetivos:</strong></p>
-  <ul>
-    <li>Identificar los estudios paraclínicos más relevantes según el caso clínico.</li>
-    <li>Interpretar los resultados de pruebas de laboratorio y estudios de imagen.</li>
-    <li>Relacionar los hallazgos con el diagnóstico clínico.</li>
-    <li>Reconocer valores normales y alteraciones significativas.</li>
-    <li>Aplicar los resultados en la toma de decisiones clínicas.</li>
-  </ul>
-    <div class="web-optimizada">
+    <!-- Sección Historia Clínica Dirigida -->
+    <section class="seccion-contenido" id="historia-dirigida">
+      <h2><i class="fas fa-file-medical"></i> Historia Clínica Dirigida</h2>
+      <p><strong>Prebriefing:</strong> En esta sesión aprenderás a realizar una historia clínica dirigida.</p>
+      <p><strong>Objetivos:</strong></p>
+      <ul>
+        <li>Recopilar información específica para un diagnóstico preciso.</li>
+        <li>Identificar los antecedentes relevantes según el motivo de consulta.</li>
+        <li>Realizar preguntas dirigidas para explorar síntomas clave.</li>
+        <li>Documentar los hallazgos de manera estructurada.</li>
+        <li>Relacionar la información obtenida con posibles diagnósticos diferenciales.</li>
+      </ul>
+      
+      <div class="web-optimizada">
         <iframe 
           src="https://www.youtube.com/embed/VIDEO_ID_GASO"
           loading="eager"
-          title="Guía de Gasometría">
+          title="Guía de Historia Clínica Dirigida">
         </iframe>
         <div class="botones-recursos">
-          <button class="btn-recargar" onclick="recargarIframe('gaso')">
+          <button class="btn-recargar" onclick="recargarIframe('historia-dirigida')">
             <i class="fas fa-sync-alt"></i> Recargar
           </button>
-          <button class="btn-abrir" onclick="abrirEnNuevaVentana('gaso')">
+          <button class="btn-abrir" onclick="abrirEnNuevaVentana('historia-dirigida')">
             <i class="fas fa-external-link-alt"></i> Abrir externo
           </button>
         </div>
       </div>
-  </section>
+    </section>
+  
+    <!-- Sección Interpretación de Estudios Paraclínicos -->
+    <section class="seccion-contenido" id="interpretacion">
+      <h2><i class="fas fa-file-alt"></i> Interpretación de Estudios Paraclínicos</h2>
+      <p><strong>Prebriefing:</strong> En esta sesión aprenderás a interpretar estudios paraclínicos.</p>
+      <p><strong>Objetivos:</strong></p>
+      <ul>
+        <li>Identificar los estudios paraclínicos más relevantes según el caso clínico.</li>
+        <li>Interpretar los resultados de pruebas de laboratorio y estudios de imagen.</li>
+        <li>Relacionar los hallazgos con el diagnóstico clínico.</li>
+        <li>Reconocer valores normales y alteraciones significativas.</li>
+        <li>Aplicar los resultados en la toma de decisiones clínicas.</li>
+      </ul>
+      
+      <div class="web-optimizada">
+        <iframe 
+          src="https://www.youtube.com/embed/VIDEO_ID_GASO"
+          loading="eager"
+          title="Guía de Interpretación de Estudios Paraclínicos">
+        </iframe>
+        <div class="botones-recursos">
+          <button class="btn-recargar" onclick="recargarIframe('interpretacion')">
+            <i class="fas fa-sync-alt"></i> Recargar
+          </button>
+          <button class="btn-abrir" onclick="abrirEnNuevaVentana('interpretacion')">
+            <i class="fas fa-external-link-alt"></i> Abrir externo
+          </button>
+        </div>
+      </div>
+    </section>
   </main>
 
   <script>
@@ -1089,7 +1408,7 @@
       });
 
       // Navegación entre secciones
-      document.querySelectorAll('.menu-lateral a').forEach(enlace => {
+      document.querySelectorAll('.menu-lateral a, .tarjeta-btn').forEach(enlace => {
         enlace.addEventListener('click', function(e) {
           e.preventDefault();
           const seccionId = this.getAttribute('data-seccion');
