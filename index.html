@@ -705,88 +705,38 @@ document.addEventListener('DOMContentLoaded', function() {
             document.body.style.overflow = '';
         }
     });
-     // Cambiar entre simuladores
-        function showSimulator(simulatorId) {
-            document.querySelectorAll('.simulator-info').forEach(info => {
-                info.classList.remove('active');
-            });
-            document.getElementById(simulatorId).classList.add('active');
-
-            document.querySelectorAll('.tab').forEach(tab => {
-                tab.classList.remove('active');
-            });
-            document.querySelector(`[onclick="showSimulator('${simulatorId}')"]`).classList.add('active');
-        }
- // Slider automático de imágenes
-        let currentSlide = 0;
-        const slides = document.querySelectorAll('.slider-image');
+    // Función para cambiar entre simuladores - VERSIÓN CORREGIDA
+    function showSimulator(simulatorId) {
+        // Ocultar todos los contenidos de simuladores
+        document.querySelectorAll('.simulator-info').forEach(info => {
+            info.classList.remove('active');
+        });
         
-        function changeSlide() {
-            slides[currentSlide].classList.remove('active');
-            currentSlide = (currentSlide + 1) % slides.length;
-            slides[currentSlide].classList.add('active');
+        // Mostrar solo el simulador seleccionado
+        const selectedSimulator = document.getElementById(simulatorId);
+        if (selectedSimulator) {
+            selectedSimulator.classList.add('active');
         }
         
-        setInterval(changeSlide, 5000);
+        // Actualizar pestañas activas
+        document.querySelectorAll('.tab').forEach(tab => {
+            tab.classList.remove('active');
+            if (tab.getAttribute('onclick').includes(simulatorId)) {
+                tab.classList.add('active');
+            }
+        });
+    }
 
-        // Animación al hacer scroll
-        const animateOnScroll = () => {
-            const sections = document.querySelectorAll('.animate-section');
-            
-            sections.forEach(section => {
-                const sectionTop = section.getBoundingClientRect().top;
-                const windowHeight = window.innerHeight;
-                
-                if (sectionTop < windowHeight - 100) {
-                    section.style.animation = 'slideIn 0.8s ease-out forwards';
-                }
-            });
-        };
-        
-        window.addEventListener('scroll', animateOnScroll);
-        window.addEventListener('load', animateOnScroll);
-
-        // Agrega este código al final de tu sección JavaScript
-document.addEventListener('DOMContentLoaded', function() {
-    // Dropdown para móviles
-    const dropdowns = document.querySelectorAll('.dropdown');
-    
-    dropdowns.forEach(dropdown => {
-        if (window.innerWidth <= 768) {
-            const toggle = dropdown.querySelector('.dropdown-toggle');
-            
-            toggle.addEventListener('click', function(e) {
-                e.preventDefault();
-                dropdown.classList.toggle('active');
-                
-                // Cerrar otros dropdowns abiertos
-                dropdowns.forEach(otherDropdown => {
-                    if (otherDropdown !== dropdown) {
-                        otherDropdown.classList.remove('active');
-                    }
-                });
-            });
-        }
-    });
-    
-    // Cerrar dropdowns al hacer clic fuera
-    document.addEventListener('click', function(e) {
-        if (!e.target.closest('.dropdown') && window.innerWidth <= 768) {
-            dropdowns.forEach(dropdown => {
-                dropdown.classList.remove('active');
-            });
-        }
-    });
-});
-
-    // Asignar eventos de manera eficiente
+    // Asignar eventos a las pestañas - MEJORADO
     document.querySelectorAll('.tab').forEach(tab => {
-        tab.addEventListener('click', function() {
-            showSimulator(this.getAttribute('data-simulator'));
+        tab.addEventListener('click', function(e) {
+            e.preventDefault();
+            const simulatorId = this.getAttribute('onclick').match(/'([^']+)'/)[1];
+            showSimulator(simulatorId);
         });
     });
 
-    // Animaciones al hacer scroll - optimizado con IntersectionObserver
+    // Animaciones al hacer scroll
     const animateOnScroll = function() {
         const observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
@@ -803,34 +753,32 @@ document.addEventListener('DOMContentLoaded', function() {
     };
 
     animateOnScroll();
-});
 
-// Dropdowns para móviles - versión optimizada
-function setupMobileDropdowns() {
-    if (window.innerWidth > 768) return;
-
-    const dropdowns = document.querySelectorAll('.dropdown');
-    
-    document.addEventListener('click', function(e) {
-        const toggle = e.target.closest('.dropdown-toggle');
-        const isOutside = !e.target.closest('.dropdown');
+    // Dropdowns para móviles
+    function setupMobileDropdowns() {
+        const dropdowns = document.querySelectorAll('.dropdown');
         
-        if (toggle) {
-            e.preventDefault();
-            const dropdown = toggle.closest('.dropdown');
-            dropdown.classList.toggle('active');
+        document.addEventListener('click', function(e) {
+            const toggle = e.target.closest('.dropdown-toggle');
+            const isOutside = !e.target.closest('.dropdown');
             
-            dropdowns.forEach(other => {
-                if (other !== dropdown) other.classList.remove('active');
-            });
-        } else if (isOutside) {
-            dropdowns.forEach(dropdown => dropdown.classList.remove('active'));
-        }
-    });
-}
+            if (toggle && window.innerWidth <= 768) {
+                e.preventDefault();
+                const dropdown = toggle.closest('.dropdown');
+                dropdown.classList.toggle('active');
+                
+                dropdowns.forEach(other => {
+                    if (other !== dropdown) other.classList.remove('active');
+                });
+            } else if (isOutside && window.innerWidth <= 768) {
+                dropdowns.forEach(dropdown => dropdown.classList.remove('active'));
+            }
+        });
+    }
 
-window.addEventListener('resize', setupMobileDropdowns);
-setupMobileDropdowns();
+    window.addEventListener('resize', setupMobileDropdowns);
+    setupMobileDropdowns();
+});
     </script>
 </body>
 </html>
