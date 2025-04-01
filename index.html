@@ -717,16 +717,67 @@ document.addEventListener('DOMContentLoaded', function() {
             });
             document.querySelector(`[onclick="showSimulator('${simulatorId}')"]`).classList.add('active');
         }
-
-    // Simuladores - versión optimizada
-    const showSimulator = function(simulatorId) {
-        document.querySelectorAll('.simulator-info, .tab').forEach(el => {
-            el.classList.remove('active');
-        });
+ // Slider automático de imágenes
+        let currentSlide = 0;
+        const slides = document.querySelectorAll('.slider-image');
         
-        document.getElementById(simulatorId).classList.add('active');
-        document.querySelector(`[onclick="showSimulator('${simulatorId}')"]`).classList.add('active');
-    };
+        function changeSlide() {
+            slides[currentSlide].classList.remove('active');
+            currentSlide = (currentSlide + 1) % slides.length;
+            slides[currentSlide].classList.add('active');
+        }
+        
+        setInterval(changeSlide, 5000);
+
+        // Animación al hacer scroll
+        const animateOnScroll = () => {
+            const sections = document.querySelectorAll('.animate-section');
+            
+            sections.forEach(section => {
+                const sectionTop = section.getBoundingClientRect().top;
+                const windowHeight = window.innerHeight;
+                
+                if (sectionTop < windowHeight - 100) {
+                    section.style.animation = 'slideIn 0.8s ease-out forwards';
+                }
+            });
+        };
+        
+        window.addEventListener('scroll', animateOnScroll);
+        window.addEventListener('load', animateOnScroll);
+
+        // Agrega este código al final de tu sección JavaScript
+document.addEventListener('DOMContentLoaded', function() {
+    // Dropdown para móviles
+    const dropdowns = document.querySelectorAll('.dropdown');
+    
+    dropdowns.forEach(dropdown => {
+        if (window.innerWidth <= 768) {
+            const toggle = dropdown.querySelector('.dropdown-toggle');
+            
+            toggle.addEventListener('click', function(e) {
+                e.preventDefault();
+                dropdown.classList.toggle('active');
+                
+                // Cerrar otros dropdowns abiertos
+                dropdowns.forEach(otherDropdown => {
+                    if (otherDropdown !== dropdown) {
+                        otherDropdown.classList.remove('active');
+                    }
+                });
+            });
+        }
+    });
+    
+    // Cerrar dropdowns al hacer clic fuera
+    document.addEventListener('click', function(e) {
+        if (!e.target.closest('.dropdown') && window.innerWidth <= 768) {
+            dropdowns.forEach(dropdown => {
+                dropdown.classList.remove('active');
+            });
+        }
+    });
+});
 
     // Asignar eventos de manera eficiente
     document.querySelectorAll('.tab').forEach(tab => {
