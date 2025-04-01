@@ -60,7 +60,7 @@
 
     <main>
   <!-- Sección del Modelo 3D -->
-  <section id="inicio" class="model-container">
+  <section id="innovacion" class="hero animate__animated animate__fadeIn">
     <div class="model-title">
         <h2>Innovación en Simulación Clínica</h2>
         <p>Formando profesionales de la salud con tecnología de vanguardia y metodologías educativas avanzadas</p>
@@ -69,11 +69,14 @@
     
     <!-- Visor de Spline -->
     <script type="module" src="https://unpkg.com/@splinetool/viewer@1.9.82/build/spline-viewer.js"></script>
+
     <spline-viewer 
         url="https://prod.spline.design/UYTsTV0cMx9NogWd/scene.splinecode"
-        loading-anim
-        camera-controls
-        shadow-intensity="1">
+        loading-anim-type="none"
+        loading="eager"
+        reveal="auto"
+        camera-controls="true"
+        shadow-intensity="0.5">
     </spline-viewer>
     
     <div class="scroll-indicator">
@@ -102,7 +105,7 @@
                         <div class="simulator-title">
                             <h3>Victoria - Simulador de Parto</h3>
                             <div class="video-container">
-                                <video controls autoplay muted loop>
+                                <video controls autoplay muted loop playsinline preload="metadata" poster="placeholder.jpg">
                                     <source src="saveinsta.cc_720p-gaumard-r-victoria-r-s2200-how-to-video-series.mp4" type="video/mp4">
                                     Tu navegador no soporta el elemento de video.
                                 </video>
@@ -299,178 +302,125 @@
             </div>
         </section>
 
-        <!-- Sección de Conceptos Clave -->
-        <section id="conceptos" class="section animate-section">
-            <h2>Conceptos Clave</h2>
-            <p>En la simulación clínica, es importante comprender los siguientes conceptos clave:</p>
-            
-            <div class="card-container">
-                <!-- Tarjeta 1 -->
-                <div class="card">
-                    <div class="card-image" style="background: linear-gradient(135deg, #0b057a 0%, #34a853 100%);">
-                        <i class="fas fa-star"></i>
-                    </div>
-                    <div class="card-content">
-                        <h3>Fidelidad</h3>
+        <!-- Sección de Conceptos Clave - Versión Optimizada -->
+<section id="conceptos" class="section animate-section">
+    <h2>Conceptos Clave</h2>
+    <p class="section-subtitle">En la simulación clínica, es importante comprender estos conceptos fundamentales:</p>
+    
+    <div class="concepts-accordion">
+        <!-- Grupo 1 -->
+        <div class="accordion-group">
+            <h3 class="accordion-header">Fundamentos de Simulación</h3>
+            <div class="accordion-content">
+                <div class="concept-item">
+                    <i class="fas fa-star concept-icon"></i>
+                    <div>
+                        <h4>Fidelidad</h4>
                         <p>Grado de realismo del simulador y el escenario.</p>
                     </div>
                 </div>
-        
-                <!-- Tarjeta 2 -->
-                <div class="card">
-                    <div class="card-image" style="background: linear-gradient(135deg, #0b057a 0%, #3498db 100%);">
-                        <i class="fas fa-water"></i>
-                    </div>
-                    <div class="card-content">
-                        <h3>Inmersión</h3>
+                <div class="concept-item">
+                    <i class="fas fa-water concept-icon"></i>
+                    <div>
+                        <h4>Inmersión</h4>
                         <p>Capacidad del participante de sentirse parte del escenario.</p>
                     </div>
                 </div>
-        
-                <!-- Tarjeta 3 -->
-                <div class="card">
-                    <div class="card-image" style="background: linear-gradient(135deg, #0b057a 0%, #34a853 100%);">
-                        <i class="fas fa-comments"></i>
-                    </div>
-                    <div class="card-content">
-                        <h3>Debriefing</h3>
+                <div class="concept-item">
+                    <i class="fas fa-comments concept-icon"></i>
+                    <div>
+                        <h4>Debriefing</h4>
                         <p>Proceso de reflexión y aprendizaje después de la simulación.</p>
                     </div>
                 </div>
+            </div>
+        </div>
         
-                <!-- Tarjeta 4 -->
-                <div class="card">
-                    <div class="card-image" style="background: linear-gradient(135deg, #0b057a 0%, #3498db 100%);">
-                        <i class="fas fa-shield-alt"></i>
-                    </div>
-                    <div class="card-content">
-                        <h3>Seguridad Psicológica</h3>
+        <!-- Grupo 2 -->
+        <div class="accordion-group">
+            <h3 class="accordion-header">Seguridad y Entorno</h3>
+            <div class="accordion-content">
+                <div class="concept-item">
+                    <i class="fas fa-shield-alt concept-icon"></i>
+                    <div>
+                        <h4>Seguridad Psicológica</h4>
                         <p>Ambiente seguro para cometer errores y aprender.</p>
                     </div>
                 </div>
-        
-                <!-- Tarjeta 5 -->
-                <div class="card">
-                    <div class="card-image" style="background: linear-gradient(135deg, #0b057a 0%, #34a853 100%);">
-                        <i class="fas fa-bullseye"></i>
-                    </div>
-                    <div class="card-content">
-                        <h3>Objetivos de Aprendizaje</h3>
-                        <p>Metas específicas a alcanzar con la simulación.</p>
-                    </div>
-                </div>
-        
-                <!-- Tarjeta 6 -->
-                <div class="card">
-                    <div class="card-image" style="background: linear-gradient(135deg, #0b057a 0%, #3498db 100%);">
-                        <i class="fas fa-user-shield"></i>
-                    </div>
-                    <div class="card-content">
-                        <h3>Seguridad del Paciente</h3>
+                <div class="concept-item">
+                    <i class="fas fa-user-shield concept-icon"></i>
+                    <div>
+                        <h4>Seguridad del Paciente</h4>
                         <p>Protección del paciente durante la simulación.</p>
                     </div>
                 </div>
-        
-                <!-- Tarjeta 7 -->
-                <div class="card">
-                    <div class="card-image" style="background: linear-gradient(135deg, #0b057a 0%, #34a853 100%);">
-                        <i class="fas fa-band-aid"></i>
-                    </div>
-                    <div class="card-content">
-                        <h3>Moulage</h3>
-                        <p>Uso de maquillaje para simular condiciones médicas.</p>
-                    </div>
-                </div>
-        
-                <!-- Tarjeta 8 -->
-                <div class="card">
-                    <div class="card-image" style="background: linear-gradient(135deg, #0b057a 0%, #3498db 100%);">
-                        <i class="fas fa-clinic-medical"></i>
-                    </div>
-                    <div class="card-content">
-                        <h3>Competencia Clínica</h3>
-                        <p>Habilidad para realizar procedimientos clínicos.</p>
-                    </div>
-                </div>
-        
-                <!-- Tarjeta 9 -->
-                <div class="card">
-                    <div class="card-image" style="background: linear-gradient(135deg, #0b057a 0%, #34a853 100%);">
-                        <i class="fas fa-stethoscope"></i>
-                    </div>
-                    <div class="card-content">
-                        <h3>Tasktrainers</h3>
-                        <p>Dispositivos para practicar habilidades específicas.</p>
-                    </div>
-                </div>
-        
-                <!-- Tarjeta 10 -->
-                <div class="card">
-                    <div class="card-image" style="background: linear-gradient(135deg, #0b057a 0%, #3498db 100%);">
-                        <i class="fas fa-procedures"></i>
-                    </div>
-                    <div class="card-content">
-                        <h3>Fantoma</h3>
-                        <p>Modelo anatómico para práctica de procedimientos.</p>
-                    </div>
-                </div>
-        
-                <!-- Tarjeta 11 -->
-                <div class="card">
-                    <div class="card-image" style="background: linear-gradient(135deg, #0b057a 0%, #34a853 100%);">
-                        <i class="fas fa-user-md"></i>
-                    </div>
-                    <div class="card-content">
-                        <h3>Paciente Estandarizado</h3>
-                        <p>Actor entrenado para representar pacientes.</p>
-                    </div>
-                </div>
-        
-                <!-- Tarjeta 12 -->
-                <div class="card">
-                    <div class="card-image" style="background: linear-gradient(135deg, #0b057a 0%, #3498db 100%);">
-                        <i class="fas fa-video"></i>
-                    </div>
-                    <div class="card-content">
-                        <h3>Cámara de Gesell</h3>
-                        <p>Sala con espejo unidireccional para observación.</p>
-                    </div>
-                </div>
-        
-                <!-- Tarjeta 13 -->
-                <div class="card">
-                    <div class="card-image" style="background: linear-gradient(135deg, #0b057a 0%, #34a853 100%);">
-                        <i class="fas fa-chalkboard-teacher"></i>
-                    </div>
-                    <div class="card-content">
-                        <h3>Aula Invertida</h3>
-                        <p>Estudiantes revisan contenido antes de la clase.</p>
-                    </div>
-                </div>
-        
-                <!-- Tarjeta 14 -->
-                <div class="card">
-                    <div class="card-image" style="background: linear-gradient(135deg, #0b057a 0%, #3498db 100%);">
-                        <i class="fas fa-handshake"></i>
-                    </div>
-                    <div class="card-content">
-                        <h3>Contrato de Fricción</h3>
+                <div class="concept-item">
+                    <i class="fas fa-handshake concept-icon"></i>
+                    <div>
+                        <h4>Contrato de Fricción</h4>
                         <p>Acuerdo para confidencialidad y respeto.</p>
                     </div>
                 </div>
+            </div>
+        </div>
         
-                <!-- Tarjeta 15 -->
-                <div class="card">
-                    <div class="card-image" style="background: linear-gradient(135deg, #0b057a 0%, #34a853 100%);">
-                        <i class="fas fa-users"></i>
+        <!-- Grupo 3 -->
+        <div class="accordion-group">
+            <h3 class="accordion-header">Elementos de Simulación</h3>
+            <div class="accordion-content">
+                <div class="concept-item">
+                    <i class="fas fa-band-aid concept-icon"></i>
+                    <div>
+                        <h4>Moulage</h4>
+                        <p>Uso de maquillaje para simular condiciones médicas.</p>
                     </div>
-                    <div class="card-content">
-                        <h3>Confederados</h3>
+                </div>
+                <div class="concept-item">
+                    <i class="fas fa-procedures concept-icon"></i>
+                    <div>
+                        <h4>Fantoma</h4>
+                        <p>Modelo anatómico para práctica de procedimientos.</p>
+                    </div>
+                </div>
+                <div class="concept-item">
+                    <i class="fas fa-stethoscope concept-icon"></i>
+                    <div>
+                        <h4>Tasktrainers</h4>
+                        <p>Dispositivos para practicar habilidades específicas.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Grupo 4 -->
+        <div class="accordion-group">
+            <h3 class="accordion-header">Metodologías</h3>
+            <div class="accordion-content">
+                <div class="concept-item">
+                    <i class="fas fa-bullseye concept-icon"></i>
+                    <div>
+                        <h4>Objetivos de Aprendizaje</h4>
+                        <p>Metas específicas a alcanzar con la simulación.</p>
+                    </div>
+                </div>
+                <div class="concept-item">
+                    <i class="fas fa-user-md concept-icon"></i>
+                    <div>
+                        <h4>Paciente Estandarizado</h4>
+                        <p>Actor entrenado para representar pacientes.</p>
+                    </div>
+                </div>
+                <div class="concept-item">
+                    <i class="fas fa-users concept-icon"></i>
+                    <div>
+                        <h4>Confederados</h4>
                         <p>Personas con roles específicos en la simulación.</p>
                     </div>
                 </div>
             </div>
-        </section>
+        </div>
+    </div>
+</section>
         <!-- Sección de Normativas -->
 <section id="normativas" class="section animate-section">
   <h2>Normativas y Organigrama</h2>
@@ -734,152 +684,90 @@
     </footer>
 
     <script>
-        document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded', function() {
+    // Menú hamburguesa - versión optimizada
     const menuToggle = document.querySelector('.menu-toggle');
     const mainNav = document.getElementById('main-nav');
     
-    // Alternar menú al hacer clic
-    menuToggle.addEventListener('click', function() {
-        this.classList.toggle('active');
+    const toggleMenu = function() {
+        const isActive = this.classList.toggle('active');
         mainNav.classList.toggle('active');
-        
-        // Bloquear scroll del body cuando el menú está abierto
-        if(mainNav.classList.contains('active')) {
-            document.body.style.overflow = 'hidden';
-        } else {
-            document.body.style.overflow = '';
-        }
-    });
+        document.body.style.overflow = isActive ? 'hidden' : '';
+    };
     
-    // Cerrar menú al hacer clic en un enlace
-    document.querySelectorAll('#main-nav a').forEach(link => {
-        link.addEventListener('click', function() {
+    menuToggle.addEventListener('click', toggleMenu);
+    
+    // Cerrar menú al hacer clic en enlace - delegación de eventos
+    document.addEventListener('click', function(e) {
+        if (e.target.closest('#main-nav a')) {
             menuToggle.classList.remove('active');
             mainNav.classList.remove('active');
             document.body.style.overflow = '';
+        }
+    });
+
+    // Simuladores - versión optimizada
+    const showSimulator = function(simulatorId) {
+        document.querySelectorAll('.simulator-info, .tab').forEach(el => {
+            el.classList.remove('active');
+        });
+        
+        document.getElementById(simulatorId).classList.add('active');
+        document.querySelector(`[onclick="showSimulator('${simulatorId}')"]`).classList.add('active');
+    };
+
+    // Asignar eventos de manera eficiente
+    document.querySelectorAll('.tab').forEach(tab => {
+        tab.addEventListener('click', function() {
+            showSimulator(this.getAttribute('data-simulator'));
         });
     });
-});
-         // JavaScript para el carrusell
-    document.addEventListener('DOMContentLoaded', function() {
-        const carousel = document.querySelector('.team-carousel');
-        const prevBtn = document.querySelector('.prev-btn');
-        const nextBtn = document.querySelector('.next-btn');
-        const memberWidth = 280 + 30; // Ancho de miembro + gap
-        
-        nextBtn.addEventListener('click', () => {
-            carousel.scrollBy({ left: memberWidth, behavior: 'smooth' });
-        });
-        
-        prevBtn.addEventListener('click', () => {
-            carousel.scrollBy({ left: -memberWidth, behavior: 'smooth' });
-        });
-    });
-        // Mostrar/ocultar submenú
-        document.getElementById('prebriefing').addEventListener('click', function(event) {
-            event.preventDefault();
-            var submenu = document.getElementById('prebriefingSubmenu');
-            submenu.style.display = submenu.style.display === 'none' ? 'block' : 'none';
-        });
 
-        // Cambiar entre simuladores
-        function showSimulator(simulatorId) {
-            document.querySelectorAll('.simulator-info').forEach(info => {
-                info.classList.remove('active');
-            });
-            document.getElementById(simulatorId).classList.add('active');
-
-            document.querySelectorAll('.tab').forEach(tab => {
-                tab.classList.remove('active');
-            });
-            document.querySelector(`[onclick="showSimulator('${simulatorId}')"]`).classList.add('active');
-        }
-
-        // Slider automático de imágenes
-        let currentSlide = 0;
-        const slides = document.querySelectorAll('.slider-image');
-        
-        function changeSlide() {
-            slides[currentSlide].classList.remove('active');
-            currentSlide = (currentSlide + 1) % slides.length;
-            slides[currentSlide].classList.add('active');
-        }
-        
-        setInterval(changeSlide, 5000);
-
-        // Animación al hacer scroll
-        const animateOnScroll = () => {
-            const sections = document.querySelectorAll('.animate-section');
-            
-            sections.forEach(section => {
-                const sectionTop = section.getBoundingClientRect().top;
-                const windowHeight = window.innerHeight;
-                
-                if (sectionTop < windowHeight - 100) {
-                    section.style.animation = 'slideIn 0.8s ease-out forwards';
+    // Animaciones al hacer scroll - optimizado con IntersectionObserver
+    const animateOnScroll = function() {
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.animation = 'slideIn 0.8s ease-out forwards';
+                    observer.unobserve(entry.target);
                 }
             });
-        };
-        
-        window.addEventListener('scroll', animateOnScroll);
-        window.addEventListener('load', animateOnScroll);
+        }, { threshold: 0.1 });
 
-        // Agrega este código al final de tu sección JavaScript
-document.addEventListener('DOMContentLoaded', function() {
-    // Dropdown para móviles
+        document.querySelectorAll('.animate-section').forEach(section => {
+            observer.observe(section);
+        });
+    };
+
+    animateOnScroll();
+});
+
+// Dropdowns para móviles - versión optimizada
+function setupMobileDropdowns() {
+    if (window.innerWidth > 768) return;
+
     const dropdowns = document.querySelectorAll('.dropdown');
     
-    dropdowns.forEach(dropdown => {
-        if (window.innerWidth <= 768) {
-            const toggle = dropdown.querySelector('.dropdown-toggle');
-            
-            toggle.addEventListener('click', function(e) {
-                e.preventDefault();
-                dropdown.classList.toggle('active');
-                
-                // Cerrar otros dropdowns abiertos
-                dropdowns.forEach(otherDropdown => {
-                    if (otherDropdown !== dropdown) {
-                        otherDropdown.classList.remove('active');
-                    }
-                });
-            });
-        }
-    });
-    
-    // Cerrar dropdowns al hacer clic fuera
     document.addEventListener('click', function(e) {
-        if (!e.target.closest('.dropdown') && window.innerWidth <= 768) {
-            dropdowns.forEach(dropdown => {
-                dropdown.classList.remove('active');
+        const toggle = e.target.closest('.dropdown-toggle');
+        const isOutside = !e.target.closest('.dropdown');
+        
+        if (toggle) {
+            e.preventDefault();
+            const dropdown = toggle.closest('.dropdown');
+            dropdown.classList.toggle('active');
+            
+            dropdowns.forEach(other => {
+                if (other !== dropdown) other.classList.remove('active');
             });
+        } else if (isOutside) {
+            dropdowns.forEach(dropdown => dropdown.classList.remove('active'));
         }
     });
-});
-// Efecto de rotación al hacer scroll
-document.addEventListener('DOMContentLoaded', () => {
-    const modelViewer = document.querySelector('#anatomy-model');
-    let rotationY = 0;
-    
-    window.addEventListener('scroll', () => {
-        // Calcula la rotación basada en el scroll
-        rotationY = window.scrollY / 10;
-        
-        // Limita la rotación a 360 grados
-        if (rotationY > 360) rotationY = 360;
-        if (rotationY < 0) rotationY = 0;
-        
-        // Aplica la rotación al modelo
-        modelViewer.cameraOrbit = `${rotationY}deg 75deg 105%`;
-    });
-    
-    // Reinicia la rotación cuando se llega al tope de la página
-    window.addEventListener('scroll', () => {
-        if (window.scrollY === 0) {
-            modelViewer.cameraOrbit = `0deg 75deg 105%`;
-        }
-    });
-});
+}
+
+window.addEventListener('resize', setupMobileDropdowns);
+setupMobileDropdowns();
     </script>
 </body>
 </html>
