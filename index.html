@@ -90,13 +90,13 @@
             <h2>Simuladores del Columbus Hospital Simulation Center</h2>
             <p>El Columbus Hospital Simulation Center cuenta con simuladores de alta, mediana y baja fidelidad, diseñados para replicar escenarios clínicos reales, permitiendo a los estudiantes practicar habilidades médicas en un entorno seguro y controlado.</p>
 
-            <div class="tab-container">
-                <div class="tab active" onclick="showSimulator('victoria')">Victoria</div>
-                <div class="tab" onclick="showSimulator('trauma')">Trauma HAL</div>
-                <div class="tab" onclick="showSimulator('hal')">HAL Multipropósito</div>
-                <div class="tab" onclick="showSimulator('pediatric')">Pediatric HAL</div>
-                <div class="tab" onclick="showSimulator('tory')">Super Tory</div>
-            </div>
+       <div class="tab-container">
+    <div class="tab active" data-simulator="victoria">Victoria</div>
+    <div class="tab" data-simulator="trauma">Trauma HAL</div>
+    <div class="tab" data-simulator="hal">HAL Multipropósito</div>
+    <div class="tab" data-simulator="pediatric">Pediatric HAL</div>
+    <div class="tab" data-simulator="tory">Super Tory</div>
+        </div>
 
             <div id="simulatorContent">
                 <!-- Simulador Victoria -->
@@ -685,58 +685,60 @@
 
     <script>
 document.addEventListener('DOMContentLoaded', function() {
-    // Menú hamburguesa - versión optimizada
+    // 1. Menú hamburguesa
     const menuToggle = document.querySelector('.menu-toggle');
     const mainNav = document.getElementById('main-nav');
     
-    const toggleMenu = function() {
-        const isActive = this.classList.toggle('active');
+    menuToggle.addEventListener('click', function() {
+        this.classList.toggle('active');
         mainNav.classList.toggle('active');
-        document.body.style.overflow = isActive ? 'hidden' : '';
-    };
+        document.body.style.overflow = mainNav.classList.contains('active') ? 'hidden' : '';
+    });
     
-    menuToggle.addEventListener('click', toggleMenu);
-    
-    // Cerrar menú al hacer clic en enlace - delegación de eventos
-    document.addEventListener('click', function(e) {
-        if (e.target.closest('#main-nav a')) {
+    // Cerrar menú al hacer clic en enlace
+    document.querySelectorAll('#main-nav a').forEach(link => {
+        link.addEventListener('click', function() {
             menuToggle.classList.remove('active');
             mainNav.classList.remove('active');
             document.body.style.overflow = '';
-        }
+        });
     });
-    // Función para cambiar entre simuladores - VERSIÓN CORREGIDA
-    function showSimulator(simulatorId) {
-        // Ocultar todos los contenidos de simuladores
-        document.querySelectorAll('.simulator-info').forEach(info => {
-            info.classList.remove('active');
+
+    // 2. Sistema de pestañas de simuladores - VERSIÓN NUEVA Y FUNCIONAL
+    const tabs = document.querySelectorAll('.tab');
+    const simulatorContents = document.querySelectorAll('.simulator-info');
+    
+    // Función para cambiar de simulador
+    function switchSimulator(simulatorId) {
+        // Oculta todos los contenidos
+        simulatorContents.forEach(content => {
+            content.classList.remove('active');
         });
         
-        // Mostrar solo el simulador seleccionado
-        const selectedSimulator = document.getElementById(simulatorId);
-        if (selectedSimulator) {
-            selectedSimulator.classList.add('active');
+        // Muestra solo el seleccionado
+        const activeContent = document.getElementById(simulatorId);
+        if (activeContent) {
+            activeContent.classList.add('active');
         }
         
-        // Actualizar pestañas activas
-        document.querySelectorAll('.tab').forEach(tab => {
+        // Actualiza las pestañas activas
+        tabs.forEach(tab => {
             tab.classList.remove('active');
-            if (tab.getAttribute('onclick').includes(simulatorId)) {
+            if (tab.getAttribute('data-simulator') === simulatorId) {
                 tab.classList.add('active');
             }
         });
     }
-
-    // Asignar eventos a las pestañas - MEJORADO
-    document.querySelectorAll('.tab').forEach(tab => {
-        tab.addEventListener('click', function(e) {
-            e.preventDefault();
-            const simulatorId = this.getAttribute('onclick').match(/'([^']+)'/)[1];
-            showSimulator(simulatorId);
+    
+    // Asignar eventos a las pestañas
+    tabs.forEach(tab => {
+        tab.addEventListener('click', function() {
+            const simulatorId = this.getAttribute('data-simulator');
+            switchSimulator(simulatorId);
         });
     });
 
-    // Animaciones al hacer scroll
+    // 3. Animaciones al hacer scroll
     const animateOnScroll = function() {
         const observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
@@ -751,10 +753,9 @@ document.addEventListener('DOMContentLoaded', function() {
             observer.observe(section);
         });
     };
-
     animateOnScroll();
 
-    // Dropdowns para móviles
+    // 4. Dropdowns para móviles
     function setupMobileDropdowns() {
         const dropdowns = document.querySelectorAll('.dropdown');
         
@@ -775,7 +776,6 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         });
     }
-
     window.addEventListener('resize', setupMobileDropdowns);
     setupMobileDropdowns();
 });
