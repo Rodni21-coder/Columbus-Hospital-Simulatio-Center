@@ -85,19 +85,18 @@
 </section>
 </section>
 
-       <!-- Sección de Simuladores -->
+        <!-- Sección de Simuladores -->
         <section id="simuladores" class="section animate-section">
             <h2>Simuladores del Columbus Hospital Simulation Center</h2>
             <p>El Columbus Hospital Simulation Center cuenta con simuladores de alta, mediana y baja fidelidad, diseñados para replicar escenarios clínicos reales, permitiendo a los estudiantes practicar habilidades médicas en un entorno seguro y controlado.</p>
 
-       <div class="tab-container">
-    <div class="tab active" data-simulator="victoria">Victoria</div>
-    <div class="tab" data-simulator="trauma">Trauma HAL</div>
-    <div class="tab" data-simulator="hal">HAL Multipropósito</div>
-    <div class="tab" data-simulator="pediatric">Pediatric HAL</div>
-    <div class="tab" data-simulator="tory">Super Tory</div>
-        </div>
-
+            <div class="tab-container">
+                <div class="tab active" onclick="showSimulator('victoria')">Victoria</div>
+                <div class="tab" onclick="showSimulator('trauma')">Trauma HAL</div>
+                <div class="tab" onclick="showSimulator('hal')">HAL Multipropósito</div>
+                <div class="tab" onclick="showSimulator('pediatric')">Pediatric HAL</div>
+                <div class="tab" onclick="showSimulator('tory')">Super Tory</div>
+            </div>
             <div id="simulatorContent">
                 <!-- Simulador Victoria -->
                 <div id="victoria" class="simulator-info active">
@@ -240,6 +239,7 @@
                 </div>
             </div>
         </section>
+
 
         <!-- Sección de Métodos de Aprendizaje -->
         <section id="metodos" class="section animate-section">
@@ -683,107 +683,107 @@
         </div>
     </footer>
 
-   <script>
-document.addEventListener('DOMContentLoaded', function() {
-    // 1. Menú hamburguesa
-    const menuToggle = document.querySelector('.menu-toggle');
-    const mainNav = document.getElementById('main-nav');
-    
-    menuToggle.addEventListener('click', function() {
-        this.classList.toggle('active');
-        mainNav.classList.toggle('active');
-        document.body.style.overflow = mainNav.classList.contains('active') ? 'hidden' : '';
-    });
-    
-    // Cerrar menú al hacer clic en enlace
-    document.querySelectorAll('#main-nav a').forEach(link => {
-        link.addEventListener('click', function() {
-            menuToggle.classList.remove('active');
-            mainNav.classList.remove('active');
-            document.body.style.overflow = '';
-        });
-    });
-
-    // 2. Sistema de pestañas de simuladores - SOLUCIÓN DEFINITIVA
-    function showSimulator(simulatorId, event) {
-        if (event) event.preventDefault();
-        
-        // 1. Remover 'active' de todos los simuladores
-        document.querySelectorAll('.simulator-info').forEach(sim => {
-            sim.classList.remove('active');
-        });
-        
-        // 2. Remover 'active' de todas las pestañas
-        document.querySelectorAll('.tab').forEach(tab => {
-            tab.classList.remove('active');
-        });
-        
-        // 3. Agregar 'active' al simulador seleccionado
-        const selectedSimulator = document.getElementById(simulatorId);
-        if (selectedSimulator) {
-            selectedSimulator.classList.add('active');
-        }
-        
-        // 4. Agregar 'active' a la pestaña clickeada
-        if (event) {
-            event.currentTarget.classList.add('active');
-        } else {
-            // Para manejar la activación inicial
-            document.querySelector(`.tab[onclick*="${simulatorId}"]`).classList.add('active');
-        }
-    }
-
-    // 3. Asignar eventos a las pestañas - Versión mejorada
-    document.querySelectorAll('.tab').forEach(tab => {
-        tab.addEventListener('click', function(e) {
-            // Extraer el ID del simulador del atributo onclick
-            const onclickContent = this.getAttribute('onclick');
-            const simulatorId = onclickContent.match(/'([^']+)'/)[1];
-            showSimulator(simulatorId, e);
-        });
-    });
-
-    // 4. Animaciones al hacer scroll
-    const animateOnScroll = function() {
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.style.animation = 'slideIn 0.8s ease-out forwards';
-                    observer.unobserve(entry.target);
-                }
-            });
-        }, { threshold: 0.1 });
-
-        document.querySelectorAll('.animate-section').forEach(section => {
-            observer.observe(section);
-        });
-    };
-    animateOnScroll();
-
-    // 5. Dropdowns para móviles
-    function setupMobileDropdowns() {
-        const dropdowns = document.querySelectorAll('.dropdown');
-        
-        document.addEventListener('click', function(e) {
-            const toggle = e.target.closest('.dropdown-toggle');
-            const isOutside = !e.target.closest('.dropdown');
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // 1. Menú hamburguesa
+            const menuToggle = document.querySelector('.menu-toggle');
+            const mainNav = document.getElementById('main-nav');
             
-            if (toggle && window.innerWidth <= 768) {
-                e.preventDefault();
-                const dropdown = toggle.closest('.dropdown');
-                dropdown.classList.toggle('active');
-                
-                dropdowns.forEach(other => {
-                    if (other !== dropdown) other.classList.remove('active');
+            menuToggle.addEventListener('click', function() {
+                this.classList.toggle('active');
+                mainNav.classList.toggle('active');
+                document.body.style.overflow = mainNav.classList.contains('active') ? 'hidden' : '';
+            });
+            
+            // Cerrar menú al hacer clic en enlace
+            document.querySelectorAll('#main-nav a').forEach(link => {
+                link.addEventListener('click', function() {
+                    menuToggle.classList.remove('active');
+                    mainNav.classList.remove('active');
+                    document.body.style.overflow = '';
                 });
-            } else if (isOutside && window.innerWidth <= 768) {
-                dropdowns.forEach(dropdown => dropdown.classList.remove('active'));
+            });
+        
+            // 2. Sistema de pestañas de simuladores - SOLUCIÓN DEFINITIVA
+            function showSimulator(simulatorId, event) {
+                if (event) event.preventDefault();
+                
+                // 1. Remover 'active' de todos los simuladores
+                document.querySelectorAll('.simulator-info').forEach(sim => {
+                    sim.classList.remove('active');
+                });
+                
+                // 2. Remover 'active' de todas las pestañas
+                document.querySelectorAll('.tab').forEach(tab => {
+                    tab.classList.remove('active');
+                });
+                
+                // 3. Agregar 'active' al simulador seleccionado
+                const selectedSimulator = document.getElementById(simulatorId);
+                if (selectedSimulator) {
+                    selectedSimulator.classList.add('active');
+                }
+                
+                // 4. Agregar 'active' a la pestaña clickeada
+                if (event) {
+                    event.currentTarget.classList.add('active');
+                } else {
+                    // Para manejar la activación inicial
+                    document.querySelector(`.tab[onclick*="${simulatorId}"]`).classList.add('active');
+                }
             }
+        
+            // 3. Asignar eventos a las pestañas - Versión mejorada
+            document.querySelectorAll('.tab').forEach(tab => {
+                tab.addEventListener('click', function(e) {
+                    // Extraer el ID del simulador del atributo onclick
+                    const onclickContent = this.getAttribute('onclick');
+                    const simulatorId = onclickContent.match(/'([^']+)'/)[1];
+                    showSimulator(simulatorId, e);
+                });
+            });
+        
+            // 4. Animaciones al hacer scroll
+            const animateOnScroll = function() {
+                const observer = new IntersectionObserver((entries) => {
+                    entries.forEach(entry => {
+                        if (entry.isIntersecting) {
+                            entry.target.style.animation = 'slideIn 0.8s ease-out forwards';
+                            observer.unobserve(entry.target);
+                        }
+                    });
+                }, { threshold: 0.1 });
+        
+                document.querySelectorAll('.animate-section').forEach(section => {
+                    observer.observe(section);
+                });
+            };
+            animateOnScroll();
+        
+            // 5. Dropdowns para móviles
+            function setupMobileDropdowns() {
+                const dropdowns = document.querySelectorAll('.dropdown');
+                
+                document.addEventListener('click', function(e) {
+                    const toggle = e.target.closest('.dropdown-toggle');
+                    const isOutside = !e.target.closest('.dropdown');
+                    
+                    if (toggle && window.innerWidth <= 768) {
+                        e.preventDefault();
+                        const dropdown = toggle.closest('.dropdown');
+                        dropdown.classList.toggle('active');
+                        
+                        dropdowns.forEach(other => {
+                            if (other !== dropdown) other.classList.remove('active');
+                        });
+                    } else if (isOutside && window.innerWidth <= 768) {
+                        dropdowns.forEach(dropdown => dropdown.classList.remove('active'));
+                    }
+                });
+            }
+            window.addEventListener('resize', setupMobileDropdowns);
+            setupMobileDropdowns();
         });
-    }
-    window.addEventListener('resize', setupMobileDropdowns);
-    setupMobileDropdowns();
-});
-</script>
+        </script>
 </body>
 </html>
