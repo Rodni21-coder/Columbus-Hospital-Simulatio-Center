@@ -705,6 +705,18 @@ document.addEventListener('DOMContentLoaded', function() {
             document.body.style.overflow = '';
         }
     });
+     // Cambiar entre simuladores
+        function showSimulator(simulatorId) {
+            document.querySelectorAll('.simulator-info').forEach(info => {
+                info.classList.remove('active');
+            });
+            document.getElementById(simulatorId).classList.add('active');
+
+            document.querySelectorAll('.tab').forEach(tab => {
+                tab.classList.remove('active');
+            });
+            document.querySelector(`[onclick="showSimulator('${simulatorId}')"]`).classList.add('active');
+        }
 
     // Simuladores - versión optimizada
     const showSimulator = function(simulatorId) {
