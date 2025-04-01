@@ -683,7 +683,7 @@
         </div>
     </footer>
 
-    <script>
+   <script>
 document.addEventListener('DOMContentLoaded', function() {
     // 1. Menú hamburguesa
     const menuToggle = document.querySelector('.menu-toggle');
@@ -704,41 +704,46 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
 
-    // 2. Sistema de pestañas de simuladores - VERSIÓN NUEVA Y FUNCIONAL
-    const tabs = document.querySelectorAll('.tab');
-    const simulatorContents = document.querySelectorAll('.simulator-info');
-    
-    // Función para cambiar de simulador
-    function switchSimulator(simulatorId) {
-        // Oculta todos los contenidos
-        simulatorContents.forEach(content => {
-            content.classList.remove('active');
+    // 2. Sistema de pestañas de simuladores - SOLUCIÓN DEFINITIVA
+    function showSimulator(simulatorId, event) {
+        if (event) event.preventDefault();
+        
+        // 1. Remover 'active' de todos los simuladores
+        document.querySelectorAll('.simulator-info').forEach(sim => {
+            sim.classList.remove('active');
         });
         
-        // Muestra solo el seleccionado
-        const activeContent = document.getElementById(simulatorId);
-        if (activeContent) {
-            activeContent.classList.add('active');
+        // 2. Remover 'active' de todas las pestañas
+        document.querySelectorAll('.tab').forEach(tab => {
+            tab.classList.remove('active');
+        });
+        
+        // 3. Agregar 'active' al simulador seleccionado
+        const selectedSimulator = document.getElementById(simulatorId);
+        if (selectedSimulator) {
+            selectedSimulator.classList.add('active');
         }
         
-        // Actualiza las pestañas activas
-        tabs.forEach(tab => {
-            tab.classList.remove('active');
-            if (tab.getAttribute('data-simulator') === simulatorId) {
-                tab.classList.add('active');
-            }
-        });
+        // 4. Agregar 'active' a la pestaña clickeada
+        if (event) {
+            event.currentTarget.classList.add('active');
+        } else {
+            // Para manejar la activación inicial
+            document.querySelector(`.tab[onclick*="${simulatorId}"]`).classList.add('active');
+        }
     }
-    
-    // Asignar eventos a las pestañas
-    tabs.forEach(tab => {
-        tab.addEventListener('click', function() {
-            const simulatorId = this.getAttribute('data-simulator');
-            switchSimulator(simulatorId);
+
+    // 3. Asignar eventos a las pestañas - Versión mejorada
+    document.querySelectorAll('.tab').forEach(tab => {
+        tab.addEventListener('click', function(e) {
+            // Extraer el ID del simulador del atributo onclick
+            const onclickContent = this.getAttribute('onclick');
+            const simulatorId = onclickContent.match(/'([^']+)'/)[1];
+            showSimulator(simulatorId, e);
         });
     });
 
-    // 3. Animaciones al hacer scroll
+    // 4. Animaciones al hacer scroll
     const animateOnScroll = function() {
         const observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
@@ -755,7 +760,7 @@ document.addEventListener('DOMContentLoaded', function() {
     };
     animateOnScroll();
 
-    // 4. Dropdowns para móviles
+    // 5. Dropdowns para móviles
     function setupMobileDropdowns() {
         const dropdowns = document.querySelectorAll('.dropdown');
         
@@ -779,6 +784,6 @@ document.addEventListener('DOMContentLoaded', function() {
     window.addEventListener('resize', setupMobileDropdowns);
     setupMobileDropdowns();
 });
-    </script>
+</script>
 </body>
 </html>
