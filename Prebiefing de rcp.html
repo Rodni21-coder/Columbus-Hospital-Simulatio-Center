@@ -6,13 +6,22 @@
   <title>Prebriefing de RCP</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <style>
-    /* === ESTILOS GENERALES === */
     :root {
       --color-primario: #080154;
-      --color-secundario: #3498db;
-      --color-fondo: #f8f9fa;
-      --color-texto: #0c0c0c;
+      --color-secundario: #0311d6;
+      --color-terciario: #ffffff;
+      --color-accent: #1400ee;
+      --color-accent-dark: #03ab11;
+      --color-fondo: #eff2f3;
+      --color-texto: #333;
       --color-blanco: #fff;
+      --color-gris-claro: #e9ecef;
+      --color-gris-medio: #ced4da;
+      --color-sombra: rgba(0, 0, 0, 0.1);
+      --border-radius: 12px;
+      --transition: all 0.3s ease;
+      --box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      --box-shadow-hover: 0 8px 15px rgba(0, 0, 0, 0.15);
     }
 
     * {
@@ -25,50 +34,119 @@
       font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
       background-color: var(--color-fondo);
       color: var(--color-texto);
-      line-height: 1.6;
+      line-height: 1.7;
     }
-    header img {
-            width: 70px; /* Tamaño del logo */
-            height: auto;
-            border-radius: 8px; /* Opcional: bordes redondeados */
-            position: absolute; /* Posiciona el logo a la derecha */
-            right: 2rem; /* Distancia desde el borde derecho */
-            top: 2rem; /* Distancia desde el borde superior */
-        }
 
+    h1, h2, h3, h4 {
+      color: white;
+      font-weight: 700;
+      margin-bottom: 1rem;
+    }
+
+    p {
+      margin-bottom: 1rem;
+    }
+
+    ul, ol {
+      margin-bottom: 1.5rem;
+      padding-left: 1.5rem;
+    }
+
+    li {
+      margin-bottom: 0.5rem;
+    }
 
     /* === CABECERA === */
     header {
-      background-color: var(--color-primario);
+      background: linear-gradient(135deg, var(--color-primario), var(--color-secundario));
       color: var(--color-blanco);
-      padding: 1.5rem;
+      padding: 2rem 1.5rem;
       text-align: center;
-      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+      box-shadow: var(--box-shadow);
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-height: 180px;
     }
 
     header h1 {
-      font-size: 2rem;
+      font-size: 2.2rem;
       text-align: center;
-      margin-top: -30px;
+      margin: 0 auto;
+      max-width: 80%;
+      line-height: 1.3;
+      text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.2);
+    }
+
+    header img {
+      width: 80px;
+      height: auto;
+      border-radius: 50%;
+      position: absolute;
+      right: 2rem;
+      top: 1.5rem;
+      border: 3px solid var(--color-blanco);
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    }
+
+    .volver-btn {
+      position: absolute;
+      left: 20px;
+      top: 6rem;
+      color: var(--color-blanco);
+      text-decoration: none;
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 12px;
+      border-radius: 30px;
+      background-color: rgba(255, 255, 255, 0.2);
+      transition: var(--transition);
+    }
+
+    .volver-btn:hover {
+      background-color: rgba(255, 255, 255, 0.3);
+      transform: translateX(-3px);
     }
 
     /* === CONTENEDOR PRINCIPAL === */
     .contenedor {
       display: flex;
-      min-height: calc(100vh - 80px);
+      min-height: calc(100vh - 180px);
     }
 
     /* === MENÚ LATERAL === */
     .menu-lateral {
-      width: 300px;
-      background-color: var(--color-primario);
+      width: 320px;
+      background: linear-gradient(180deg, #080154, #0101cd);
       color: var(--color-blanco);
       transform: translateX(-100%);
-      transition: transform 0.3s ease;
+      transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
       position: fixed;
-      height: 100%;
+      height: 100vh;
       z-index: 100;
       overflow-y: auto;
+      top: 0;
+      left: 0;
+      padding-top: 180px;
+      scrollbar-width: thin;
+      scrollbar-color: var(--color-terciario) var(--color-primario);
+    }
+
+    .menu-lateral::-webkit-scrollbar {
+      width: 8px;
+    }
+
+    .menu-lateral::-webkit-scrollbar-track {
+      background: var(--color-primario);
+    }
+
+    .menu-lateral::-webkit-scrollbar-thumb {
+      background-color: var(--color-terciario);
+      border-radius: 20px;
     }
 
     .menu-lateral.activo {
@@ -76,33 +154,56 @@
     }
 
     .menu-lateral h2 {
-      padding: 1rem;
-      background-color: rgba(0, 0, 0, 0.2);
+      position: sticky;
+      top: 0;
+      background: linear-gradient(180deg, #0311d6, #000e5a);
+      z-index: 1;
+      padding: 1.2rem;
       text-align: center;
+      margin: 0;
+      font-size: 1.4rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      border-bottom: 2px solid rgba(255, 255, 255, 0.1);
     }
 
     .menu-lateral ul {
       list-style: none;
+      padding-bottom: 20px;
     }
 
     .menu-lateral li {
       border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+      transition: var(--transition);
+    }
+
+    .menu-lateral li:hover {
+      background-color: rgba(255, 255, 255, 0.05);
     }
 
     .menu-lateral a {
-      display: block;
+      display: flex;
+      align-items: center;
       color: var(--color-blanco);
-      padding: 1rem;
+      padding: 1rem 1.5rem;
       text-decoration: none;
-      transition: background 0.3s;
+      transition: var(--transition);
+      font-weight: 500;
     }
 
     .menu-lateral a:hover {
-      background-color: var(--color-secundario);
+      background-color: rgba(255, 255, 255, 0.1);
+      padding-left: 1.8rem;
     }
 
     .menu-lateral a i {
-      margin-right: 10px;
+      margin-right: 12px;
+      font-size: 1.1rem;
+      width: 24px;
+      text-align: center;
+      color: var(--color-terciario);
     }
 
     /* === BOTÓN MENÚ === */
@@ -110,90 +211,146 @@
       position: fixed;
       top: 20px;
       left: 20px;
-      background-color: var(--color-primario);
+      background: linear-gradient(135deg, var(--color-accent), var(--color-accent-dark));
       color: var(--color-blanco);
       border: none;
       border-radius: 50%;
-      width: 50px;
-      height: 50px;
+      width: 56px;
+      height: 56px;
       font-size: 1.5rem;
       cursor: pointer;
       z-index: 101;
-      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
       display: flex;
       align-items: center;
       justify-content: center;
+      transition: var(--transition);
+    }
+
+    .btn-menu:hover {
+      transform: scale(1.05);
+      box-shadow: 0 6px 12px rgba(0, 0, 0, 0.25);
     }
 
     /* === CONTENIDO PRINCIPAL === */
     .contenido-principal {
       flex: 1;
-      padding: 2rem;
+      padding: 2.5rem;
       margin-left: 0;
       transition: margin-left 0.3s ease;
+      max-width: 1200px;
+      margin: 0 auto;
     }
 
     .contenido-principal.desplazado {
-      margin-left: 300px;
+      margin-left: 320px;
     }
 
     /* === INTRODUCCIÓN === */
     .introduccion {
       background-color: var(--color-blanco);
-      padding: 2rem;
-      border-radius: 8px;
-      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-      margin-bottom: 2rem;
+      padding: 2.5rem;
+      border-radius: var(--border-radius);
+      box-shadow: var(--box-shadow);
+      margin-bottom: 2.5rem;
+      border-top: 5px solid var(--color-accent);
     }
 
     .introduccion h2 {
       color: var(--color-primario);
-      margin-bottom: 1rem;
+      margin-bottom: 1.5rem;
+      font-size: 1.8rem;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .introduccion h2 i {
+      color: var(--color-accent);
     }
 
     /* === TARJETAS DE SECCIONES === */
     .secciones {
       display: grid;
       grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-      gap: 1.5rem;
+      gap: 2rem;
       margin-top: 2rem;
     }
 
     .tarjeta {
       background-color: var(--color-blanco);
-      border-radius: 8px;
+      border-radius: var(--border-radius);
       overflow: hidden;
-      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-      transition: transform 0.3s;
+      box-shadow: var(--box-shadow);
+      transition: var(--transition);
+      display: flex;
+      flex-direction: column;
+      height: 100%;
+      border-top: 4px solid var(--color-secundario);
     }
 
     .tarjeta:hover {
-      transform: translateY(-5px);
+      transform: translateY(-8px);
+      box-shadow: var(--box-shadow-hover);
     }
 
     .tarjeta img {
       width: 100%;
       height: 200px;
       object-fit: cover;
+      border-bottom: 1px solid var(--color-gris-medio);
     }
 
     .tarjeta-contenido {
-      padding: 1.5rem;
+      padding: 1.8rem;
+      flex-grow: 1;
+      display: flex;
+      flex-direction: column;
     }
 
     .tarjeta h3 {
-      color: var(--color-primario);
-      margin-bottom: 0.5rem;
+      color:   #080154;
+      margin-bottom: 1rem;
+      font-size: 1.3rem;
+      min-height: 60px;
+      display: flex;
+      align-items: center;
+    }
+
+    .tarjeta p {
+      color:  #333 ;
+      margin-bottom: 1.5rem;
+      flex-grow: 1;
+    }
+
+    .tarjeta-btn {
+      display: inline-block;
+      background-color: #0311d6;
+      color: white;
+      padding: 0.6rem 1.2rem;
+      border-radius: 30px;
+      text-decoration: none;
+      font-weight: 600;
+      text-align: center;
+      transition: var(--transition);
+      margin-top: auto;
+      align-self: flex-start;
+    }
+
+    .tarjeta-btn:hover {
+      background-color:  #080154;
+      transform: translateY(-2px);
     }
 
     /* === SECCIONES DE CONTENIDO === */
     .seccion-contenido {
       background-color: var(--color-blanco);
-      padding: 2rem;
-      border-radius: 8px;
-      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-      margin-bottom: 2rem;
+      padding: 2.5rem;
+      border-radius: var(--border-radius);
+      box-shadow: var(--box-shadow);
+      margin-bottom: 2.5rem;
       display: none;
+      border-top: 5px solid var(--color-secundario);
     }
 
     .seccion-contenido.activo {
@@ -204,18 +361,37 @@
     .seccion-contenido h2 {
       color: var(--color-primario);
       margin-bottom: 1.5rem;
-      border-bottom: 2px solid var(--color-secundario);
-      padding-bottom: 0.5rem;
+      padding-bottom: 0.8rem;
+      border-bottom: 2px solid var(--color-terciario);
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-size: 1.8rem;
     }
 
-    .video-contenedor {
+    .seccion-contenido h2 i {
+      color: var(--color-accent);
+    }
+
+    .seccion-contenido strong {
+      color: var(--color-primario);
+      font-weight: 600;
+    }
+    
+    /* Contenedores para contenido embebido */
+    .web-optimizada, .video-contenedor {
       position: relative;
-      padding-bottom: 56.25%; /* 16:9 */
+      padding-bottom: 56.25%; /* Relación 16:9 */
       height: 0;
       margin: 2rem 0;
+      border-radius: var(--border-radius);
       overflow: hidden;
+      box-shadow: var(--box-shadow);
+      background: var(--color-gris-claro);
+      border: 1px solid var(--color-gris-medio);
     }
-
+    
+    .web-optimizada iframe, 
     .video-contenedor iframe {
       position: absolute;
       top: 0;
@@ -223,27 +399,165 @@
       width: 100%;
       height: 100%;
       border: none;
-      border-radius: 8px;
+    }
+
+    .subtitulo-seccion {
+      font-size: 1.3rem;
+      color: var(--color-secundario);
+      margin: 1.5rem 0 1rem;
+      padding-bottom: 0.5rem;
+      border-bottom: 1px dashed var(--color-terciario);
+    }
+    
+    .botones-recursos {
+      display: flex;
+      gap: 12px;
+      margin-top: 15px;
+      flex-wrap: wrap;
+    }
+    
+    .btn-recargar, .btn-abrir {
+      padding: 10px 18px;
+      border-radius: 30px;
+      font-size: 15px;
+      cursor: pointer;
+      transition: var(--transition);
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-weight: 600;
+    }
+    
+    .btn-recargar {
+      background: linear-gradient(135deg, var(--color-accent), var(--color-accent-dark));
+      color: white;
+      border: none;
+    }
+    
+    .btn-recargar:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 8px rgba(234, 149, 1, 0.3);
+    }
+    
+    .btn-abrir {
+      background: white;
+      color: var(--color-primario);
+      border: 2px solid var(--color-primario);
+      text-decoration: none;
+    }
+    
+    .btn-abrir:hover {
+      background-color: var(--color-primario);
+      color: white;
+      transform: translateY(-2px);
     }
 
     /* === ANIMACIONES === */
     @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(10px); }
+      from { opacity: 0; transform: translateY(15px); }
       to { opacity: 1; transform: translateY(0); }
     }
 
+    /* === ACCESIBILIDAD === */
+    a:focus, button:focus {
+      outline: 3px solid var(--color-accent);
+      outline-offset: 3px;
+    }
+
+    .sr-only {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      padding: 0;
+      margin: -1px;
+      overflow: hidden;
+      clip: rect(0, 0, 0, 0);
+      white-space: nowrap;
+      border-width: 0;
+    }
+
     /* === RESPONSIVE === */
+    @media (max-width: 1024px) {
+      .contenido-principal {
+        padding: 2rem;
+      }
+      
+      .introduccion, .seccion-contenido {
+        padding: 2rem;
+      }
+    }
+
     @media (max-width: 768px) {
+      header h1 {
+        font-size: 1.8rem;
+        max-width: 90%;
+      }
+      
+      header img {
+        width: 70px;
+        right: 1rem;
+        top: 4rem;
+      }
+      
+      .volver-btn {
+        left: 1rem;
+        top: 1.5rem;
+      }
+      
       .contenido-principal.desplazado {
         margin-left: 0;
       }
       
       .menu-lateral {
-        width: 250px;
+        width: 280px;
+        padding-top: 160px;
       }
       
       .secciones {
         grid-template-columns: 1fr;
+      }
+      
+      .contenido-principal {
+        padding: 1.5rem;
+      }
+      
+      .introduccion, .seccion-contenido {
+        padding: 1.5rem;
+      }
+    }
+
+    @media (max-width: 480px) {
+      header {
+        padding: 1.5rem 1rem;
+        min-height: 160px;
+      }
+      
+      header h1 {
+        font-size: 1.5rem;
+        max-width: 100%;
+        padding-top: 10px;
+      }
+      
+      header img {
+        width: 60px;
+        position: static;
+        margin-top: 10px;
+      }
+      
+      .volver-btn {
+        position: static;
+        align-self: flex-start;
+        margin-bottom: 10px;
+      }
+      
+      .btn-menu {
+        width: 50px;
+        height: 50px;
+        font-size: 1.3rem;
+      }
+      
+      .seccion-contenido h2 {
+        font-size: 1.5rem;
       }
     }
   </style>
@@ -251,17 +565,15 @@
 <body>
   <!-- Cabecera -->
   <header>
-    <header>
-        <a href="index.html" style="position: absolute; left: 20px; top: 5rem; color: white; text-decoration: none;">
-            <i class="fas fa-arrow-left"></i> Volver
-        </a>
-    </header>
-    <h1>Prebriefing de RCP</h1>
-    <img src="logo.png" alt="Logo">
+    <a href="index.html" class="volver-btn">
+      <i class="fas fa-arrow-left"></i> Volver
+    </a>
+    <h1>Prebriefing Destrezas y Habilidades Clínicas</h1>
+    <img src="logo.png" alt="Logo de la institución">
   </header>
 
   <!-- Botón para abrir/cerrar menú -->
-  <button class="btn-menu" id="btnMenu">
+  <button class="btn-menu" id="btnMenu" aria-label="Abrir menú de navegación">
     <i class="fas fa-bars"></i>
   </button>
 
@@ -291,6 +603,7 @@
           <div class="tarjeta-contenido">
             <h3>RCP</h3>
             <p>Reanimación Cardiopulmonar (RCP) es una técnica de emergencia utilizada para salvar vidas cuando la respiración o los latidos del corazón de una persona han cesado.</p>
+            <a href="#" data-seccion="rcp" class="tarjeta-btn">Aprender</a>
           </div>
         </div>
         
@@ -300,6 +613,7 @@
           <div class="tarjeta-contenido">
             <h3>Ventilación</h3>
             <p>Es el proceso de mover aire dentro y fuera de los pulmones para facilitar la respiración.</p>
+            <a href="#" data-seccion="Ventilacion" class="tarjeta-btn">Aprender</a>
           </div>
         </div>
         
@@ -309,6 +623,7 @@
           <div class="tarjeta-contenido">
             <h3>Uso de Monitores</h3>
             <p>El uso de monitores implica la supervisión continua de los signos vitales del paciente mediante dispositivos electrónicos.</p>
+            <a href="#" data-seccion="Uso de monitores" class="tarjeta-btn">Aprender</a>
           </div>
         </div>
         
@@ -318,6 +633,7 @@
           <div class="tarjeta-contenido">
             <h3>Desfibrilación</h3>
             <p>La desfibrilación es un tratamiento para las arritmias cardíacas que utiliza una descarga eléctrica para restablecer un ritmo cardíaco normal.</p>
+            <a href="#" data-seccion="Desfibrilación" class="tarjeta-btn">Aprender</a>
           </div>
         </div>
       </div>
@@ -336,9 +652,21 @@
         <li>Manejo post-procedimiento</li>
       </ul>
       
-      <div class="video-contenedor">
-        <!-- Reemplaza con tu video real -->
-        <iframe src="https://www.youtube.com/embed/VIDEO_ID_FLEBOTOMIA" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+      <div class="web-optimizada">
+        <iframe 
+          src="https://accessmedicina.mhmedical.com/MultimediaPlayer.aspx?MultimediaID=20266907"
+          loading="eager"
+          sandbox="allow-scripts allow-same-origin allow-popups"
+          title="Guía de Flebotomía">
+        </iframe>
+        <div class="botones-recursos">
+          <button class="btn-recargar" onclick="recargarIframe('flebotomia')">
+            <i class="fas fa-sync-alt"></i> Recargar
+          </button>
+          <button class="btn-abrir" onclick="abrirEnNuevaVentana('flebotomia')">
+            <i class="fas fa-external-link-alt"></i> Abrir externo
+          </button>
+        </div>
       </div>
     </section>
 
@@ -394,44 +722,95 @@
     </section>
   </main>
 
+    <!-- Sección Interpretación de Estudios Paraclínicos -->
+    <section class="seccion-contenido" id="interpretacion">
+      <h2><i class="fas fa-file-alt"></i> Interpretación de Estudios Paraclínicos</h2>
+      <p><strong>Prebriefing:</strong> En esta sesión aprenderás a interpretar estudios paraclínicos.</p>
+      <p><strong>Objetivos:</strong></p>
+      <ul>
+        <li>Identificar los estudios paraclínicos más relevantes según el caso clínico.</li>
+        <li>Interpretar los resultados de pruebas de laboratorio y estudios de imagen.</li>
+        <li>Relacionar los hallazgos con el diagnóstico clínico.</li>
+        <li>Reconocer valores normales y alteraciones significativas.</li>
+        <li>Aplicar los resultados en la toma de decisiones clínicas.</li>
+      </ul>
+      
+      <div class="web-optimizada">
+        <iframe 
+          src="https://www.youtube.com/embed/VIDEO_ID_GASO"
+          loading="eager"
+          title="Guía de Interpretación de Estudios Paraclínicos">
+        </iframe>
+        <div class="botones-recursos">
+          <button class="btn-recargar" onclick="recargarIframe('interpretacion')">
+            <i class="fas fa-sync-alt"></i> Recargar
+          </button>
+          <button class="btn-abrir" onclick="abrirEnNuevaVentana('interpretacion')">
+            <i class="fas fa-external-link-alt"></i> Abrir externo
+          </button>
+        </div>
+      </div>
+    </section>
+  </main>
+
   <script>
-    // Control del menú lateral
-    const btnMenu = document.getElementById('btnMenu');
-    const menuLateral = document.getElementById('menuLateral');
-    const contenidoPrincipal = document.getElementById('contenidoPrincipal');
+    // ========== FUNCIONALIDAD DEL MENÚ ==========
+    document.addEventListener('DOMContentLoaded', function() {
+      const btnMenu = document.getElementById('btnMenu');
+      const menuLateral = document.getElementById('menuLateral');
+      const contenidoPrincipal = document.getElementById('contenidoPrincipal');
+      
+      // Control del menú
+      btnMenu.addEventListener('click', function(e) {
+        e.stopPropagation();
+        menuLateral.classList.toggle('activo');
+        contenidoPrincipal.classList.toggle('desplazado');
+        document.body.style.overflow = menuLateral.classList.contains('activo') ? 'hidden' : '';
+      });
 
-    btnMenu.addEventListener('click', () => {
-      menuLateral.classList.toggle('activo');
-      contenidoPrincipal.classList.toggle('desplazado');
-    });
-
-    // Navegación entre secciones
-    const enlacesMenu = document.querySelectorAll('.menu-lateral a');
-    const secciones = document.querySelectorAll('.seccion-contenido');
-
-    enlacesMenu.forEach(enlace => {
-      enlace.addEventListener('click', (e) => {
-        e.preventDefault();
-        const seccionId = enlace.getAttribute('data-seccion');
-        
-        // Ocultar todas las secciones
-        secciones.forEach(seccion => {
-          seccion.classList.remove('activo');
-        });
-        
-        // Mostrar la sección seleccionada
-        document.getElementById(seccionId).classList.add('activo');
-        
-        // Cerrar el menú en móviles
-        if (window.innerWidth <= 768) {
+      // Cerrar menú al hacer clic fuera
+      document.addEventListener('click', function(e) {
+        if (!menuLateral.contains(e.target) && e.target !== btnMenu) {
           menuLateral.classList.remove('activo');
           contenidoPrincipal.classList.remove('desplazado');
+          document.body.style.overflow = '';
         }
+      });
+
+      // Navegación entre secciones
+      document.querySelectorAll('.menu-lateral a, .tarjeta-btn').forEach(enlace => {
+        enlace.addEventListener('click', function(e) {
+          e.preventDefault();
+          const seccionId = this.getAttribute('data-seccion');
+          
+          document.querySelectorAll('.seccion-contenido').forEach(s => {
+            s.classList.remove('activo');
+          });
+          
+          document.getElementById(seccionId).classList.add('activo');
+          
+          if (window.innerWidth <= 768) {
+            menuLateral.classList.remove('activo');
+            contenidoPrincipal.classList.remove('desplazado');
+            document.body.style.overflow = '';
+          }
+          
+          // Desplazar al inicio de la sección
+          document.getElementById(seccionId).scrollIntoView({ behavior: 'smooth' });
+        });
       });
     });
 
-    // Mostrar sección de introducción por defecto
-    document.getElementById('introduccion').classList.add('activo');
+    // ========== FUNCIONES GLOBALES ==========
+    function recargarIframe(seccionId) {
+      const iframe = document.querySelector(`#${seccionId} iframe`);
+      iframe.src = iframe.src.split('?')[0] + '?t=' + Date.now();
+    }
+
+    function abrirEnNuevaVentana(seccionId) {
+      const iframe = document.querySelector(`#${seccionId} iframe`);
+      window.open(iframe.src.split('?')[0], '_blank');
+    }
   </script>
 </body>
 </html>
