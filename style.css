@@ -264,13 +264,16 @@ main {
 
 h2 {
     font-size: 2rem;
-    color: white;
+    color: #0b057a;
     margin-bottom: 20px;
     padding-bottom: 10px;
     border-bottom: 2px solid var(--light-gray);
     position: relative;
 }
 
+#innovacion  h2 {
+    color: #f6f6f6; /* Cambia este color */
+}
 h2::after {
     content: '';
     position: absolute;
