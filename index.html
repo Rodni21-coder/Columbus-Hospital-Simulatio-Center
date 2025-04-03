@@ -60,7 +60,7 @@
 
     <main>
   <!-- Sección del Modelo 3D -->
-  <section id="innovacion" class="hero animate__animated animate__fadeIn">
+  <section id="inicio" class="hero animate__animated animate__fadeIn">
     <div class="model-title">
         <h2>Innovación en Simulación Clínica</h2>
         <p>Formando profesionales de la salud con tecnología de vanguardia y metodologías educativas avanzadas</p>
@@ -784,6 +784,58 @@
             window.addEventListener('resize', setupMobileDropdowns);
             setupMobileDropdowns();
         });
+        // Corrección para el scroll suave en móviles
+document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+  anchor.addEventListener('click', function(e) {
+    e.preventDefault();
+    
+    const targetId = this.getAttribute('href');
+    if (targetId === '#') return;
+    
+    const targetElement = document.querySelector(targetId);
+    if (targetElement) {
+      // Calcular posición considerando el header fijo
+      const headerHeight = document.querySelector('header').offsetHeight;
+      const navHeight = document.querySelector('nav').offsetHeight;
+      const totalOffset = headerHeight + navHeight;
+      
+      const targetPosition = targetElement.getBoundingClientRect().top + window.pageYOffset - totalOffset;
+      
+      window.scrollTo({
+        top: targetPosition,
+        behavior: 'smooth'
+      });
+      
+      // Cerrar menú móvil si está abierto
+      const menuToggle = document.querySelector('.menu-toggle');
+      if (menuToggle.classList.contains('active')) {
+        menuToggle.classList.remove('active');
+        document.getElementById('main-nav').classList.remove('active');
+        document.body.style.overflow = '';
+      }
+    }
+  });
+});
+
+// Ajustar el padding del main al cargar y redimensionar
+function adjustMainPadding() {
+  const header = document.querySelector('header');
+  const nav = document.querySelector('nav');
+  const main = document.querySelector('main');
+  
+  if (header && nav && main) {
+    const totalHeight = header.offsetHeight + nav.offsetHeight;
+    main.style.marginTop = `${totalHeight}px`;
+    
+    // Ajustar scroll-margin para todos los elementos con ID
+    document.querySelectorAll('[id]').forEach(element => {
+      element.style.scrollMarginTop = `${totalHeight}px`;
+    });
+  }
+}
+
+window.addEventListener('load', adjustMainPadding);
+window.addEventListener('resize', adjustMainPadding);
         </script>
 </body>
 </html>
