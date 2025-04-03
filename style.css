@@ -1436,120 +1436,165 @@ spline-viewer {
     }
   }
   
-  /* Corrección para el header en móviles */
-  @media (max-width: 768px) {
+  /* Corrección para el espacio en blanco y menú hamburguesa */
+@media (max-width: 768px) {
+    /* Header ajustado para móviles */
     header {
-      height: auto;
-      padding: 10px;
-      flex-direction: row;
-      align-items: center;
-    }
-    
-    .header-content {
+      height: 70px;
+      padding: 0.5rem 1rem;
       flex-direction: row;
       justify-content: space-between;
-      align-items: center;
     }
-    
+  
+    .header-content {
+      flex-direction: row;
+      align-items: center;
+      width: 100%;
+    }
+  
     .title-container {
       text-align: left;
-      margin-right: 10px;
+      flex: 1;
+      min-width: 0; /* Permite que el texto se trunque */
     }
-    
+  
     header h1 {
       font-size: 1.2rem;
       white-space: nowrap;
       overflow: hidden;
       text-overflow: ellipsis;
-    }
-    
-    header p {
-      display: none; /* Ocultar el subtítulo en móviles */
-    }
-    
-    header img {
-      width: 50px;
       margin: 0;
     }
-    
-    nav {
-      top: 70px; /* Ajustar según altura del header */
-    }
-    
-    main {
-      margin-top: 110px; /* Ajustar según altura de header + nav */
-    }
-  }
   
-  /* Corrección para el botón de inicio */
-  @media (max-width: 768px) {
-    #inicio {
-      scroll-margin-top: 110px; /* Igual que el margin-top del main */
-    }
-  }
-  
-  /* Ajustes generales para móviles */
-  @media (max-width: 768px) {
-    .section {
-      padding: 15px;
-    }
-    
-    h2 {
-      font-size: 1.5rem;
-    }
-    
-    .tab-container {
-      overflow-x: auto;
-      white-space: nowrap;
-      padding-bottom: 5px;
-    }
-    
-    .tab {
-      display: inline-block;
-      white-space: nowrap;
-    }
-    
-    .simulator-header {
-      flex-direction: column;
-    }
-    
-    .simulator-title, .simulator-features {
-      min-width: 100%;
-    }
-    
-    .video-container video {
-      max-width: 100%;
-    }
-    
-    /* Asegurar que el footer se vea bien */
-    .footer-container {
-      flex-direction: column;
-    }
-    
-    .footer-left, .footer-center, .footer-right {
-      margin-bottom: 20px;
-    }
-    
-    .footer-logo {
-      width: 180px;
-    }
-  }
-  
-  /* Corrección para tablets (768px - 992px) */
-  @media (min-width: 769px) and (max-width: 992px) {
-    header h1 {
-      font-size: 1.5rem;
-    }
-    
     header p {
+      display: none; /* Ocultamos el subtítulo en móviles */
+    }
+  
+    header img {
+      width: 40px;
+      height: auto;
+      margin-left: 10px;
+    }
+  
+    /* Menú hamburguesa */
+    .menu-toggle {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      width: 30px;
+      height: 24px;
+      background: transparent;
+      border: none;
+      cursor: pointer;
+      padding: 0;
+      z-index: 1001;
+      margin-left: 15px;
+    }
+  
+    .menu-toggle .bar {
+      display: block;
+      width: 100%;
+      height: 3px;
+      background: white;
+      transition: all 0.3s ease;
+    }
+  
+    /* Navbar para móviles */
+    #main-nav {
+      position: fixed;
+      top: 70px;
+      left: -100%;
+      width: 80%;
+      height: calc(100vh - 70px);
+      background: var(--gradient-blue);
+      transition: left 0.3s ease;
+      z-index: 1000;
+      overflow-y: auto;
+      box-shadow: 2px 0 10px rgba(0,0,0,0.2);
+    }
+  
+    #main-nav.active {
+      left: 0;
+    }
+  
+    nav ul {
+      flex-direction: column;
+      padding: 20px;
+    }
+  
+    nav ul li {
+      margin: 10px 0;
+      width: 100%;
+    }
+  
+    nav ul li a {
+      padding: 12px 15px;
+      border-radius: 5px;
+      justify-content: flex-start;
+    }
+  
+    /* Dropdown para móviles */
+    .dropdown-menu {
+      position: static;
+      width: 100%;
+      margin-top: 5px;
+      box-shadow: none;
+      display: none;
+      animation: none;
+    }
+  
+    .dropdown.active .dropdown-menu {
+      display: block;
+    }
+  
+    .dropdown-toggle i.fa-chevron-down {
+      transition: transform 0.3s;
+    }
+  
+    .dropdown.active .dropdown-toggle i.fa-chevron-down {
+      transform: rotate(180deg);
+    }
+  
+    /* Ajuste del espacio principal */
+    main {
+      margin-top: 70px; /* Solo el header, el nav se muestra superpuesto */
+    }
+  
+    /* Modelo 3D ajustado */
+    .hero {
+      height: 50vh;
+      min-height: 300px;
+      padding-top: 20px;
+    }
+  
+    .model-title {
+      top: 15%;
+      padding: 0 15px;
+    }
+  
+    .model-title h2 {
+      font-size: 1.5rem;
+      margin-bottom: 10px;
+    }
+  
+    .model-title p {
+      font-size: 0.9rem;
+      margin-bottom: 15px;
+    }
+  
+    .hero-btn {
+      padding: 8px 16px;
       font-size: 0.9rem;
     }
-    
-    .model-container {
-      height: 70vh;
+  }
+  
+  /* Ajustes para tablets (769px - 992px) */
+  @media (min-width: 769px) and (max-width: 992px) {
+    .hero {
+      height: 60vh;
     }
-    
-    spline-viewer {
-      height: 70vh;
+  
+    .model-title h2 {
+      font-size: 2rem;
     }
   }
