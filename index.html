@@ -58,31 +58,25 @@
   </ul>
 </nav>
 
-    <main>
-  <!-- Sección del Modelo 3D -->
-  <section id="inicio" class="hero animate__animated animate__fadeIn">
-    <div class="model-title">
-        <h2>Innovación en Simulación Clínica</h2>
-        <p>Formando profesionales de la salud con tecnología de vanguardia y metodologías educativas avanzadas</p>
-        <a href="#simuladores" class="hero-btn">Explorar Simuladores</a>
-    </div>
-    
-    <!-- Visor de Spline -->
-    <script type="module" src="https://unpkg.com/@splinetool/viewer@1.9.82/build/spline-viewer.js"></script>
-
-    <spline-viewer 
-        url="https://prod.spline.design/1YlkKAd8pylj9V4I/scene.splinecode"
-        loading-anim-type="none"
-        loading="lazy"
-        reveal="auto"
-        camera-controls="true"
-        shadow-intensity="0.5">
-    </spline-viewer>
-    
-    <div class="scroll-indicator">
-        <i class="fas fa-chevron-down"></i>
-    </div>
-</section>
+    <main>        
+        <section id="inicio" class="hero animate__animated animate__fadeIn">
+            <div class="centered-hero-title">
+                <h2>Innovación en Simulación Clínica</h2>
+                <p>Formando profesionales de la salud con tecnología de vanguardia y metodologías educativas avanzadas</p>
+                <a href="#simuladores" class="hero-btn">Explorar Simuladores</a>
+            </div>
+            
+            <div class="video-left-container">
+                <video controls autoplay muted loop>
+                    <source src="video de introduccion.mp4" type="video/mp4">
+                    Tu navegador no soporta el elemento de video.
+                </video>
+            </div>
+            
+            <div class="scroll-indicator">
+                <i class="fas fa-chevron-down"></i>
+            </div>
+        </section>
 </section>
 
         <!-- Sección de Simuladores -->
@@ -302,125 +296,216 @@
             </div>
         </section>
 
-        <!-- Sección de Conceptos Clave - Versión Optimizada -->
-<section id="conceptos" class="section animate-section">
-    <h2>Conceptos Clave</h2>
-    <p class="section-subtitle">En la simulación clínica, es importante comprender estos conceptos fundamentales:</p>
-    
-    <div class="concepts-accordion">
-        <!-- Grupo 1 -->
-        <div class="accordion-group">
-            <h3 class="accordion-header">Fundamentos de Simulación</h3>
-            <div class="accordion-content">
-                <div class="concept-item">
-                    <i class="fas fa-star concept-icon"></i>
-                    <div>
-                        <h4>Fidelidad</h4>
-                        <p>Grado de realismo del simulador y el escenario.</p>
+        <!-- Sección de Conceptos Clave - Versión Mejorada Visualmente -->
+        <section id="conceptos" class="section animate-section">
+            <h2>Conceptos Clave</h2>
+            <p class="section-subtitle">Domina estos fundamentos con ayuda visual intuitiva:</p>
+            
+            <div class="concepts-accordion">
+                <!-- Grupo 1: Fundamentos -->
+                <div class="accordion-group">
+                    <h3 class="accordion-header">
+                        <i class="fas fa-atom header-icon"></i> Fundamentos de Simulación
+                    </h3>
+                    <div class="accordion-content">
+                        <div class="concept-card">
+                            <div class="concept-icon-bg concept-icon-bg--star">
+                                <i class="fas fa-star concept-icon"></i>
+                            </div>
+                            <div class="concept-text">
+                                <h4>Fidelidad</h4>
+                                <p>Grado de realismo del simulador y el escenario.</p>
+                                <div class="visual-hint">
+                                    <span class="hint-bar" style="width: 70%;"></span>
+                                    <small>Baja ↔ Alta</small>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="concept-card">
+                            <div class="concept-icon-bg concept-icon-bg--water">
+                                <i class="fas fa-water concept-icon"></i>
+                            </div>
+                            <div class="concept-text">
+                                <h4>Inmersión</h4>
+                                <p>Capacidad del participante de sentirse parte del escenario.</p>
+                                <div class="visual-hint">
+                                    <div class="immersion-level">
+                                        <span class="level-dot active"></span>
+                                        <span class="level-dot active"></span>
+                                        <span class="level-dot"></span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="concept-card">
+                            <div class="concept-icon-bg concept-icon-bg--comments">
+                                <i class="fas fa-comments concept-icon"></i>
+                            </div>
+                            <div class="concept-text">
+                                <h4>Debriefing</h4>
+                                <p>Proceso de reflexión y aprendizaje después de la simulación.</p>
+                                <div class="visual-hint">
+                                    <i class="fas fa-exchange-alt hint-icon"></i>
+                                    <small>Retroalimentación</small>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
-                <div class="concept-item">
-                    <i class="fas fa-water concept-icon"></i>
-                    <div>
-                        <h4>Inmersión</h4>
-                        <p>Capacidad del participante de sentirse parte del escenario.</p>
+                
+                <!-- Grupo 2: Seguridad -->
+                <div class="accordion-group">
+                    <h3 class="accordion-header">
+                        <i class="fas fa-shield-virus header-icon"></i> Seguridad y Entorno
+                    </h3>
+                    <div class="accordion-content">
+                        <div class="concept-card">
+                            <div class="concept-icon-bg concept-icon-bg--shield">
+                                <i class="fas fa-shield-alt concept-icon"></i>
+                            </div>
+                            <div class="concept-text">
+                                <h4>Seguridad Psicológica</h4>
+                                <p>Ambiente seguro para cometer errores y aprender.</p>
+                                <div class="visual-hint">
+                                    <i class="fas fa-lock-open hint-icon"></i>
+                                    <small>Entorno protegido</small>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="concept-card">
+                            <div class="concept-icon-bg concept-icon-bg--user-shield">
+                                <i class="fas fa-user-shield concept-icon"></i>
+                            </div>
+                            <div class="concept-text">
+                                <h4>Seguridad del Paciente</h4>
+                                <p>Protección del paciente durante la simulación.</p>
+                                <div class="visual-hint">
+                                    <i class="fas fa-heartbeat hint-icon"></i>
+                                    <small>Prioridad absoluta</small>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="concept-card">
+                            <div class="concept-icon-bg concept-icon-bg--handshake">
+                                <i class="fas fa-handshake concept-icon"></i>
+                            </div>
+                            <div class="concept-text">
+                                <h4>Contrato de Fricción</h4>
+                                <p>Acuerdo para confidencialidad y respeto.</p>
+                                <div class="visual-hint">
+                                    <i class="fas fa-file-signature hint-icon"></i>
+                                    <small>Compromiso ético</small>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
-                <div class="concept-item">
-                    <i class="fas fa-comments concept-icon"></i>
-                    <div>
-                        <h4>Debriefing</h4>
-                        <p>Proceso de reflexión y aprendizaje después de la simulación.</p>
+                
+                <!-- Grupo 3: Elementos -->
+                <div class="accordion-group">
+                    <h3 class="accordion-header">
+                        <i class="fas fa-tools header-icon"></i> Elementos de Simulación
+                    </h3>
+                    <div class="accordion-content">
+                        <div class="concept-card">
+                            <div class="concept-icon-bg concept-icon-bg--bandaid">
+                                <i class="fas fa-band-aid concept-icon"></i>
+                            </div>
+                            <div class="concept-text">
+                                <h4>Moulage</h4>
+                                <p>Uso de maquillaje para simular condiciones médicas.</p>
+                                <div class="visual-hint">
+                                    <i class="fas fa-paint-brush hint-icon"></i>
+                                    <small>Realismo visual</small>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="concept-card">
+                            <div class="concept-icon-bg concept-icon-bg--procedures">
+                                <i class="fas fa-procedures concept-icon"></i>
+                            </div>
+                            <div class="concept-text">
+                                <h4>Fantoma</h4>
+                                <p>Modelo anatómico para práctica de procedimientos.</p>
+                                <div class="visual-hint">
+                                    <i class="fas fa-bone hint-icon"></i>
+                                    <small>Modelo físico</small>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="concept-card">
+                            <div class="concept-icon-bg concept-icon-bg--stethoscope">
+                                <i class="fas fa-stethoscope concept-icon"></i>
+                            </div>
+                            <div class="concept-text">
+                                <h4>Tasktrainers</h4>
+                                <p>Dispositivos para practicar habilidades específicas.</p>
+                                <div class="visual-hint">
+                                    <i class="fas fa-dumbbell hint-icon"></i>
+                                    <small>Práctica focalizada</small>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Grupo 4: Metodologías -->
+                <div class="accordion-group">
+                    <h3 class="accordion-header">
+                        <i class="fas fa-chart-line header-icon"></i> Metodologías
+                    </h3>
+                    <div class="accordion-content">
+                        <div class="concept-card">
+                            <div class="concept-icon-bg concept-icon-bg--bullseye">
+                                <i class="fas fa-bullseye concept-icon"></i>
+                            </div>
+                            <div class="concept-text">
+                                <h4>Objetivos de Aprendizaje</h4>
+                                <p>Metas específicas a alcanzar con la simulación.</p>
+                                <div class="visual-hint">
+                                    <i class="fas fa-bullseye hint-icon"></i>
+                                    <small>Enfoque claro</small>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="concept-card">
+                            <div class="concept-icon-bg concept-icon-bg--user-md">
+                                <i class="fas fa-user-md concept-icon"></i>
+                            </div>
+                            <div class="concept-text">
+                                <h4>Paciente Estandarizado</h4>
+                                <p>Actor entrenado para representar pacientes.</p>
+                                <div class="visual-hint">
+                                    <i class="fas fa-theater-masks hint-icon"></i>
+                                    <small>Representación realista</small>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="concept-card">
+                            <div class="concept-icon-bg concept-icon-bg--users">
+                                <i class="fas fa-users concept-icon"></i>
+                            </div>
+                            <div class="concept-text">
+                                <h4>Confederados</h4>
+                                <p>Personas con roles específicos en la simulación.</p>
+                                <div class="visual-hint">
+                                    <i class="fas fa-user-friends hint-icon"></i>
+                                    <small>Roles predefinidos</small>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
-        
-        <!-- Grupo 2 -->
-        <div class="accordion-group">
-            <h3 class="accordion-header">Seguridad y Entorno</h3>
-            <div class="accordion-content">
-                <div class="concept-item">
-                    <i class="fas fa-shield-alt concept-icon"></i>
-                    <div>
-                        <h4>Seguridad Psicológica</h4>
-                        <p>Ambiente seguro para cometer errores y aprender.</p>
-                    </div>
-                </div>
-                <div class="concept-item">
-                    <i class="fas fa-user-shield concept-icon"></i>
-                    <div>
-                        <h4>Seguridad del Paciente</h4>
-                        <p>Protección del paciente durante la simulación.</p>
-                    </div>
-                </div>
-                <div class="concept-item">
-                    <i class="fas fa-handshake concept-icon"></i>
-                    <div>
-                        <h4>Contrato de Fricción</h4>
-                        <p>Acuerdo para confidencialidad y respeto.</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-        
-        <!-- Grupo 3 -->
-        <div class="accordion-group">
-            <h3 class="accordion-header">Elementos de Simulación</h3>
-            <div class="accordion-content">
-                <div class="concept-item">
-                    <i class="fas fa-band-aid concept-icon"></i>
-                    <div>
-                        <h4>Moulage</h4>
-                        <p>Uso de maquillaje para simular condiciones médicas.</p>
-                    </div>
-                </div>
-                <div class="concept-item">
-                    <i class="fas fa-procedures concept-icon"></i>
-                    <div>
-                        <h4>Fantoma</h4>
-                        <p>Modelo anatómico para práctica de procedimientos.</p>
-                    </div>
-                </div>
-                <div class="concept-item">
-                    <i class="fas fa-stethoscope concept-icon"></i>
-                    <div>
-                        <h4>Tasktrainers</h4>
-                        <p>Dispositivos para practicar habilidades específicas.</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-        
-        <!-- Grupo 4 -->
-        <div class="accordion-group">
-            <h3 class="accordion-header">Metodologías</h3>
-            <div class="accordion-content">
-                <div class="concept-item">
-                    <i class="fas fa-bullseye concept-icon"></i>
-                    <div>
-                        <h4>Objetivos de Aprendizaje</h4>
-                        <p>Metas específicas a alcanzar con la simulación.</p>
-                    </div>
-                </div>
-                <div class="concept-item">
-                    <i class="fas fa-user-md concept-icon"></i>
-                    <div>
-                        <h4>Paciente Estandarizado</h4>
-                        <p>Actor entrenado para representar pacientes.</p>
-                    </div>
-                </div>
-                <div class="concept-item">
-                    <i class="fas fa-users concept-icon"></i>
-                    <div>
-                        <h4>Confederados</h4>
-                        <p>Personas con roles específicos en la simulación.</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
+        </section>
         <!-- Sección de Normativas -->
 <section id="normativas" class="section animate-section">
   <h2>Normativas y Organigrama</h2>
@@ -837,6 +922,7 @@
             setupMobileDropdowns();
             setupSmoothScroll();
         });
+
         </script>
 </body>
 </html>
