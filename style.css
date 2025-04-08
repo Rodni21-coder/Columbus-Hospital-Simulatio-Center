@@ -7,7 +7,33 @@
     --dark-blue: #0d47a1;
     --gradient-blue: linear-gradient(135deg, #0b057a 0%, #0d47a1 100%);
 }
-
+#simuladores h2 {
+    color: var(--primary-color); /* Cambia este valor por el color deseado */
+}
+#metodos h2 {
+    color: var(--primary-color); /* Cambia este valor por el color deseado */
+}
+#beneficios h2 {
+    color: var(--primary-color); /* Cambia este valor por el color deseado */
+}
+#juegos h2 {
+    color: var(--primary-color); /* Cambia este valor por el color deseado */
+}
+#equipo h2 {
+    color: var(--primary-color); /* Cambia este valor por el color deseado */
+}
+#normativas h2 {
+    color: var(--primary-color); /* Cambia este valor por el color deseado */
+}
+#mision h2 {
+    color: var(--primary-color); /* Cambia este valor por el color deseado */
+}
+#conceptos h2 {
+    color: var(--primary-color); /* Cambia este valor por el color deseado */
+}
+#fases h2 {
+    color: var(--primary-color); /* Cambia este valor por el color deseado */
+}
 * {
     margin: 0;
     padding: 0;
