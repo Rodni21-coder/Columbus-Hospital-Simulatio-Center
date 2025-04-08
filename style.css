@@ -1308,27 +1308,242 @@ border-radius: 8px;
 overflow: hidden;
 box-shadow: 0 2px 10px rgba(0,0,0,0.1);
 }
-
-/* Estilos para móviles */
 @media (max-width: 768px) {
-.dropdown-menu {
-position: static;
-width: 100%;
-margin-top: 5px;
-box-shadow: none;
-}
+    /* Header ajustado */
+    header {
+        height: auto;
+        padding: 0.8rem 1rem;
+        flex-direction: column;
+    }
 
-.dropdown-toggle i.fa-chevron-down {
-transform: rotate(0);
-}
+    .header-content {
+        flex-direction: column;
+        align-items: flex-start;
+    }
 
-.dropdown.active .dropdown-toggle i.fa-chevron-down {
-transform: rotate(180deg);
-}
+    .title-container {
+        order: 1;
+        width: 100%;
+        text-align: left;
+        margin-bottom: 10px;
+    }
 
-.dropdown.active .dropdown-menu {
-display: block;
-}
+    .menu-logo-container {
+        order: 2;
+        width: 100%;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    header h1 {
+        font-size: 1.4rem;
+        line-height: 1.3;
+    }
+
+    header p {
+        font-size: 0.9rem;
+    }
+
+    header img {
+        width: 50px;
+        margin: 0;
+    }
+
+    /* Menú hamburguesa */
+    .menu-toggle {
+        display: block;
+        order: 1;
+        background: none;
+        border: none;
+        width: 30px;
+        height: 24px;
+        position: relative;
+        cursor: pointer;
+        z-index: 1001;
+        padding: 0;
+    }
+
+    .menu-toggle .bar {
+        display: block;
+        width: 100%;
+        height: 3px;
+        background: white;
+        position: absolute;
+        left: 0;
+        transition: all 0.3s ease;
+    }
+
+    .menu-toggle .bar:nth-child(1) { top: 0; }
+    .menu-toggle .bar:nth-child(2) { top: 50%; transform: translateY(-50%); }
+    .menu-toggle .bar:nth-child(3) { bottom: 0; }
+
+    /* Estado abierto del menú */
+    .menu-toggle.active .bar:nth-child(1) {
+        top: 50%;
+        transform: translateY(-50%) rotate(45deg);
+    }
+
+    .menu-toggle.active .bar:nth-child(2) {
+        opacity: 0;
+    }
+
+    .menu-toggle.active .bar:nth-child(3) {
+        bottom: 50%;
+        transform: translateY(50%) rotate(-45deg);
+    }
+
+    /* Navegación móvil */
+    #main-nav {
+        position: fixed;
+        top: 80px;
+        left: -100%;
+        width: 80%;
+        height: calc(100vh - 80px);
+        background: var(--gradient-blue);
+        transition: left 0.3s ease;
+        z-index: 1000;
+        overflow-y: auto;
+        padding: 1rem 0;
+    }
+
+    #main-nav.active {
+        left: 0;
+    }
+
+    nav ul {
+        flex-direction: column;
+        padding: 0 1rem;
+    }
+
+    nav ul li {
+        width: 100%;
+        margin: 5px 0;
+    }
+
+    nav ul li a {
+        padding: 12px 15px;
+        border-radius: 5px;
+        justify-content: flex-start;
+    }
+
+    /* Dropdowns en móvil */
+    .dropdown-menu {
+        position: static;
+        width: 100%;
+        margin: 5px 0 0 0;
+        box-shadow: none;
+        background: rgb(249, 249, 249);
+        display: none;
+    }
+
+    .dropdown.active .dropdown-menu {
+        display: block;
+    }
+
+    .dropdown-toggle i.fa-chevron-down {
+        transition: transform 0.3s;
+    }
+
+    .dropdown.active .dropdown-toggle i.fa-chevron-down {
+        transform: rotate(180deg);
+    }
+
+    /* Contenido principal */
+    main {
+        margin-top: 80px;
+        padding: 15px;
+    }
+
+    .section {
+        padding: 20px;
+        margin-bottom: 30px;
+    }
+
+    h2 {
+        font-size: 1.6rem;
+        margin-bottom: 15px;
+    }
+
+    /* Hero section */
+    .hero {
+        height: auto;
+        min-height: 300px;
+        padding: 60px 20px 40px;
+        flex-direction: column;
+    }
+
+    .centered-hero-title {
+        padding: 20px;
+        order: 2;
+    }
+
+    .video-left-container {
+        width: 100%;
+        height: 250px;
+        position: relative;
+        order: 1;
+        transform: none;
+        margin-bottom: 20px;
+    }
+
+    .hero h2 {
+        font-size: 1.8rem;
+    }
+
+    .hero p {
+        font-size: 1rem;
+    }
+
+    /* Contenido de simuladores */
+    .tab-container {
+        flex-wrap: wrap;
+    }
+
+    .tab {
+        padding: 8px 12px;
+        font-size: 0.9rem;
+    }
+
+    .simulator-header {
+        flex-direction: column;
+    }
+
+    .simulator-title, .simulator-features {
+        min-width: 100%;
+    }
+
+    /* Tarjetas y grids */
+    .card-container, .phase-container, .benefit-container, .game-container {
+        grid-template-columns: 1fr;
+    }
+
+    /* Equipo */
+    .team-grid {
+        grid-template-columns: 1fr;
+    }
+
+    /* Footer */
+    .footer-container {
+        flex-direction: column;
+    }
+
+    .footer-left, .footer-center, .footer-right {
+        text-align: center;
+    }
+
+    .footer-logo {
+        margin: 0 auto 15px;
+    }
+
+    .social-icons {
+        justify-content: center;
+    }
+
+    /* Gráficas comparativas */
+    .comparison-grid {
+        grid-template-columns: 1fr;
+    }
 }
 /* Estilos para la gráfica comparativa */
 .chart-container {
