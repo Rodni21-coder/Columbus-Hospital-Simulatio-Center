@@ -264,16 +264,13 @@ main {
 
 h2 {
     font-size: 2rem;
-    color: #0b057a;
+    color: white;
     margin-bottom: 20px;
     padding-bottom: 10px;
     border-bottom: 2px solid var(--light-gray);
     position: relative;
 }
 
-#innovacion  h2 {
-    color: #f6f6f6; /* Cambia este color */
-}
 h2::after {
     content: '';
     position: absolute;
@@ -1195,7 +1192,32 @@ nav ul li a {
 padding: 12px;
 border-radius: 5px;
 }
+@media (max-width: 768px) {
+    .header-content {
+        flex-direction: column;
+        align-items: flex-start;
+    }
 
+    .title-container {
+        order: 1;
+        width: 100%;
+        text-align: center;
+        margin-bottom: 10px;
+    }
+
+    header img {
+        order: 2;
+        width: 50px;
+        margin: 0 auto;
+        display: block;
+    }
+
+    .menu-toggle {
+        position: absolute;
+        right: 15px;
+        top: 15px;
+    }
+}
 /* Asegurar que el logo no se superponga */
 header img {
 position: static;
@@ -1407,194 +1429,145 @@ spline-viewer {
     40% {transform: translateY(-20px) translateX(-50%);}
     60% {transform: translateY(-10px) translateX(-50%);}
 }
-/* Corrección para el modelo 3D */
+/* Contenedor multimedia */
+.media-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+    width: 90%;
+    max-width: 1200px;
+    height: 500px;
+    margin: 20px auto;
+    position: relative;
+    z-index: 1;
+}
+
+/* Carrusel de imágenes */
+.image-carousel {
+    position: relative;
+    width: 110%;
+    height: 110%;
+    border-radius: 15px;
+    overflow: hidden;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+}
+
+.carousel-slide {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    transition: opacity 1s ease-in-out;
+}
+
+.carousel-slide.active {
+    opacity: 1;
+}
+
+.carousel-slide img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.video-left-container {
+    width: 50%;
+    height: 500px;
+    position: left;
+    left: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 1;
+}
+
+/* Contenedor de video izquierdo */
+.video-left-container {
+    position: absolute;
+    left: 0;
+    top: 50%;
+    width: 50%;
+    height: 100%;
+    transform: translateY(-50%);
+    overflow: hidden;
+    z-index: 1;
+    border-radius: 0 15px 15px 0;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+}
+
+.video-left-container video {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+/* Título centrado */
+.centered-hero-title {
+    position: relative;
+    z-index: 2;
+    text-align: center;
+    padding: 40px 20px;
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+/* Responsive */
 @media (max-width: 768px) {
-    .model-container {
-      height: 60vh; /* Reducir altura para móviles */
+    .video-left-container {
+        position: relative;
+        width: 100%;
+        height: 300px;
+        top: auto;
+        transform: none;
+        border-radius: 0;
+        margin-top: 20px;
     }
     
-    spline-viewer {
-      height: 60vh;
+    .centered-hero-title {
+        padding: 30px 15px;
     }
-    
-    .model-title {
-      top: 15%;
-      width: 90%;
-    }
-    
-    .model-title h2 {
-      font-size: 1.5rem;
-    }
-    
-    .model-title p {
-      font-size: 0.9rem;
-    }
-    
-    .hero-btn {
-      padding: 10px 20px;
-      font-size: 0.9rem;
-    }
-  }
-  
-  /* Corrección para el espacio en blanco y menú hamburguesa */
-@media (max-width: 768px) {
-    /* Header ajustado para móviles */
-    header {
-      height: 70px;
-      padding: 0.5rem 1rem;
-      flex-direction: row;
-      justify-content: space-between;
-    }
-  
-    .header-content {
-      flex-direction: row;
-      align-items: center;
-      width: 100%;
-    }
-  
-    .title-container {
-      text-align: left;
-      flex: 1;
-      min-width: 0; /* Permite que el texto se trunque */
-    }
-  
-    header h1 {
-      font-size: 1.2rem;
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
-      margin: 0;
-    }
-  
-    header p {
-      display: none; /* Ocultamos el subtítulo en móviles */
-    }
-  
-    header img {
-      width: 40px;
-      height: auto;
-      margin-left: 10px;
-    }
-  
-    /* Menú hamburguesa */
-    .menu-toggle {
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-      width: 30px;
-      height: 24px;
-      background: transparent;
-      border: none;
-      cursor: pointer;
-      padding: 0;
-      z-index: 1001;
-      margin-left: 15px;
-    }
-  
-    .menu-toggle .bar {
-      display: block;
-      width: 100%;
-      height: 3px;
-      background: white;
-      transition: all 0.3s ease;
-    }
-  
-    /* Navbar para móviles */
-    #main-nav {
-      position: fixed;
-      top: 70px;
-      left: -100%;
-      width: 80%;
-      height: calc(100vh - 70px);
-      background: var(--gradient-blue);
-      transition: left 0.3s ease;
-      z-index: 1000;
-      overflow-y: auto;
-      box-shadow: 2px 0 10px rgba(0,0,0,0.2);
-    }
-  
-    #main-nav.active {
-      left: 0;
-    }
-  
-    nav ul {
-      flex-direction: column;
-      padding: 20px;
-    }
-  
-    nav ul li {
-      margin: 10px 0;
-      width: 100%;
-    }
-  
-    nav ul li a {
-      padding: 12px 15px;
-      border-radius: 5px;
-      justify-content: flex-start;
-    }
-  
-    /* Dropdown para móviles */
-    .dropdown-menu {
-      position: static;
-      width: 100%;
-      margin-top: 5px;
-      box-shadow: none;
-      display: none;
-      animation: none;
-    }
-  
-    .dropdown.active .dropdown-menu {
-      display: block;
-    }
-  
-    .dropdown-toggle i.fa-chevron-down {
-      transition: transform 0.3s;
-    }
-  
-    .dropdown.active .dropdown-toggle i.fa-chevron-down {
-      transform: rotate(180deg);
-    }
-  
-    /* Ajuste del espacio principal */
-    main {
-      margin-top: 70px; /* Solo el header, el nav se muestra superpuesto */
-    }
-  
-    /* Modelo 3D ajustado */
-    .hero {
-      height: 50vh;
-      min-height: 300px;
-      padding-top: 20px;
-    }
-  
-    .model-title {
-      top: 15%;
-      padding: 0 15px;
-    }
-  
-    .model-title h2 {
-      font-size: 1.5rem;
-      margin-bottom: 10px;
-    }
-  
-    .model-title p {
-      font-size: 0.9rem;
-      margin-bottom: 15px;
-    }
-  
-    .hero-btn {
-      padding: 8px 16px;
-      font-size: 0.9rem;
-    }
-  }
-  
-  /* Ajustes para tablets (769px - 992px) */
-  @media (min-width: 769px) and (max-width: 992px) {
-    .hero {
-      height: 60vh;
-    }
-  
-    .model-title h2 {
-      font-size: 2rem;
-    }
-  }
+}
+/* Estilos para las mejoras visuales */
+.concept-card {
+    display: flex;
+    align-items: center;
+    padding: 12px;
+    border-radius: 8px;
+    transition: all 0.3s ease;
+    margin-bottom: 8px;
+}
+.concept-card:hover {
+    background: rgba(0,0,0,0.03);
+}
+
+.concept-icon-bg {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-right: 15px;
+    flex-shrink: 0;
+}
+.concept-icon-bg--star { background: #ffd70033; color: #ffc107; }
+.concept-icon-bg--water { background: #00b4d833; color: #0096c7; }
+
+.visual-hint {
+    margin-top: 8px;
+    color: #666;
+    font-size: 0.85em;
+}
+.hint-bar {
+    display: block;
+    height: 4px;
+    background: linear-gradient(90deg, #f72585, #7209b7);
+    border-radius: 2px;
+}
+.immersion-level { display: flex; gap: 5px; }
+.level-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: #ddd;
+}
+.level-dot.active { background: #4895ef; }
