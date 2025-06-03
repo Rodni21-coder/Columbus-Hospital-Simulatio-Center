@@ -1,0 +1,622 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Administración de Noticias - Columbus Hospital</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
+    <style>
+        :root {
+            --primary-color: #0b057a;
+            --secondary-color: #34a853;
+            --accent-color: #3498db;
+            --light-color: #f8f9fa;
+            --dark-color: #343a40;
+            --danger-color: #dc3545;
+            --text-color: #333;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f9f9f7;
+            background-image: url('https://www.transparenttextures.com/patterns/cream-paper.png');
+            color: var(--text-color);
+            line-height: 1.6;
+        }
+        
+        .admin-container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        .admin-header {
+            text-align: center;
+            padding: 30px 0;
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: white;
+            border-radius: 8px;
+            margin-bottom: 30px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        
+        .admin-header h1 {
+            font-size: 2.2rem;
+            margin-bottom: 10px;
+        }
+        
+        .admin-panel {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+        }
+        
+        .form-container {
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+            padding: 25px;
+            position: sticky;
+            top: 20px;
+            height: fit-content;
+        }
+        
+        .form-container h2 {
+            color: var(--primary-color);
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+        }
+        
+        .form-container h2 i {
+            margin-right: 10px;
+            color: var(--secondary-color);
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: var(--dark-color);
+        }
+        
+        .form-control {
+            width: 100%;
+            padding: 12px 15px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 1rem;
+            transition: border-color 0.3s;
+        }
+        
+        .form-control:focus {
+            border-color: var(--primary-color);
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(11, 5, 122, 0.1);
+        }
+        
+        textarea.form-control {
+            min-height: 150px;
+            resize: vertical;
+        }
+        
+        .image-preview {
+            max-width: 100%;
+            height: auto;
+            margin-top: 15px;
+            border-radius: 4px;
+            display: none;
+        }
+        
+        .btn {
+            display: inline-block;
+            padding: 10px 20px;
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 1rem;
+            transition: all 0.3s;
+            text-align: center;
+        }
+        
+        .btn:hover {
+            background-color: #080451;
+            transform: translateY(-2px);
+        }
+        
+        .btn-secondary {
+            background-color: #6c757d;
+        }
+        
+        .btn-secondary:hover {
+            background-color: #5a6268;
+        }
+        
+        .btn-danger {
+            background-color: var(--danger-color);
+        }
+        
+        .btn-danger:hover {
+            background-color: #c82333;
+        }
+        
+        .btn-group {
+            display: flex;
+            gap: 10px;
+            margin-top: 20px;
+        }
+        
+        .news-list {
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+            padding: 25px;
+        }
+        
+        .news-list h2 {
+            color: var(--primary-color);
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+        }
+        
+        .news-list h2 i {
+            margin-right: 10px;
+            color: var(--secondary-color);
+        }
+        
+        .news-item {
+            padding: 15px;
+            border-bottom: 1px solid #eee;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            transition: background-color 0.3s;
+        }
+        
+        .news-item:hover {
+            background-color: #f9f9f9;
+        }
+        
+        .news-item-info {
+            flex: 1;
+        }
+        
+        .news-item-title {
+            font-weight: 600;
+            color: var(--primary-color);
+            margin-bottom: 5px;
+        }
+        
+        .news-item-date {
+            font-size: 0.9rem;
+            color: #6c757d;
+        }
+        
+        .news-item-actions {
+            display: flex;
+            gap: 10px;
+        }
+        
+        .login-container {
+            max-width: 500px;
+            margin: 100px auto;
+            background: white;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+        
+        .login-logo {
+            margin-bottom: 20px;
+        }
+        
+        .login-logo img {
+            max-width: 150px;
+        }
+        
+        .error-message {
+            color: var(--danger-color);
+            margin-top: 10px;
+            font-size: 0.9rem;
+        }
+        
+        @media (max-width: 768px) {
+            .admin-panel {
+                grid-template-columns: 1fr;
+            }
+            
+            .form-container {
+                position: static;
+            }
+            
+            .news-item {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+            
+            .news-item-actions {
+                margin-top: 10px;
+                align-self: flex-end;
+            }
+        }
+         /* Nuevos estilos para el sistema de autenticación */
+         .auth-container {
+            max-width: 500px;
+            margin: 50px auto;
+            background: white;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+        
+        .auth-tabs {
+            display: flex;
+            margin-bottom: 20px;
+            border-bottom: 1px solid #ddd;
+        }
+        
+        .auth-tab {
+            flex: 1;
+            padding: 10px;
+            cursor: pointer;
+            text-align: center;
+            border-bottom: 3px solid transparent;
+            transition: all 0.3s;
+        }
+        
+        .auth-tab.active {
+            border-bottom-color: var(--primary-color);
+            color: var(--primary-color);
+            font-weight: 600;
+        }
+        
+        .auth-form {
+            display: none;
+        }
+        
+        .auth-form.active {
+            display: block;
+        }
+        
+        .password-strength {
+            height: 5px;
+            background: #eee;
+            margin-top: 5px;
+            border-radius: 3px;
+            overflow: hidden;
+        }
+        
+        .strength-bar {
+            height: 100%;
+            width: 0%;
+            background: #dc3545;
+            transition: width 0.3s, background 0.3s;
+        }
+        
+        .attempts-warning {
+            color: var(--danger-color);
+            font-size: 0.9rem;
+            margin-top: 10px;
+            display: none;
+        }
+        
+        .security-question {
+            margin-top: 15px;
+            text-align: left;
+        }
+    </style>
+</head>
+<body>
+<!-- Sistema de Login -->
+<div id="loginContainer" class="login-container animate__animated animate__fadeIn">
+ <div class="login-logo">
+      <img src="logo.png" alt="Logo Columbus Hospital">
+ </div>
+ <h2>Acceso Administrativo</h2>
+ <p>Ingrese la contraseña para gestionar el contenido</p>
+ 
+ <div class="form-group">
+      <input type="password" id="adminPassword" class="form-control" placeholder="Contraseña de administrador" required>
+      <p id="loginError" class="error-message"></p>
+ </div>
+ 
+ <button id="loginBtn" class="btn">Ingresar</button>
+</div>
+
+<!-- Panel de Administración -->
+<div id="adminPanel" class="admin-container" style="display: none;">
+    <header class="admin-header animate__animated animate__fadeInDown">
+        <h1><i class="fas fa-newspaper"></i> Administración de Noticias</h1>
+        <p>Gestiona el contenido académico del Columbus Hospital Simulation Center</p>
+    </header>
+    <div style="text-align: right; margin-bottom: 15px;">
+        <button id="logoutBtn" class="btn btn-danger">
+            <i class="fas fa-sign-out-alt"></i> Cerrar Sesión
+        </button>
+    </div>
+    
+    <div class="admin-panel">
+        <div class="form-container animate__animated animate__fadeInLeft">
+            <h2><i class="fas fa-edit"></i> Formulario de Noticia</h2>
+            
+            <form id="newsForm">
+                <input type="hidden" id="newsId">
+                
+                <div class="form-group">
+                    <label for="newsTitle">Título:</label>
+                    <input type="text" id="newsTitle" class="form-control" placeholder="Título de la noticia" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="newsContent">Contenido:</label>
+                    <textarea id="newsContent" class="form-control" placeholder="Contenido completo de la noticia" required></textarea>
+                </div>
+                
+                <div class="form-group">
+                    <label for="newsCategory">Categoría:</label>
+                    <select id="newsCategory" class="form-control">
+                        <option value="General">General</option>
+                        <option value="Cursos">Cursos</option>
+                        <option value="Eventos">Eventos</option>
+                        <option value="Investigación">Investigación</option>
+                        <option value="Diplomados">Diplomados</option>
+                    </select>
+                </div>
+                
+                <div class="form-group">
+                    <label for="newsLinks">Enlaces relacionados (separados por comas):</label>
+                    <input type="text" id="newsLinks" class="form-control" placeholder="https://ejemplo1.com, https://ejemplo2.com">
+                </div>
+                
+                <div class="form-group">
+                    <label for="newsImage">Imagen de portada:</label>
+                    <input type="file" id="newsImage" class="form-control" accept="image/*">
+                    <img id="newsImagePreview" class="image-preview" src="#" alt="Vista previa de la imagen">
+                </div>
+                
+                <div class="form-group">
+                    <label for="newsDate">Fecha de publicación:</label>
+                    <input type="date" id="newsDate" class="form-control" required>
+                </div>
+                
+                <div class="btn-group">
+                    <button type="submit" id="saveBtn" class="btn">Guardar Noticia</button>
+                    <button type="button" id="cancelBtn" class="btn btn-secondary">Cancelar</button>
+                </div>
+            </form>
+        </div>
+        
+        <div class="news-list animate__animated animate__fadeInRight">
+            <h2><i class="fas fa-list"></i> Noticias Existentes</h2>
+            
+            <div id="newsList">
+                <!-- Las noticias se cargarán aquí dinámicamente -->
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // Configuración
+        const ADMIN_PASSWORD = "Columbus2025";
+        const STORAGE_KEY = "columbus_news";
+        
+        // Elementos del DOM
+        const loginContainer = document.getElementById('loginContainer');
+        const adminPanel = document.getElementById('adminPanel');
+        const loginBtn = document.getElementById('loginBtn');
+        const loginError = document.getElementById('loginError');
+        const newsForm = document.getElementById('newsForm');
+        const newsList = document.getElementById('newsList');
+        const saveBtn = document.getElementById('saveBtn');
+        const cancelBtn = document.getElementById('cancelBtn');
+        const newsImageInput = document.getElementById('newsImage');
+        const newsImagePreview = document.getElementById('newsImagePreview');
+        
+        // Estado
+        let isEditing = false;
+        let currentEditId = null;
+        let imageFile = null;
+        
+        // Inicializar
+        checkLoginStatus();
+        setupEventListeners();
+        
+        // Funciones principales
+        function checkLoginStatus() {
+            const isLoggedIn = localStorage.getItem('isAdminLoggedIn') === 'true';
+            
+            if (isLoggedIn) {
+                loginContainer.style.display = 'none';
+                adminPanel.style.display = 'block';
+                loadNewsList();
+            }
+        }
+        
+        function setupEventListeners() {
+            // Login
+            loginBtn.addEventListener('click', function() {
+                const password = document.getElementById('adminPassword').value.trim();
+                
+                if (password === ADMIN_PASSWORD) {
+                    localStorage.setItem('isAdminLoggedIn', 'true');
+                    loginContainer.style.display = 'none';
+                    adminPanel.style.display = 'block';
+                    loadNewsList();
+                } else {
+                    loginError.textContent = 'Contraseña incorrecta. Intente nuevamente.';
+                }
+            });
+            
+            // Vista previa de imagen
+            newsImageInput.addEventListener('change', function() {
+                const file = this.files[0];
+                if (file) {
+                    imageFile = file;
+                    const reader = new FileReader();
+                    reader.onload = function(e) {
+                        newsImagePreview.src = e.target.result;
+                        newsImagePreview.style.display = 'block';
+                    };
+                    reader.readAsDataURL(file);
+                }
+            });
+            
+            // Guardar noticia
+            newsForm.addEventListener('submit', function(e) {
+                e.preventDefault();
+                
+                const newsItem = {
+                    id: document.getElementById('newsId').value || Date.now().toString(),
+                    title: document.getElementById('newsTitle').value,
+                    content: document.getElementById('newsContent').value,
+                    category: document.getElementById('newsCategory').value,
+                    links: document.getElementById('newsLinks').value,
+                    date: document.getElementById('newsDate').value,
+                    image: newsImagePreview.style.display === 'block' ? newsImagePreview.src : ''
+                };
+                
+                saveNewsItem(newsItem);
+                resetForm();
+                loadNewsList();
+            });
+            
+            // Cancelar edición
+            cancelBtn.addEventListener('click', resetForm);
+        }
+        
+        function loadNewsList() {
+            const news = getNews();
+            newsList.innerHTML = '';
+            
+            if (news.length === 0) {
+                newsList.innerHTML = '<p>No hay noticias creadas aún.</p>';
+                return;
+            }
+            
+            news.forEach(item => {
+                const newsItem = document.createElement('div');
+                newsItem.className = 'news-item';
+                newsItem.innerHTML = `
+                    <div class="news-item-info">
+                        <div class="news-item-title">${item.title}</div>
+                        <div class="news-item-date">${formatDate(item.date)} • ${item.category}</div>
+                    </div>
+                    <div class="news-item-actions">
+                        <button class="btn edit-btn" data-id="${item.id}"><i class="fas fa-edit"></i></button>
+                        <button class="btn btn-danger delete-btn" data-id="${item.id}"><i class="fas fa-trash"></i></button>
+                    </div>
+                `;
+                newsList.appendChild(newsItem);
+            });
+            
+            // Configurar eventos para botones de editar y eliminar
+            document.querySelectorAll('.edit-btn').forEach(btn => {
+                btn.addEventListener('click', () => editNews(btn.dataset.id));
+            });
+            
+            document.querySelectorAll('.delete-btn').forEach(btn => {
+                btn.addEventListener('click', () => deleteNews(btn.dataset.id));
+            });
+        }
+        
+        function getNews() {
+            return JSON.parse(localStorage.getItem(STORAGE_KEY)) || [];
+        }
+        
+        function saveNewsItem(newsItem) {
+            const news = getNews();
+            
+            if (isEditing) {
+                // Actualizar noticia existente
+                const index = news.findIndex(item => item.id === currentEditId);
+                if (index !== -1) {
+                    news[index] = newsItem;
+                }
+            } else {
+                // Agregar nueva noticia
+                news.unshift(newsItem);
+            }
+            
+            localStorage.setItem(STORAGE_KEY, JSON.stringify(news));
+            alert('Noticia guardada correctamente');
+        }
+        
+        function editNews(id) {
+            const news = getNews();
+            const newsItem = news.find(item => item.id === id);
+            
+            if (!newsItem) return;
+            
+            // Llenar el formulario
+            document.getElementById('newsId').value = newsItem.id;
+            document.getElementById('newsTitle').value = newsItem.title;
+            document.getElementById('newsContent').value = newsItem.content;
+            document.getElementById('newsCategory').value = newsItem.category || 'General';
+            document.getElementById('newsLinks').value = newsItem.links || '';
+            document.getElementById('newsDate').value = newsItem.date;
+            
+            if (newsItem.image) {
+                newsImagePreview.src = newsItem.image;
+                newsImagePreview.style.display = 'block';
+            }
+            
+            isEditing = true;
+            currentEditId = id;
+            saveBtn.textContent = 'Actualizar Noticia';
+            
+            // Desplazarse al formulario
+            newsForm.scrollIntoView({ behavior: 'smooth' });
+        }
+        
+        function deleteNews(id) {
+            if (!confirm('¿Está seguro de que desea eliminar esta noticia?')) return;
+            
+            const news = getNews();
+            const updatedNews = news.filter(item => item.id !== id);
+            
+            localStorage.setItem(STORAGE_KEY, JSON.stringify(updatedNews));
+            loadNewsList();
+            
+            if (id === currentEditId) {
+                resetForm();
+            }
+        }
+        
+        function resetForm() {
+            newsForm.reset();
+            document.getElementById('newsId').value = '';
+            newsImagePreview.style.display = 'none';
+            imageFile = null;
+            isEditing = false;
+            currentEditId = null;
+            saveBtn.textContent = 'Guardar Noticia';
+        }
+        
+        function formatDate(dateString) {
+            const options = { year: 'numeric', month: 'short', day: 'numeric' };
+            return new Date(dateString).toLocaleDateString('es-ES', options);
+        }
+        // Cerrar sesión
+document.getElementById('logoutBtn').addEventListener('click', function () {
+    localStorage.removeItem('isAdminLoggedIn');
+    location.reload();
+});
+
+    });
+    </script>
+</body>
+</html>
