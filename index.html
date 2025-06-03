@@ -1035,25 +1035,6 @@ document.querySelectorAll('.dropdown-toggle').forEach(toggle => {
             setupMobileDropdowns();
             setupSmoothScroll();
         });
-// Cerrar menú si se hace clic fuera
-document.addEventListener('click', function(event) {
-    const menu = document.getElementById('main-nav');
-    const toggle = document.querySelector('.menu-toggle');
-
-    const isClickInsideMenu = menu.contains(event.target);
-    const isClickOnToggle = toggle.contains(event.target);
-
-    if (!isClickInsideMenu && !isClickOnToggle && menu.classList.contains('active')) {
-        menu.classList.remove('active');
-        toggle.classList.remove('active');
-    }
-});
-
-// Alternar menú al hacer clic en el botón hamburguesa
-document.querySelector('.menu-toggle').addEventListener('click', function() {
-    this.classList.toggle('active');
-    document.getElementById('main-nav').classList.toggle('active');
-});
         </script>
 </body>
 <script>
