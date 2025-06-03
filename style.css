@@ -7,33 +7,7 @@
     --dark-blue: #0d47a1;
     --gradient-blue: linear-gradient(135deg, #0b057a 0%, #0d47a1 100%);
 }
-#simuladores h2 {
-    color: var(--primary-color); /* Cambia este valor por el color deseado */
-}
-#metodos h2 {
-    color: var(--primary-color); /* Cambia este valor por el color deseado */
-}
-#beneficios h2 {
-    color: var(--primary-color); /* Cambia este valor por el color deseado */
-}
-#juegos h2 {
-    color: var(--primary-color); /* Cambia este valor por el color deseado */
-}
-#equipo h2 {
-    color: var(--primary-color); /* Cambia este valor por el color deseado */
-}
-#normativas h2 {
-    color: var(--primary-color); /* Cambia este valor por el color deseado */
-}
-#mision h2 {
-    color: var(--primary-color); /* Cambia este valor por el color deseado */
-}
-#conceptos h2 {
-    color: var(--primary-color); /* Cambia este valor por el color deseado */
-}
-#fases h2 {
-    color: var(--primary-color); /* Cambia este valor por el color deseado */
-}
+
 * {
     margin: 0;
     padding: 0;
@@ -290,7 +264,7 @@ main {
 
 h2 {
     font-size: 2rem;
-    color: white;
+    color: var(--primary-color);
     margin-bottom: 20px;
     padding-bottom: 10px;
     border-bottom: 2px solid var(--light-gray);
@@ -1900,4 +1874,49 @@ spline-viewer {
         font-size: 0.8rem;
         padding: 8px 12px;
     }
+}
+
+.carousel-container {
+    position: relative;
+    overflow: hidden;
+    max-width: 100%;
+    margin-top: 30px;
+}
+
+.carousel-track {
+    display: flex;
+    transition: transform 0.5s ease;
+    gap: 10px;
+}
+.carousel-track img {
+    max-width: 425px;
+    max-height: 220px;
+    width: 100%;
+    height: auto;
+    border-radius: 12px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    flex-shrink: 0;
+    object-fit: cover;
+    margin: 0 auto;
+}
+
+.carousel-btn {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background: var(--primary-color);
+    color: white;
+    border: none;
+    padding: 10px;
+    cursor: pointer;
+    border-radius: 50%;
+    z-index: 2;
+}
+
+.prev-btn {
+    left: 10px;
+}
+
+.next-btn {
+    right: 10px;
 }
