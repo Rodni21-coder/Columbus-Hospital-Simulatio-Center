@@ -863,24 +863,44 @@
 
     <script>
         document.addEventListener('DOMContentLoaded', function() {
-                      // 1. Menú hamburguesa mejorado
-            const menuToggle = document.querySelector('.menu-toggle');
-            const mainNav = document.getElementById('main-nav');
-            
-            menuToggle.addEventListener('click', function() {
-                this.classList.toggle('active');
-                mainNav.classList.toggle('active');
-                document.body.style.overflow = mainNav.classList.contains('active') ? 'hidden' : '';
-            });
-            
-            // Cerrar menú al hacer clic en enlace
-            document.querySelectorAll('#main-nav a').forEach(link => {
-                link.addEventListener('click', function() {
-                    menuToggle.classList.remove('active');
-                    mainNav.classList.remove('active');
-                    document.body.style.overflow = '';
-                });
-            });
+// Alternar menú hamburguesa
+document.querySelector('.menu-toggle').addEventListener('click', function(e) {
+    e.stopPropagation();
+    this.classList.toggle('active');
+    document.getElementById('main-nav').classList.toggle('active');
+});
+
+// Cerrar menú al hacer clic fuera
+document.addEventListener('click', function(e) {
+    const menu = document.getElementById('main-nav');
+    const toggle = document.querySelector('.menu-toggle');
+
+    if (!menu.contains(e.target) && !toggle.contains(e.target)) {
+        menu.classList.remove('active');
+        toggle.classList.remove('active');
+        document.querySelectorAll('.dropdown').forEach(drop => drop.classList.remove('active'));
+    }
+});
+
+// Desplegar submenús solo cuando se hace clic en .dropdown-toggle sin seguir el link
+document.querySelectorAll('.dropdown-toggle').forEach(toggle => {
+    toggle.addEventListener('click', function(e) {
+        const dropdown = this.closest('.dropdown');
+
+        // Si el enlace apunta a "#", prevenimos su navegación
+        if (this.getAttribute('href') === '#') {
+            e.preventDefault();
+        }
+
+        // Cerrar otros dropdowns
+        document.querySelectorAll('.dropdown').forEach(other => {
+            if (other !== dropdown) other.classList.remove('active');
+        });
+
+        // Alternar el actual
+        dropdown.classList.toggle('active');
+    });
+});
         
             // 2. Sistema de pestañas de simuladores
             function showSimulator(simulatorId, event) {
